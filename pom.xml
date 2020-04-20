@@ -7,6 +7,7 @@
     <groupId>fr.craft</groupId>
     <artifactId>gym-java</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <build>
         <plugins>
             <plugin>
@@ -19,7 +20,6 @@
             </plugin>
         </plugins>
     </build>
-    <packaging>jar</packaging>
 
     <name>The gym</name>
 
