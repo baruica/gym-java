@@ -1,0 +1,22 @@
+package gym.subscriptions.use_cases;
+
+import gym.subscriptions.domain.ChosenPlan;
+import gym.subscriptions.domain.SubscriptionId;
+
+import java.time.LocalDate;
+
+public final class SubscribeToPlanCommand {
+    public final ChosenPlan chosenPlan;
+    public final SubscriptionId subscriptionId;
+    public final LocalDate startDate;
+    public final Boolean isStudent;
+    public final String email;
+
+    public SubscribeToPlanCommand(ChosenPlan chosenPlan, SubscriptionId subscriptionId, LocalDate startDate, Boolean isStudent, String email) {
+        this.chosenPlan = chosenPlan;
+        this.subscriptionId = subscriptionId;
+        this.startDate = startDate;
+        this.isStudent = isStudent;
+        this.email = email;
+    }
+}

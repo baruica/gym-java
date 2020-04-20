@@ -1,0 +1,25 @@
+package gym.plans.use_cases;
+
+import gym.plans.domain.PlanPriceChanged;
+import gym.plans.domain.PlanRepository;
+import gym.plans.domain.PlanRepositoryException;
+
+final class ChangePlanPrice {
+
+    private final PlanRepository planRepository;
+
+    ChangePlanPrice(PlanRepository planRepository) {
+        this.planRepository = planRepository;
+    }
+
+    PlanPriceChanged handle(ChangePlanPriceCommand command) throws PlanRepositoryException {
+
+        var plan = planRepository.get(command.planId);
+
+        plan.changePrice(command.newPrice);
+
+        planRepository.store(plan);
+
+        return new PlanPriceChanged(plan);
+    }
+}
