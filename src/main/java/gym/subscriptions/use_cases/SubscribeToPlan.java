@@ -15,9 +15,11 @@ final class SubscribeToPlan {
     public PlanSubscribed handle(SubscribeToPlanCommand command) {
 
         Subscription subscription = new Subscription(
-            command.subscriptionId,
-            command.chosenPlan,
+            subscriptionRepository.nextId(),
             command.startDate,
+            command.planId,
+            command.planPrice,
+            command.planDurationInMonths,
             command.isStudent
         );
 

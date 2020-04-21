@@ -1,7 +1,6 @@
 package gym.reporting.use_cases;
 
 import gym.plans.domain.PlanId;
-import gym.subscriptions.domain.ChosenPlan;
 import gym.subscriptions.domain.Subscription;
 import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository;
 import org.junit.Test;
@@ -23,16 +22,20 @@ public class TurnoverForAGivenMonthTest {
         subscriptionRepository.store(
             new Subscription(
                 subscriptionRepository.nextId(),
-                new ChosenPlan(new PlanId("abc"), 50, 1, ""),
                 today,
+                new PlanId("abc"),
+                50,
+                1,
                 false
             )
         );
         subscriptionRepository.store(
             new Subscription(
                 subscriptionRepository.nextId(),
-                new ChosenPlan(new PlanId("def"), 500, 12, ""),
                 inAMonth,
+                new PlanId("def"),
+                500,
+                12,
                 false
             )
         );

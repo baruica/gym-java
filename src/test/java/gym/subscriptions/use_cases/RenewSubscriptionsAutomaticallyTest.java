@@ -1,7 +1,6 @@
 package gym.subscriptions.use_cases;
 
 import gym.plans.domain.PlanId;
-import gym.subscriptions.domain.ChosenPlan;
 import gym.subscriptions.domain.Subscription;
 import gym.subscriptions.domain.SubscriptionRepositoryException;
 import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository;
@@ -20,8 +19,10 @@ public class RenewSubscriptionsAutomaticallyTest {
         var subscriptionId = subscriptionRepository.nextId();
         var subscription = new Subscription(
             subscriptionId,
-            new ChosenPlan(new PlanId("abc"), 200, 1, "description"),
             LocalDate.parse("2018-06-09"),
+            new PlanId("abc"),
+            200,
+            1,
             false
         );
         subscriptionRepository.store(subscription);

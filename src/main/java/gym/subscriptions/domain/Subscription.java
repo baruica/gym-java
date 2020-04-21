@@ -1,5 +1,7 @@
 package gym.subscriptions.domain;
 
+import gym.plans.domain.PlanId;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +14,10 @@ public final class Subscription {
     public final Integer price;
     private final List<Period> periods = new ArrayList<>();
 
-    public Subscription(SubscriptionId id, ChosenPlan chosenPlan, LocalDate startDate, Boolean isStudent) {
+    public Subscription(SubscriptionId id, LocalDate startDate, PlanId planId, Integer planPrice, Integer planDurationInMonths, Boolean isStudent) {
         this.id = id;
-        this.chosenPlan = chosenPlan;
         this.startDate = startDate;
+        this.chosenPlan = new ChosenPlan(planId, planPrice, planDurationInMonths);
 
         this.price = new Price(chosenPlan.price).afterDiscount(chosenPlan.isYearly(), isStudent);
 

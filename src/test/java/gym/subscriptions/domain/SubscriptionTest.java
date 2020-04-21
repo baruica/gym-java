@@ -77,36 +77,21 @@ public class SubscriptionTest {
     }
 
     private Subscription monthlySubscription(Integer basePrice, LocalDate startDate, Boolean isStudent) {
-        return newSubscription(monthlyChosenPlan(basePrice), startDate, isStudent);
+        return newSubscription(basePrice, 1, startDate, isStudent);
     }
 
     private Subscription yearlySubscription(Integer basePrice, LocalDate startDate, Boolean isStudent) {
-        return newSubscription(yearlyChosenPlan(basePrice), startDate, isStudent);
+        return newSubscription(basePrice, 12, startDate, isStudent);
     }
 
-    private Subscription newSubscription(ChosenPlan chosenPlan, LocalDate startDate, Boolean isStudent) {
+    private Subscription newSubscription(Integer basePrice, Integer durationInMonths, LocalDate startDate, Boolean isStudent) {
         return new Subscription(
             new SubscriptionId(UUID.randomUUID().toString()),
-            chosenPlan,
             startDate,
-            isStudent
-        );
-    }
-
-    private ChosenPlan monthlyChosenPlan(Integer basePrice) {
-        return chosenPlan(basePrice, 1);
-    }
-
-    private ChosenPlan yearlyChosenPlan(Integer basePrice) {
-        return chosenPlan(basePrice, 12);
-    }
-
-    private ChosenPlan chosenPlan(Integer price, Integer durationInMonths) {
-        return new ChosenPlan(
-            new PlanId("abc"),
-            price,
+            new PlanId(UUID.randomUUID().toString()),
+            basePrice,
             durationInMonths,
-            "$durationInMonths month(s) plan for $price euros"
+            isStudent
         );
     }
 }
