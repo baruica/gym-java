@@ -1,11 +1,9 @@
 package gym.subscriptions.use_cases;
 
-import gym.plans.domain.PlanId;
+import gym.subscriptions.domain.SubscriptionId;
 import gym.subscriptions.domain.SubscriptionRepositoryException;
 import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository;
 import org.junit.Test;
-
-import java.time.LocalDate;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,15 +17,15 @@ public class SubscribeToPlanTest {
 
         var event = tested.handle(
             new SubscribeToPlanCommand(
-                new PlanId("abc"),
+                "abc",
                 500,
                 12,
-                LocalDate.parse("2018-12-18"),
+                "2018-12-18",
                 false,
                 "bob@mail.com"
             )
         );
 
-        assertEquals(350, (int) subscriptionRepository.get(event.subscriptionId).price);
+        assertEquals(350, (int) subscriptionRepository.get(new SubscriptionId(event.subscriptionId)).price);
     }
 }

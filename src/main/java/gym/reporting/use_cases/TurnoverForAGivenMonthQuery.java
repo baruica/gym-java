@@ -1,11 +1,9 @@
 package gym.reporting.use_cases;
 
-import java.time.LocalDate;
-
 public final class TurnoverForAGivenMonthQuery {
-    public final LocalDate asOfDate;
+    public final String asOfDate;
 
-    public TurnoverForAGivenMonthQuery(LocalDate asOfDate) {
+    public TurnoverForAGivenMonthQuery(String asOfDate) {
         this.asOfDate = asOfDate;
     }
 }

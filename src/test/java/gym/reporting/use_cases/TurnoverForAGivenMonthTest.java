@@ -1,6 +1,5 @@
 package gym.reporting.use_cases;
 
-import gym.plans.domain.PlanId;
 import gym.subscriptions.domain.Subscription;
 import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository;
 import org.junit.Test;
@@ -16,14 +15,16 @@ public class TurnoverForAGivenMonthTest {
 
         var subscriptionRepository = new SubscriptionInMemoryRepository();
 
-        var today = LocalDate.parse("2018-06-09");
-        var inAMonth = LocalDate.parse("2018-07-09");
+        String todayStr = "2018-06-09";
+        var today = LocalDate.parse(todayStr);
+        String inAMonthStr = "2018-07-09";
+        var inAMonth = LocalDate.parse(inAMonthStr);
 
         subscriptionRepository.store(
             new Subscription(
                 subscriptionRepository.nextId(),
                 today,
-                new PlanId("abc"),
+                "plan abc",
                 50,
                 1,
                 false
@@ -33,7 +34,7 @@ public class TurnoverForAGivenMonthTest {
             new Subscription(
                 subscriptionRepository.nextId(),
                 inAMonth,
-                new PlanId("def"),
+                "plan def",
                 500,
                 12,
                 false
@@ -44,10 +45,10 @@ public class TurnoverForAGivenMonthTest {
             subscriptionRepository
         );
 
-        assertEquals(50, tested.handle(new TurnoverForAGivenMonthQuery(today)), 0);
+        assertEquals(50, tested.handle(new TurnoverForAGivenMonthQuery(todayStr)), 0);
         assertEquals(1, subscriptionRepository.ongoingSubscriptions(today).size());
 
-        assertEquals(29, tested.handle(new TurnoverForAGivenMonthQuery(inAMonth)), 1);
+        assertEquals(29, tested.handle(new TurnoverForAGivenMonthQuery(inAMonthStr)), 1);
         assertEquals(1, subscriptionRepository.ongoingSubscriptions(inAMonth).size());
     }
 }

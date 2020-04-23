@@ -3,7 +3,7 @@ package gym.subscriptions.use_cases;
 import gym.subscriptions.domain.SubscriptionRepository;
 import gym.subscriptions.domain.SubscriptionsRenewedAutomatically;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 
 final class RenewSubscriptionsAutomatically {
 
@@ -15,14 +15,14 @@ final class RenewSubscriptionsAutomatically {
 
     SubscriptionsRenewedAutomatically handle(RenewSubscriptionsAutomaticallyCommand command) {
 
-        var endedSubscriptionsAsOf = subscriptionRepository.endedSubscriptions(command.asOfDate);
+        var endedSubscriptionsAsOf = subscriptionRepository.endedSubscriptions(
+            LocalDate.parse(command.asOfDate)
+        );
 
         endedSubscriptionsAsOf.forEach((subscriptionId, subscription) -> subscription.renew());
 
         subscriptionRepository.storeAll(endedSubscriptionsAsOf);
 
-        return new SubscriptionsRenewedAutomatically(
-            new ArrayList<>(endedSubscriptionsAsOf.keySet())
-        );
+        return new SubscriptionsRenewedAutomatically(endedSubscriptionsAsOf);
     }
 }

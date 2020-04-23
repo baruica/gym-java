@@ -2,9 +2,9 @@ package gym.plans.domain;
 
 public final class PlanPriceChanged {
 
-    public final Plan plan;
+    public final String planId;
 
     public PlanPriceChanged(final Plan plan) {
-        this.plan = plan;
+        this.planId = plan.id.toString();
     }
 }

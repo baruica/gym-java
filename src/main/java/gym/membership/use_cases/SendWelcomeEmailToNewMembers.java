@@ -14,7 +14,7 @@ final class SendWelcomeEmailToNewMembers {
 
     WelcomeEmailWasSentToNewMember handle(final NewMemberSubscribed event) throws MemberRepositoryException {
 
-        var member = memberRepository.get(event.memberId);
+        var member = memberRepository.get(new MemberId(event.memberId));
 
         mailer.sendEmail(
             member.email,

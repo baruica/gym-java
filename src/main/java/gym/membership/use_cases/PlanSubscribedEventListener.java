@@ -6,6 +6,8 @@ import gym.membership.domain.MemberRepository;
 import gym.membership.domain.NewMemberSubscribed;
 import gym.subscriptions.domain.PlanSubscribed;
 
+import java.time.LocalDate;
+
 public final class PlanSubscribedEventListener {
 
     private final MemberRepository memberRepository;
@@ -23,7 +25,7 @@ public final class PlanSubscribedEventListener {
                 memberRepository.nextId(),
                 event.email,
                 event.subscriptionId,
-                event.subscriptionStartDate
+                LocalDate.parse(event.subscriptionStartDate)
             );
 
             memberRepository.store(member);

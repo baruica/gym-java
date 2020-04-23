@@ -14,10 +14,10 @@ public final class Member {
     private Boolean welcomeEmailHasBeenSent;
     private Boolean threeYearsAnniversaryEmailHasBeenSent;
 
-    public Member(MemberId id, String email, SubscriptionId subscriptionId, LocalDate startDate) {
+    public Member(MemberId id, String email, String subscriptionId, LocalDate startDate) {
         this.id = id;
         this.email = new EmailAddress(email);
-        this.subscriptionId = subscriptionId;
+        this.subscriptionId = new SubscriptionId(subscriptionId);
         this.startDate = startDate;
         this.welcomeEmailHasBeenSent = false;
         this.threeYearsAnniversaryEmailHasBeenSent = false;

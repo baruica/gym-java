@@ -1,5 +1,6 @@
 package gym.plans.use_cases;
 
+import gym.plans.domain.PlanId;
 import gym.plans.domain.PlanPriceChanged;
 import gym.plans.domain.PlanRepository;
 import gym.plans.domain.PlanRepositoryException;
@@ -14,7 +15,7 @@ final class ChangePlanPrice {
 
     PlanPriceChanged handle(ChangePlanPriceCommand command) throws PlanRepositoryException {
 
-        var plan = planRepository.get(command.planId);
+        var plan = planRepository.get(new PlanId(command.planId));
 
         plan.changePrice(command.newPrice);
 

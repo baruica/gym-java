@@ -4,7 +4,7 @@ import gym.membership.domain.Mailer;
 import gym.membership.domain.MemberRepository;
 import gym.membership.domain.ThreeYearsAnniversaryThankYouEmailsSent;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 
 public final class Send3YearsAnniversaryThankYouEmails {
 
@@ -18,7 +18,9 @@ public final class Send3YearsAnniversaryThankYouEmails {
 
     public ThreeYearsAnniversaryThankYouEmailsSent handle(Send3YearsAnniversaryThankYouEmailsCommand command) {
 
-        var threeYearsAnniversaryMembers = memberRepository.threeYearsAnniversaryMembers(command.asOfDate);
+        var threeYearsAnniversaryMembers = memberRepository.threeYearsAnniversaryMembers(
+            LocalDate.parse(command.asOfDate)
+        );
 
         threeYearsAnniversaryMembers.forEach(
             (memberId, member) -> {
@@ -27,8 +29,6 @@ public final class Send3YearsAnniversaryThankYouEmails {
             }
         );
 
-        return new ThreeYearsAnniversaryThankYouEmailsSent(
-            new ArrayList<>(threeYearsAnniversaryMembers.keySet())
-        );
+        return new ThreeYearsAnniversaryThankYouEmailsSent(threeYearsAnniversaryMembers);
     }
 }

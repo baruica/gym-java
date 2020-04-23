@@ -6,8 +6,8 @@ public final class Plan {
     public Integer price;
     private final Integer durationInMonths;
 
-    private Plan(PlanId id, Integer price, Integer durationInMonths) throws PlanException {
-        this.id = id;
+    private Plan(String id, Integer price, Integer durationInMonths) throws PlanException {
+        this.id = new PlanId(id);
 
         if (price < 0) {
             throw new PlanException("Price amount must be non-negative, was " + price);
@@ -17,7 +17,7 @@ public final class Plan {
         this.durationInMonths = durationInMonths;
     }
 
-    public static Plan create(PlanId id, Integer basePrice, Integer planDurationsInMonths) throws PlanException {
+    public static Plan create(String id, Integer basePrice, Integer planDurationsInMonths) throws PlanException {
         return switch (planDurationsInMonths) {
             case 1 -> new Plan(id, basePrice, 1);
             case 12 -> new Plan(id, basePrice, 12);

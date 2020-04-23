@@ -4,13 +4,13 @@ import java.time.LocalDate;
 
 public final class PlanSubscribed {
 
-    public final SubscriptionId subscriptionId;
-    public final LocalDate subscriptionStartDate;
+    public final String subscriptionId;
+    public final String subscriptionStartDate;
     public final String email;
 
     public PlanSubscribed(final SubscriptionId subscriptionId, final LocalDate subscriptionStartDate, final String email) {
-        this.subscriptionId = subscriptionId;
-        this.subscriptionStartDate = subscriptionStartDate;
+        this.subscriptionId = subscriptionId.toString();
+        this.subscriptionStartDate = subscriptionStartDate.toString();
         this.email = email;
     }
 }

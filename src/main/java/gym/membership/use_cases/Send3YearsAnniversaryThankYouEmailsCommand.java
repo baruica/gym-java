@@ -1,12 +1,10 @@
 package gym.membership.use_cases;
 
-import java.time.LocalDate;
-
 public final class Send3YearsAnniversaryThankYouEmailsCommand {
 
-    public final LocalDate asOfDate;
+    public final String asOfDate;
 
-    public Send3YearsAnniversaryThankYouEmailsCommand(LocalDate asOfDate) {
+    public Send3YearsAnniversaryThankYouEmailsCommand(String asOfDate) {
         this.asOfDate = asOfDate;
     }
 }

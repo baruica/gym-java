@@ -19,9 +19,9 @@ public class CreateNewPlanTest {
         );
 
         var event = tested.handle(
-            new CreateNewPlanCommand(planId, 300, 1)
+            new CreateNewPlanCommand(planId.toString(), 300, 1)
         );
 
-        Assert.assertEquals(planId, event.planId);
+        Assert.assertEquals(planId.toString(), event.planId);
     }
 }

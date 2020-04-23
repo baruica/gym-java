@@ -8,8 +8,8 @@ final class ChosenPlan {
     final Integer price;
     final Integer durationInMonths;
 
-    public ChosenPlan(PlanId planId, final Integer price, final Integer durationInMonths) {
-        this.planId = planId;
+    public ChosenPlan(String planId, final Integer price, final Integer durationInMonths) {
+        this.planId = new PlanId(planId);
         this.price = price;
         this.durationInMonths = durationInMonths;
     }

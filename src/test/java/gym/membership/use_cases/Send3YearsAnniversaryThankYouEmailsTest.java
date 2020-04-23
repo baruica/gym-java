@@ -4,7 +4,6 @@ import gym.membership.domain.Member;
 import gym.membership.domain.MemberId;
 import gym.membership.infrastructure.InMemoryMailer;
 import gym.membership.infrastructure.MemberInMemoryRepository;
-import gym.subscriptions.domain.SubscriptionId;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -33,15 +32,15 @@ public class Send3YearsAnniversaryThankYouEmailsTest {
         var tested = new Send3YearsAnniversaryThankYouEmails(memberRepository, mailer);
 
         var event = tested.handle(
-            new Send3YearsAnniversaryThankYouEmailsCommand(fifthOfJune())
+            new Send3YearsAnniversaryThankYouEmailsCommand("2018-06-05")
         );
 
         assertTrue(mailer.sentEmails.containsValue("Thank you for your loyalty julie@gmail.com !"));
         assertFalse(mailer.sentEmails.containsValue("Thank you for your loyalty bob@gmail.com !"));
         assertTrue(mailer.sentEmails.containsValue("Thank you for your loyalty luke@gmail.com !"));
-        assertTrue(event.memberIds.contains(memberJulie.id));
-        assertFalse(event.memberIds.contains(memberBob.id));
-        assertTrue(event.memberIds.contains(memberLuke.id));
+        assertTrue(event.memberIds.contains(memberJulie.id.toString()));
+        assertFalse(event.memberIds.contains(memberBob.id.toString()));
+        assertTrue(event.memberIds.contains(memberLuke.id.toString()));
     }
 
     private LocalDate fifthOfJune() {
@@ -56,7 +55,7 @@ public class Send3YearsAnniversaryThankYouEmailsTest {
         return new Member(
             new MemberId(UUID.randomUUID().toString()),
             email,
-            new SubscriptionId("def"),
+            "subscriptionId def",
             startDate
         );
     }

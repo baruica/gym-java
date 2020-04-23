@@ -6,7 +6,6 @@ import gym.membership.domain.MemberRepositoryException;
 import gym.membership.domain.NewMemberSubscribed;
 import gym.membership.infrastructure.InMemoryMailer;
 import gym.membership.infrastructure.MemberInMemoryRepository;
-import gym.subscriptions.domain.SubscriptionId;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -23,7 +22,7 @@ public class SendWelcomeEmailToNewMembersTest {
         var member = new Member(
             memberId,
             "bob@gmail.com",
-            new SubscriptionId("def"),
+            "subscriptionId def",
             LocalDate.now()
         );
         var memberRepository = new MemberInMemoryRepository();
@@ -37,7 +36,7 @@ public class SendWelcomeEmailToNewMembersTest {
             new NewMemberSubscribed(memberId, member.email)
         );
 
-        assertEquals(memberId, event.memberId);
+        assertEquals(memberId.toString(), event.memberId);
         assertTrue(mailer.sentEmails.containsValue("Thank you for subscribing bob@gmail.com !"));
     }
 }

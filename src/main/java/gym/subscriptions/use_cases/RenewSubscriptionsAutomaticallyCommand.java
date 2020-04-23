@@ -1,11 +1,9 @@
 package gym.subscriptions.use_cases;
 
-import java.time.LocalDate;
-
 public final class RenewSubscriptionsAutomaticallyCommand {
-    public final LocalDate asOfDate;
+    public final String asOfDate;
 
-    public RenewSubscriptionsAutomaticallyCommand(LocalDate asOfDate) {
+    public RenewSubscriptionsAutomaticallyCommand(String asOfDate) {
         this.asOfDate = asOfDate;
     }
 }

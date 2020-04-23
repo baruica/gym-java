@@ -32,6 +32,6 @@ public class PlanSubscribedEventListenerTest {
         );
 
         assertTrue(memberRepository.findByEmail(email).isPresent());
-        assertEquals(email, event.memberEmail);
+        assertEquals(email.toString(), event.memberEmail);
     }
 }

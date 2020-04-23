@@ -2,9 +2,9 @@ package gym.membership.domain;
 
 public final class WelcomeEmailWasSentToNewMember {
 
-    public final MemberId memberId;
+    public final String memberId;
 
     public WelcomeEmailWasSentToNewMember(final MemberId memberId) {
-        this.memberId = memberId;
+        this.memberId = memberId.toString();
     }
 }

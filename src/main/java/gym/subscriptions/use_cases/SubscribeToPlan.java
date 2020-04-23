@@ -4,6 +4,8 @@ import gym.subscriptions.domain.PlanSubscribed;
 import gym.subscriptions.domain.Subscription;
 import gym.subscriptions.domain.SubscriptionRepository;
 
+import java.time.LocalDate;
+
 final class SubscribeToPlan {
 
     private final SubscriptionRepository subscriptionRepository;
@@ -16,7 +18,7 @@ final class SubscribeToPlan {
 
         Subscription subscription = new Subscription(
             subscriptionRepository.nextId(),
-            command.startDate,
+            LocalDate.parse(command.startDate),
             command.planId,
             command.planPrice,
             command.planDurationInMonths,

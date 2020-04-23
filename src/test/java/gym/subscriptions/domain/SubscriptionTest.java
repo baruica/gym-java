@@ -1,6 +1,5 @@
 package gym.subscriptions.domain;
 
-import gym.plans.domain.PlanId;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -88,7 +87,7 @@ public class SubscriptionTest {
         return new Subscription(
             new SubscriptionId(UUID.randomUUID().toString()),
             startDate,
-            new PlanId(UUID.randomUUID().toString()),
+            UUID.randomUUID().toString(),
             basePrice,
             durationInMonths,
             isStudent
