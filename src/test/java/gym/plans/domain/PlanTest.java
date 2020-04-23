@@ -17,6 +17,11 @@ public class PlanTest {
     }
 
     @Test(expected = PlanException.class)
+    public void a_plan_cannot_be_anything_other_than_monthly_or_yearly() throws PlanException {
+        Plan.create(new PlanId("abc"), 400, 4);
+    }
+
+    @Test(expected = PlanException.class)
     public void has_a_valid_price() throws PlanException {
         Plan.create(new PlanId("abc"), -42, 12);
     }
