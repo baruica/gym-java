@@ -18,13 +18,11 @@ public final class Plan {
     }
 
     public static Plan create(PlanId id, Integer basePrice, Integer planDurationsInMonths) throws PlanException {
-        if (planDurationsInMonths.equals(1)) {
-            return new Plan(id, basePrice, 1);
-        }
-        if (planDurationsInMonths.equals(12)) {
-            return new Plan(id, basePrice, 12);
-        }
-        throw new PlanException("Plan periodicity must be either monthly or yearly");
+        return switch (planDurationsInMonths) {
+            case 1 -> new Plan(id, basePrice, 1);
+            case 12 -> new Plan(id, basePrice, 12);
+            default -> throw new PlanException("Plan periodicity must be either monthly or yearly");
+        };
     }
 
     public void changePrice(final Integer newPrice) {
