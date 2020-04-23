@@ -17,11 +17,11 @@ public final class Plan {
         this.durationInMonths = durationInMonths;
     }
 
-    public static Plan create(PlanId id, Integer basePrice, PlanPeriodicity planPeriodicity) throws PlanException {
-        if (PlanPeriodicity.MONTHLY.equals(planPeriodicity)) {
+    public static Plan create(PlanId id, Integer basePrice, Integer planDurationsInMonths) throws PlanException {
+        if (planDurationsInMonths.equals(1)) {
             return new Plan(id, basePrice, 1);
         }
-        if (PlanPeriodicity.YEARLY.equals(planPeriodicity)) {
+        if (planDurationsInMonths.equals(12)) {
             return new Plan(id, basePrice, 12);
         }
         throw new PlanException("Plan periodicity must be either monthly or yearly");

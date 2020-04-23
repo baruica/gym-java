@@ -18,7 +18,7 @@ final class CreateNewPlan {
         var newPlan = Plan.create(
             command.planId,
             command.basePrice,
-            command.planPeiodicity
+            command.planDurationsInMonths
         );
 
         planRepository.store(newPlan);

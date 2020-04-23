@@ -2,7 +2,6 @@ package gym.plans.use_cases;
 
 import gym.plans.domain.PlanException;
 import gym.plans.domain.PlanId;
-import gym.plans.domain.PlanPeriodicity;
 import gym.plans.infrastructure.PlanInMemoryRepository;
 import org.junit.Assert;
 import org.junit.Test;
@@ -20,7 +19,7 @@ public class CreateNewPlanTest {
         );
 
         var event = tested.handle(
-            new CreateNewPlanCommand(planId, 300, PlanPeriodicity.MONTHLY)
+            new CreateNewPlanCommand(planId, 300, 1)
         );
 
         Assert.assertEquals(planId, event.planId);

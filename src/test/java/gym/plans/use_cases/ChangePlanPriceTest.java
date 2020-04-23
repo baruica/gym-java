@@ -2,7 +2,6 @@ package gym.plans.use_cases;
 
 import gym.plans.domain.Plan;
 import gym.plans.domain.PlanException;
-import gym.plans.domain.PlanPeriodicity;
 import gym.plans.domain.PlanRepositoryException;
 import gym.plans.infrastructure.PlanInMemoryRepository;
 import org.junit.Test;
@@ -17,7 +16,7 @@ public class ChangePlanPriceTest {
         var planId = planRepository.nextId();
 
         planRepository.store(
-            Plan.create(planId, 450, PlanPeriodicity.YEARLY)
+            Plan.create(planId, 450, 12)
         );
 
         var tested = new ChangePlanPrice(planRepository);
