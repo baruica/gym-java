@@ -1,4 +1,6 @@
-package gym.subscriptions.domain;
+package gym.subscriptions.infrastructure;
+
+import gym.subscriptions.domain.SubscriptionId;
 
 public final class SubscriptionRepositoryException extends Throwable {
 

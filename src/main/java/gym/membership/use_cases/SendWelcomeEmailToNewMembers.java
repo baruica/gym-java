@@ -1,6 +1,7 @@
 package gym.membership.use_cases;
 
 import gym.membership.domain.*;
+import gym.membership.infrastructure.MemberRepositoryException;
 
 final class SendWelcomeEmailToNewMembers {
 

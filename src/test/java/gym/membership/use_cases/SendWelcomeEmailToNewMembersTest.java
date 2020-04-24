@@ -2,10 +2,10 @@ package gym.membership.use_cases;
 
 import gym.membership.domain.Member;
 import gym.membership.domain.MemberId;
-import gym.membership.domain.MemberRepositoryException;
 import gym.membership.domain.NewMemberSubscribed;
 import gym.membership.infrastructure.InMemoryMailer;
 import gym.membership.infrastructure.MemberInMemoryRepository;
+import gym.membership.infrastructure.MemberRepositoryException;
 import org.junit.Test;
 
 import java.time.LocalDate;

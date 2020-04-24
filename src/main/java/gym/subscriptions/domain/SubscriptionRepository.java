@@ -1,5 +1,7 @@
 package gym.subscriptions.domain;
 
+import gym.subscriptions.infrastructure.SubscriptionRepositoryException;
+
 import java.time.LocalDate;
 import java.util.Map;
 

@@ -3,7 +3,7 @@ package gym.plans.use_cases;
 import gym.plans.domain.PlanId;
 import gym.plans.domain.PlanPriceChanged;
 import gym.plans.domain.PlanRepository;
-import gym.plans.domain.PlanRepositoryException;
+import gym.plans.infrastructure.PlanRepositoryException;
 
 final class ChangePlanPrice {
 

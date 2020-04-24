@@ -1,8 +1,8 @@
 package gym.subscriptions.use_cases;
 
 import gym.subscriptions.domain.Subscription;
-import gym.subscriptions.domain.SubscriptionRepositoryException;
 import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository;
+import gym.subscriptions.infrastructure.SubscriptionRepositoryException;
 import org.junit.Test;
 
 import java.time.LocalDate;

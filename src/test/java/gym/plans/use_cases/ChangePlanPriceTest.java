@@ -3,8 +3,8 @@ package gym.plans.use_cases;
 import gym.plans.domain.Plan;
 import gym.plans.domain.PlanException;
 import gym.plans.domain.PlanId;
-import gym.plans.domain.PlanRepositoryException;
 import gym.plans.infrastructure.PlanInMemoryRepository;
+import gym.plans.infrastructure.PlanRepositoryException;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

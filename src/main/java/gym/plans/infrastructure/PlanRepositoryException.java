@@ -1,4 +1,6 @@
-package gym.plans.domain;
+package gym.plans.infrastructure;
+
+import gym.plans.domain.PlanId;
 
 public final class PlanRepositoryException extends Exception {
 

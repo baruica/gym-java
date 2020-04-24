@@ -1,5 +1,7 @@
 package gym.plans.domain;
 
+import gym.plans.infrastructure.PlanRepositoryException;
+
 public interface PlanRepository {
 
     PlanId nextId();

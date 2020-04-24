@@ -3,7 +3,6 @@ package gym.subscriptions.infrastructure;
 import gym.subscriptions.domain.Subscription;
 import gym.subscriptions.domain.SubscriptionId;
 import gym.subscriptions.domain.SubscriptionRepository;
-import gym.subscriptions.domain.SubscriptionRepositoryException;
 
 import java.time.LocalDate;
 import java.util.HashMap;
