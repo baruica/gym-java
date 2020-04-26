@@ -19,10 +19,10 @@ final class SubscribeToPlan {
         Subscription subscription = new Subscription(
             subscriptionRepository.nextId(),
             LocalDate.parse(command.startDate),
-            command.planId,
             command.planPrice,
             command.planDurationInMonths,
-            command.isStudent
+            command.isStudent,
+            command.email
         );
 
         subscriptionRepository.store(subscription);

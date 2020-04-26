@@ -10,8 +10,8 @@ final class Price {
         this.amount = amount;
     }
 
-    Integer afterDiscount(Boolean chosenPlanIsYearly, Boolean isStudent) {
-        return (int) (amount * (1 - new Discount(chosenPlanIsYearly, isStudent).rate()));
+    Integer afterDiscount(Integer durationInMonths, Boolean isStudent) {
+        return (int) (amount * (1 - new Discount(durationInMonths, isStudent).rate()));
     }
 
     @Override

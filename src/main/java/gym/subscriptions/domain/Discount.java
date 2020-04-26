@@ -4,8 +4,8 @@ final class Discount {
 
     private Double rate = 0.0;
 
-    Discount(final Boolean chosenPlanIsYearly, final Boolean isStudent) {
-        if (chosenPlanIsYearly) {
+    Discount(final Integer durationInMonths, final Boolean isStudent) {
+        if (durationInMonths == 12) {
             rate += 0.3;
         }
         if (isStudent) {

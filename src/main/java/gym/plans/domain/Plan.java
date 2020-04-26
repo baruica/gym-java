@@ -1,31 +1,28 @@
 package gym.plans.domain;
 
+import static java.util.Arrays.asList;
+
 public final class Plan {
 
     public final PlanId id;
-    public Integer price;
+    public Price price;
     private final Integer durationInMonths;
 
-    private Plan(String id, Integer price, Integer durationInMonths) throws PlanException {
-        this.id = new PlanId(id);
+    public Plan(PlanId id, Integer priceAmount, Integer durationInMonths) throws PlanException {
+        this.id = id;
 
-        if (price < 0) {
-            throw new PlanException("Price amount must be non-negative, was " + price);
+        this.price = new Price(priceAmount);
+
+        if (!asList(1, 12).contains(durationInMonths)) {
+            throw new PlanException("Plan duration is either 1 month or 12 months, was " + durationInMonths);
         }
-        this.price = price;
 
         this.durationInMonths = durationInMonths;
     }
 
-    public static Plan create(String id, Integer basePrice, Integer planDurationsInMonths) throws PlanException {
-        return switch (planDurationsInMonths) {
-            case 1 -> new Plan(id, basePrice, 1);
-            case 12 -> new Plan(id, basePrice, 12);
-            default -> throw new PlanException("Plan periodicity must be either monthly or yearly");
-        };
-    }
-
-    public void changePrice(final Integer newPrice) {
-        price = newPrice;
+    public void changePrice(final Integer newPriceAmount) throws PlanException {
+        var oldPrice = price.amount;
+        this.price = new Price(newPriceAmount);
     }
 }
+

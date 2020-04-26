@@ -6,11 +6,13 @@ import java.time.temporal.ChronoUnit;
 final class Period {
 
     final LocalDate startDate;
-    private final LocalDate endDate;
+    final LocalDate endDate;
+    final Integer durationInMonths;
 
-    Period(LocalDate startDate, Integer nbMonths) {
+    Period(LocalDate startDate, Integer durationInMonths) {
         this.startDate = startDate;
-        this.endDate = startDate.plus(nbMonths, ChronoUnit.MONTHS).minusDays(1);
+        this.endDate = startDate.plus(durationInMonths, ChronoUnit.MONTHS).minusDays(1);
+        this.durationInMonths = durationInMonths;
     }
 
     Boolean isBefore(final LocalDate date) {
@@ -26,9 +28,6 @@ final class Period {
         var firstDayOfNextPeriod = endDate.plusDays(1);
         var nbMonthsCurrentPeriod = java.time.Period.between(startDate, firstDayOfNextPeriod).getMonths();
 
-        return new Period(
-            firstDayOfNextPeriod,
-            nbMonthsCurrentPeriod
-        );
+        return new Period(firstDayOfNextPeriod, nbMonthsCurrentPeriod);
     }
 }

@@ -1,5 +1,6 @@
 package gym.membership.use_cases;
 
+import gym.membership.domain.EmailAddress;
 import gym.membership.domain.Member;
 import gym.membership.domain.MemberId;
 import gym.membership.domain.NewMemberSubscribed;
@@ -21,7 +22,7 @@ public class SendWelcomeEmailToNewMembersTest {
         var memberId = new MemberId("abc");
         var member = new Member(
             memberId,
-            "bob@gmail.com",
+            new EmailAddress("bob@gmail.com"),
             "subscriptionId def",
             LocalDate.now()
         );

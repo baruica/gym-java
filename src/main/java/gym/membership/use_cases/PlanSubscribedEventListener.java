@@ -23,7 +23,7 @@ public final class PlanSubscribedEventListener {
         if (memberOpt.isEmpty()) {
             var member = new Member(
                 memberRepository.nextId(),
-                event.email,
+                new EmailAddress(event.email),
                 event.subscriptionId,
                 LocalDate.parse(event.subscriptionStartDate)
             );

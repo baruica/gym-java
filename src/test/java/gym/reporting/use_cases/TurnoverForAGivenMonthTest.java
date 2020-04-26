@@ -24,20 +24,20 @@ public class TurnoverForAGivenMonthTest {
             new Subscription(
                 subscriptionRepository.nextId(),
                 today,
-                "plan abc",
                 50,
                 1,
-                false
+                false,
+                "bob@gmail.com"
             )
         );
         subscriptionRepository.store(
             new Subscription(
                 subscriptionRepository.nextId(),
                 inAMonth,
-                "plan def",
                 500,
                 12,
-                false
+                false,
+                "bob@gmail.com"
             )
         );
 

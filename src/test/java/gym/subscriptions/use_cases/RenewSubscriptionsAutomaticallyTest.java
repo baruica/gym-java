@@ -19,10 +19,10 @@ public class RenewSubscriptionsAutomaticallyTest {
         var subscription = new Subscription(
             subscriptionId,
             LocalDate.parse("2018-06-09"),
-            "abc",
             200,
             1,
-            false
+            false,
+            "bob@gmail.com"
         );
         subscriptionRepository.store(subscription);
 
