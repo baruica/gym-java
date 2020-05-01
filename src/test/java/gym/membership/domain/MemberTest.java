@@ -1,5 +1,6 @@
 package gym.membership.domain;
 
+import gym.subscriptions.domain.SubscriptionId;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -14,7 +15,7 @@ public class MemberTest {
         var memberWith3yearsAnniversaryOnTheFifthOfJune = new Member(
             new MemberId("abc"),
             new EmailAddress("julie@gmail.com"),
-            "subscriptionId def",
+            new SubscriptionId("subscriptionId def"),
             fifthOfJune().minusYears(3)
         );
 

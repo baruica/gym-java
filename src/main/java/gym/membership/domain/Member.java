@@ -8,13 +8,13 @@ public final class Member {
 
     public final MemberId id;
     public final EmailAddress email;
-    private final SubscriptionId subscriptionId;
-    private final LocalDate memberSince;
+    public final SubscriptionId subscriptionId;
+    public final LocalDate memberSince;
 
-    public Member(MemberId id, EmailAddress email, String subscriptionId, LocalDate startDate) {
+    public Member(MemberId id, EmailAddress email, SubscriptionId subscriptionId, LocalDate startDate) {
         this.id = id;
         this.email = email;
-        this.subscriptionId = new SubscriptionId(subscriptionId);
+        this.subscriptionId = subscriptionId;
         this.memberSince = startDate;
     }
 

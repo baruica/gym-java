@@ -5,6 +5,7 @@ import gym.membership.domain.Member;
 import gym.membership.domain.MemberId;
 import gym.membership.infrastructure.InMemoryMailer;
 import gym.membership.infrastructure.MemberInMemoryRepository;
+import gym.subscriptions.domain.SubscriptionId;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -37,10 +38,10 @@ public class Send3YearsAnniversaryThankYouEmailsTest {
         );
 
         assertTrue(mailer.sentEmails.containsValue("Thank you for your loyalty julie@gmail.com !"));
-        assertFalse(mailer.sentEmails.containsValue("Thank you for your loyalty bob@gmail.com !"));
-        assertTrue(mailer.sentEmails.containsValue("Thank you for your loyalty luke@gmail.com !"));
         assertTrue(event.memberIds.contains(memberJulie.id.toString()));
+        assertFalse(mailer.sentEmails.containsValue("Thank you for your loyalty bob@gmail.com !"));
         assertFalse(event.memberIds.contains(memberBob.id.toString()));
+        assertTrue(mailer.sentEmails.containsValue("Thank you for your loyalty luke@gmail.com !"));
         assertTrue(event.memberIds.contains(memberLuke.id.toString()));
     }
 
@@ -56,7 +57,7 @@ public class Send3YearsAnniversaryThankYouEmailsTest {
         return new Member(
             new MemberId(UUID.randomUUID().toString()),
             new EmailAddress(email),
-            "subscriptionId def",
+            new SubscriptionId("subscriptionId def"),
             startDate
         );
     }

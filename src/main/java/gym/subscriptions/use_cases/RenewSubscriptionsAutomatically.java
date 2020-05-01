@@ -1,5 +1,6 @@
 package gym.subscriptions.use_cases;
 
+import gym.subscriptions.domain.Subscription;
 import gym.subscriptions.domain.SubscriptionRepository;
 import gym.subscriptions.domain.SubscriptionsRenewedAutomatically;
 
@@ -19,7 +20,9 @@ final class RenewSubscriptionsAutomatically {
             LocalDate.parse(command.asOfDate)
         );
 
-        endedSubscriptionsAsOf.forEach((subscriptionId, subscription) -> subscription.renew());
+        endedSubscriptionsAsOf.values().forEach(
+            Subscription::renew
+        );
 
         subscriptionRepository.storeAll(endedSubscriptionsAsOf);
 

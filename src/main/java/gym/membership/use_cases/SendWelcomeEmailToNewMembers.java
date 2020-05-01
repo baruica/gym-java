@@ -26,6 +26,10 @@ final class SendWelcomeEmailToNewMembers {
 
         memberRepository.store(member);
 
-        return new WelcomeEmailWasSentToNewMember(member.id);
+        return new WelcomeEmailWasSentToNewMember(
+            member.id,
+            member.email.toString(),
+            member.subscriptionId.toString()
+        );
     }
 }

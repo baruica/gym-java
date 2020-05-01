@@ -22,8 +22,8 @@ public final class Send3YearsAnniversaryThankYouEmails {
             LocalDate.parse(command.asOfDate)
         );
 
-        threeYearsAnniversaryMembers.forEach(
-            (memberId, member) -> {
+        threeYearsAnniversaryMembers.values().forEach(
+            (member) -> {
                 mailer.sendEmail(member.email, "Thank you for your loyalty " + member.email + " !");
                 member.mark3YearsAnniversaryThankYouEmailAsSent();
             }
