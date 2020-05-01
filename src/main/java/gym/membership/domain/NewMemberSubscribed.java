@@ -1,6 +1,8 @@
 package gym.membership.domain;
 
-public final class NewMemberSubscribed {
+import java.util.Objects;
+
+public final class NewMemberSubscribed extends MemberEvent {
 
     public final String memberId;
     public final String memberEmail;
@@ -8,9 +10,26 @@ public final class NewMemberSubscribed {
     public final String memberSince;
 
     public NewMemberSubscribed(String memberId, String memberEmail, String subscriptionId, String memberSince) {
+        super(memberId);
         this.memberId = memberId;
         this.memberEmail = memberEmail;
         this.subscriptionId = subscriptionId;
         this.memberSince = memberSince;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NewMemberSubscribed that = (NewMemberSubscribed) o;
+        return memberId.equals(that.memberId) &&
+            memberEmail.equals(that.memberEmail) &&
+            subscriptionId.equals(that.subscriptionId) &&
+            memberSince.equals(that.memberSince);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(memberId, memberEmail, subscriptionId, memberSince);
     }
 }

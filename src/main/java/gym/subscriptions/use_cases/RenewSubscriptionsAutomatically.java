@@ -1,10 +1,12 @@
 package gym.subscriptions.use_cases;
 
 import gym.subscriptions.domain.Subscription;
+import gym.subscriptions.domain.SubscriptionEvent;
 import gym.subscriptions.domain.SubscriptionRepository;
-import gym.subscriptions.domain.SubscriptionsRenewedAutomatically;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 final class RenewSubscriptionsAutomatically {
 
@@ -14,7 +16,7 @@ final class RenewSubscriptionsAutomatically {
         this.subscriptionRepository = subscriptionRepository;
     }
 
-    SubscriptionsRenewedAutomatically handle(RenewSubscriptionsAutomaticallyCommand command) {
+    List<SubscriptionEvent> handle(RenewSubscriptionsAutomaticallyCommand command) {
 
         var endedSubscriptionsAsOf = subscriptionRepository.endedSubscriptions(
             LocalDate.parse(command.asOfDate)
@@ -26,6 +28,8 @@ final class RenewSubscriptionsAutomatically {
 
         subscriptionRepository.storeAll(endedSubscriptionsAsOf);
 
-        return new SubscriptionsRenewedAutomatically(endedSubscriptionsAsOf);
+        return endedSubscriptionsAsOf.values().stream()
+            .map(subscription -> subscription.getRaisedEvents().get(subscription.getRaisedEvents().size() - 1))
+            .collect(Collectors.toList());
     }
 }

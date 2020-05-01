@@ -1,6 +1,6 @@
 package gym.subscriptions.use_cases;
 
-import gym.subscriptions.domain.SubscriptionId;
+import gym.subscriptions.domain.NewSubscription;
 import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository;
 import gym.subscriptions.infrastructure.SubscriptionRepositoryException;
 import org.junit.Test;
@@ -15,17 +15,23 @@ public class SubscribeToPlanTest {
 
         var tested = new SubscribeToPlan(subscriptionRepository);
 
-        var event = tested.handle(
+        var events = tested.handle(
             new SubscribeToPlanCommand(
-                "abc",
                 500,
                 12,
                 "2018-12-18",
                 false,
-                "bob@mail.com"
+                "bob@gmail.com"
             )
         );
 
-        assertEquals(350, (int) subscriptionRepository.get(new SubscriptionId(event.subscriptionId)).price);
+        assertEquals(
+            events.get(events.size() - 1),
+            new NewSubscription(
+                events.get(events.size() - 1).aggregateId,
+                "2018-12-18",
+                "bob@gmail.com"
+            )
+        );
     }
 }

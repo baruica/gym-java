@@ -1,10 +1,11 @@
 package gym.plans.use_cases;
 
+import gym.plans.domain.NewPlanCreated;
 import gym.plans.domain.PlanException;
-import gym.plans.domain.PlanId;
 import gym.plans.infrastructure.PlanInMemoryRepository;
-import org.junit.Assert;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class CreateNewPlanTest {
 
@@ -12,16 +13,20 @@ public class CreateNewPlanTest {
     public void create_a_new_plan() throws PlanException {
 
         PlanInMemoryRepository planRepository = new PlanInMemoryRepository();
-        PlanId planId = planRepository.nextId();
 
-        var tested = new CreateNewPlan(
-            planRepository
+        var tested = new CreateNewPlan(planRepository);
+
+        var events = tested.handle(
+            new CreateNewPlanCommand(300, 1)
         );
 
-        var event = tested.handle(
-            new CreateNewPlanCommand(planId.toString(), 300, 1)
+        assertEquals(
+            events.get(events.size() - 1),
+            new NewPlanCreated(
+                events.get(events.size() - 1).aggregateId,
+                300,
+                1
+            )
         );
-
-        Assert.assertEquals(planId.toString(), event.planId);
     }
 }

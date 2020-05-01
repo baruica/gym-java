@@ -3,6 +3,8 @@ package gym.membership.use_cases;
 import gym.membership.domain.*;
 import gym.membership.infrastructure.MemberRepositoryException;
 
+import java.util.List;
+
 final class SendWelcomeEmailToNewMembers {
 
     private final MemberRepository memberRepository;
@@ -13,7 +15,7 @@ final class SendWelcomeEmailToNewMembers {
         this.mailer = mailer;
     }
 
-    WelcomeEmailWasSentToNewMember handle(final NewMemberSubscribed event) throws MemberRepositoryException {
+    List<MemberEvent> handle(final NewMemberSubscribed event) throws MemberRepositoryException {
 
         var member = memberRepository.get(new MemberId(event.memberId));
 
@@ -26,10 +28,6 @@ final class SendWelcomeEmailToNewMembers {
 
         memberRepository.store(member);
 
-        return new WelcomeEmailWasSentToNewMember(
-            member.id,
-            member.email.toString(),
-            member.subscriptionId.toString()
-        );
+        return member.getRaisedEvents();
     }
 }

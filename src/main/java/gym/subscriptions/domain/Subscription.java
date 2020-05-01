@@ -11,6 +11,8 @@ public final class Subscription {
     public final Integer price;
     private final List<Period> periods = new ArrayList<>();
 
+    private final List<SubscriptionEvent> raisedEvents = new ArrayList<>();
+
     public Subscription(SubscriptionId id, LocalDate startDate, Integer planPrice, Integer planDurationInMonths, Boolean isStudent, String email) {
         this.id = id;
         this.startDate = startDate;
@@ -20,6 +22,18 @@ public final class Subscription {
         this.periods.add(
             new Period(startDate, planDurationInMonths)
         );
+
+        raisedEvents.add(
+            new NewSubscription(
+                this.id.toString(),
+                this.startDate.toString(),
+                email
+            )
+        );
+    }
+
+    public List<SubscriptionEvent> getRaisedEvents() {
+        return raisedEvents;
     }
 
     public void renew() {
@@ -27,6 +41,14 @@ public final class Subscription {
 
         periods.add(
             lastPeriod().next()
+        );
+
+        raisedEvents.add(
+            new SubscriptionRenewed(
+                id.toString(),
+                oldEndOfSubscription.toString(),
+                lastPeriod().endDate.toString()
+            )
         );
     }
 

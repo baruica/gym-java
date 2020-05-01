@@ -1,14 +1,10 @@
 package gym.membership.use_cases;
 
 import gym.membership.domain.EmailAddress;
-import gym.membership.domain.Member;
+import gym.membership.domain.NewMemberSubscribed;
 import gym.membership.infrastructure.MemberInMemoryRepository;
 import gym.subscriptions.domain.NewSubscription;
-import gym.subscriptions.domain.SubscriptionId;
 import org.junit.Test;
-
-import java.time.LocalDate;
-import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -18,25 +14,30 @@ public class NewSubscriptionEventListenerTest {
     @Test
     public void handle() {
         var memberRepository = new MemberInMemoryRepository();
-        var subscriptionStartDate = LocalDate.now();
-        var email = new EmailAddress("luke@gmail.com");
 
-        var tested = new NewSubscriptionEventListener(memberRepository);
+        var email = "luke@gmail.com";
 
-        assertTrue(memberRepository.findByEmail(email).isEmpty());
+        assertTrue(memberRepository.findByEmail(new EmailAddress(email)).isEmpty());
 
-        var event = tested.handle(
-            new NewSubscription(
-                new SubscriptionId("def"),
-                subscriptionStartDate,
-                email.toString()
-            )
+        var subscriptionId = "subscriptionId def";
+        var subscriptionStartDate = "2018-06-05";
+        NewSubscription newSubscriptionEvent = new NewSubscription(
+            subscriptionId,
+            subscriptionStartDate,
+            email
         );
 
-        Optional<Member> knownMemberOpt = memberRepository.findByEmail(email);
-        assertTrue(knownMemberOpt.isPresent());
-        assertEquals(email, knownMemberOpt.get().email);
+        var tested = new NewSubscriptionEventListener(memberRepository);
+        var events = tested.handle(newSubscriptionEvent);
 
-        assertEquals(email.toString(), event.memberEmail);
+        assertEquals(
+            events.get(events.size() - 1),
+            new NewMemberSubscribed(
+                events.get(events.size() - 1).aggregateId,
+                email,
+                subscriptionId,
+                subscriptionStartDate
+            )
+        );
     }
 }

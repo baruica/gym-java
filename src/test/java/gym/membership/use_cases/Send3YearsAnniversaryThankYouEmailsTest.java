@@ -3,6 +3,7 @@ package gym.membership.use_cases;
 import gym.membership.domain.EmailAddress;
 import gym.membership.domain.Member;
 import gym.membership.domain.MemberId;
+import gym.membership.domain.ThreeYearsAnniversaryThankYouEmailSent;
 import gym.membership.infrastructure.InMemoryMailer;
 import gym.membership.infrastructure.MemberInMemoryRepository;
 import gym.subscriptions.domain.SubscriptionId;
@@ -20,37 +21,38 @@ public class Send3YearsAnniversaryThankYouEmailsTest {
     public void handle() {
         var memberRepository = new MemberInMemoryRepository();
 
-        var memberJulie = buildMember("julie@gmail.com", XYearsBeforeThe(3, fifthOfJune()));
+        var startDateJulie = fifthOfJune().minusYears(3);
+        var memberJulie = buildMember("julie@gmail.com", startDateJulie);
         memberRepository.store(memberJulie);
 
-        var memberBob = buildMember("bob@gmail.com", XYearsBeforeThe(2, fifthOfJune()));
+        var startDateBob = fifthOfJune().minusYears(2);
+        var memberBob = buildMember("bob@gmail.com", startDateBob);
         memberRepository.store(memberBob);
 
-        var memberLuke = buildMember("luke@gmail.com", XYearsBeforeThe(3, fifthOfJune()));
+        var startDateLuke = fifthOfJune().minusYears(3);
+        var memberLuke = buildMember("luke@gmail.com", startDateLuke);
         memberRepository.store(memberLuke);
 
         var mailer = new InMemoryMailer();
 
         var tested = new Send3YearsAnniversaryThankYouEmails(memberRepository, mailer);
 
-        var event = tested.handle(
+        var events = tested.handle(
             new Send3YearsAnniversaryThankYouEmailsCommand("2018-06-05")
         );
 
         assertTrue(mailer.sentEmails.containsValue("Thank you for your loyalty julie@gmail.com !"));
-        assertTrue(event.memberIds.contains(memberJulie.id.toString()));
+        assertTrue(events.contains(new ThreeYearsAnniversaryThankYouEmailSent(memberJulie.id.toString(), startDateJulie.toString())));
+
         assertFalse(mailer.sentEmails.containsValue("Thank you for your loyalty bob@gmail.com !"));
-        assertFalse(event.memberIds.contains(memberBob.id.toString()));
+        assertFalse(events.contains(new ThreeYearsAnniversaryThankYouEmailSent(memberBob.id.toString(), startDateBob.toString())));
+
         assertTrue(mailer.sentEmails.containsValue("Thank you for your loyalty luke@gmail.com !"));
-        assertTrue(event.memberIds.contains(memberLuke.id.toString()));
+        assertTrue(events.contains(new ThreeYearsAnniversaryThankYouEmailSent(memberLuke.id.toString(), startDateLuke.toString())));
     }
 
     private LocalDate fifthOfJune() {
         return LocalDate.parse("2018-06-05");
-    }
-
-    private LocalDate XYearsBeforeThe(Integer nbYearsBefore, LocalDate date) {
-        return date.minusYears(nbYearsBefore);
     }
 
     private Member buildMember(String email, LocalDate startDate) {

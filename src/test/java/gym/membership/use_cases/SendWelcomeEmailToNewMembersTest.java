@@ -1,9 +1,6 @@
 package gym.membership.use_cases;
 
-import gym.membership.domain.EmailAddress;
-import gym.membership.domain.Member;
-import gym.membership.domain.MemberId;
-import gym.membership.domain.NewMemberSubscribed;
+import gym.membership.domain.*;
 import gym.membership.infrastructure.InMemoryMailer;
 import gym.membership.infrastructure.MemberInMemoryRepository;
 import gym.membership.infrastructure.MemberRepositoryException;
@@ -21,11 +18,14 @@ public class SendWelcomeEmailToNewMembersTest {
     public void handle() throws MemberRepositoryException {
 
         var memberId = new MemberId("abc");
+        var email = "bob@gmail.com";
+        var subscriptionId = new SubscriptionId("def");
+        var startDate = LocalDate.now();
         var member = new Member(
             memberId,
-            new EmailAddress("bob@gmail.com"),
-            new SubscriptionId("subscriptionId def"),
-            LocalDate.now()
+            new EmailAddress(email),
+            subscriptionId,
+            startDate
         );
         var memberRepository = new MemberInMemoryRepository();
         memberRepository.store(member);
@@ -34,18 +34,23 @@ public class SendWelcomeEmailToNewMembersTest {
 
         var tested = new SendWelcomeEmailToNewMembers(memberRepository, mailer);
 
-        var event = tested.handle(
+        var events = tested.handle(
             new NewMemberSubscribed(
                 memberId.toString(),
-                member.email.toString(),
-                member.subscriptionId.toString(),
-                member.memberSince.toString()
+                email,
+                subscriptionId.toString(),
+                startDate.toString()
             )
         );
 
-        assertEquals(memberId.toString(), event.memberId);
-        assertEquals(member.email.toString(), event.memberEmail);
-        assertEquals(member.subscriptionId.toString(), event.memberSubscriptionId);
+        assertEquals(
+            events.get(events.size() - 1),
+            new WelcomeEmailWasSentToNewMember(
+                memberId.toString(),
+                email,
+                subscriptionId.toString()
+            )
+        );
         assertTrue(mailer.sentEmails.containsValue("Thank you for subscribing bob@gmail.com !"));
     }
 }

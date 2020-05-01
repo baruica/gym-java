@@ -2,12 +2,14 @@ package gym.membership.use_cases;
 
 import gym.membership.domain.EmailAddress;
 import gym.membership.domain.Member;
+import gym.membership.domain.MemberEvent;
 import gym.membership.domain.MemberRepository;
-import gym.membership.domain.NewMemberSubscribed;
 import gym.subscriptions.domain.NewSubscription;
 import gym.subscriptions.domain.SubscriptionId;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 
 public final class NewSubscriptionEventListener {
 
@@ -17,7 +19,7 @@ public final class NewSubscriptionEventListener {
         this.memberRepository = memberRepository;
     }
 
-    public NewMemberSubscribed handle(NewSubscription event) {
+    public List<MemberEvent> handle(NewSubscription event) {
 
         var email = new EmailAddress(event.email);
         var knownMemberOpt = memberRepository.findByEmail(email);
@@ -32,14 +34,9 @@ public final class NewSubscriptionEventListener {
 
             memberRepository.store(member);
 
-            return new NewMemberSubscribed(
-                member.id.toString(),
-                member.email.toString(),
-                member.subscriptionId.toString(),
-                member.memberSince.toString()
-            );
+            return member.getRaisedEvents();
         }
 
-        return null;
+        return Collections.emptyList();
     }
 }

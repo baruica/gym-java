@@ -1,6 +1,11 @@
 package gym.plans.use_cases;
 
-import gym.plans.domain.*;
+import gym.plans.domain.Plan;
+import gym.plans.domain.PlanEvent;
+import gym.plans.domain.PlanException;
+import gym.plans.domain.PlanRepository;
+
+import java.util.List;
 
 final class CreateNewPlan {
 
@@ -10,16 +15,16 @@ final class CreateNewPlan {
         this.planRepository = planRepository;
     }
 
-    NewPlanCreated handle(CreateNewPlanCommand command) throws PlanException {
+    List<PlanEvent> handle(CreateNewPlanCommand command) throws PlanException {
 
         var newPlan = new Plan(
-            new PlanId(command.planId),
+            planRepository.nextId(),
             command.basePrice,
             command.planDurationsInMonths
         );
 
         planRepository.store(newPlan);
 
-        return new NewPlanCreated(newPlan);
+        return newPlan.getRaisedEvents();
     }
 }

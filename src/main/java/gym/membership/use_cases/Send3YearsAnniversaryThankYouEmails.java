@@ -1,10 +1,12 @@
 package gym.membership.use_cases;
 
 import gym.membership.domain.Mailer;
+import gym.membership.domain.MemberEvent;
 import gym.membership.domain.MemberRepository;
-import gym.membership.domain.ThreeYearsAnniversaryThankYouEmailsSent;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public final class Send3YearsAnniversaryThankYouEmails {
 
@@ -16,7 +18,7 @@ public final class Send3YearsAnniversaryThankYouEmails {
         this.mailer = mailer;
     }
 
-    public ThreeYearsAnniversaryThankYouEmailsSent handle(Send3YearsAnniversaryThankYouEmailsCommand command) {
+    public List<MemberEvent> handle(Send3YearsAnniversaryThankYouEmailsCommand command) {
 
         var threeYearsAnniversaryMembers = memberRepository.threeYearsAnniversaryMembers(
             LocalDate.parse(command.asOfDate)
@@ -29,6 +31,8 @@ public final class Send3YearsAnniversaryThankYouEmails {
             }
         );
 
-        return new ThreeYearsAnniversaryThankYouEmailsSent(threeYearsAnniversaryMembers);
+        return threeYearsAnniversaryMembers.values().stream()
+            .map((member -> member.getRaisedEvents().get(member.getRaisedEvents().size() - 1)))
+            .collect(Collectors.toList());
     }
 }
