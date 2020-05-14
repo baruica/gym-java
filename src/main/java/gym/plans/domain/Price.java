@@ -2,9 +2,9 @@ package gym.plans.domain;
 
 import java.util.Objects;
 
-class Price {
+final class Price {
 
-    Integer amount;
+    final Integer amount;
 
     Price(Integer amount) throws PlanException {
         if (amount < 0) {

@@ -3,13 +3,11 @@ package gym.plans.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.Arrays.asList;
-
 public final class Plan {
 
     public final PlanId id;
     Price price;
-    private final Integer durationInMonths;
+    private final Duration durationInMonths;
 
     private final List<PlanEvent> raisedEvents = new ArrayList<>();
 
@@ -17,18 +15,13 @@ public final class Plan {
         this.id = id;
 
         this.price = new Price(priceAmount);
-
-        if (!asList(1, 12).contains(durationInMonths)) {
-            throw new PlanException("Plan duration is either 1 month or 12 months, was " + durationInMonths);
-        }
-
-        this.durationInMonths = durationInMonths;
+        this.durationInMonths = new Duration(durationInMonths);
 
         this.raisedEvents.add(
             new NewPlanCreated(
                 this.id.toString(),
                 this.price.amount,
-                this.durationInMonths
+                this.durationInMonths.value
             )
         );
     }
@@ -51,4 +44,3 @@ public final class Plan {
         );
     }
 }
-
