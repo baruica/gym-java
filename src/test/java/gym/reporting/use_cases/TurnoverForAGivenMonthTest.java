@@ -15,10 +15,8 @@ public class TurnoverForAGivenMonthTest {
 
         var subscriptionRepository = new SubscriptionInMemoryRepository();
 
-        String todayStr = "2018-06-09";
-        var today = LocalDate.parse(todayStr);
-        String inAMonthStr = "2018-07-09";
-        var inAMonth = LocalDate.parse(inAMonthStr);
+        var today = LocalDate.parse("2018-06-09");
+        var inAMonth = LocalDate.parse("2018-07-09");
 
         subscriptionRepository.store(
             new Subscription(
@@ -45,10 +43,10 @@ public class TurnoverForAGivenMonthTest {
             subscriptionRepository
         );
 
-        assertEquals(50, tested.handle(new TurnoverForAGivenMonthQuery(todayStr)), 0);
+        assertEquals(50, tested.handle(new TurnoverForAGivenMonthQuery("2018-06-09")), 0);
         assertEquals(1, subscriptionRepository.ongoingSubscriptions(today).size());
 
-        assertEquals(29, tested.handle(new TurnoverForAGivenMonthQuery(inAMonthStr)), 1);
+        assertEquals(29, tested.handle(new TurnoverForAGivenMonthQuery("2018-07-09")), 1);
         assertEquals(1, subscriptionRepository.ongoingSubscriptions(inAMonth).size());
     }
 }

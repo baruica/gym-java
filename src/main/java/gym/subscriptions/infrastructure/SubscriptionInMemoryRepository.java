@@ -51,7 +51,7 @@ public final class SubscriptionInMemoryRepository implements SubscriptionReposit
     public Map<SubscriptionId, Subscription> endedSubscriptions(LocalDate date) {
 
         return subscriptions.entrySet().stream()
-            .filter(subscription -> subscription.getValue().willBeEnded(date))
+            .filter(subscription -> subscription.getValue().willBeEndedAfter(date))
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 }

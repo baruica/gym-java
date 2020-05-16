@@ -12,7 +12,7 @@ public class PlanTest {
     }
 
     @Test(expected = PlanException.class)
-    public void must_have_a_valid_price() throws PlanException {
+    public void a_plan_cannot_hava_a_negative_price() throws PlanException {
         new Plan(new PlanId("abc"), -42, 12);
     }
 

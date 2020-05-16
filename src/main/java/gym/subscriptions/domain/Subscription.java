@@ -1,27 +1,27 @@
 package gym.subscriptions.domain;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
 public final class Subscription {
 
     public final SubscriptionId id;
-    public final LocalDate startDate;
+    private final LocalDate startDate;
+    private LocalDate endDate;
+    private final Integer planDurationInMonths;
     public final Integer price;
-    private final List<Period> periods = new ArrayList<>();
 
     private final List<SubscriptionEvent> raisedEvents = new ArrayList<>();
 
     public Subscription(SubscriptionId id, LocalDate startDate, Integer planPrice, Integer planDurationInMonths, Boolean isStudent, String email) {
         this.id = id;
         this.startDate = startDate;
+        this.endDate = startDate.plus(planDurationInMonths, ChronoUnit.MONTHS).minusDays(1);
+        this.planDurationInMonths = planDurationInMonths;
 
         this.price = new Price(planPrice).afterDiscount(planDurationInMonths, isStudent);
-
-        this.periods.add(
-            new Period(startDate, planDurationInMonths)
-        );
 
         raisedEvents.add(
             new NewSubscription(
@@ -37,34 +37,29 @@ public final class Subscription {
     }
 
     public void renew() {
-        var oldEndOfSubscription = lastPeriod().endDate;
+        var oldEndDate = this.endDate;
 
-        periods.add(
-            lastPeriod().next()
-        );
+        this.endDate = oldEndDate.plus(planDurationInMonths, ChronoUnit.MONTHS);
 
         raisedEvents.add(
             new SubscriptionRenewed(
                 id.toString(),
-                oldEndOfSubscription.toString(),
-                lastPeriod().endDate.toString()
+                oldEndDate.toString(),
+                this.endDate.toString()
             )
         );
     }
 
-    public Boolean isOngoing(final LocalDate date) {
-        return lastPeriod().contains(date);
+    public Boolean willBeEndedAfter(final LocalDate asFrom) {
+        return asFrom.isAfter(endDate);
     }
 
-    public Boolean willBeEnded(final LocalDate asFrom) {
-        return lastPeriod().isBefore(asFrom);
+    public Boolean isOngoing(final LocalDate date) {
+        return (startDate.isEqual(date) || startDate.isBefore(date))
+            && (endDate.isEqual(date) || endDate.isAfter(date));
     }
 
     public Double monthlyTurnover() {
-        return (double) (price / periods.get(0).durationInMonths);
-    }
-
-    private Period lastPeriod() {
-        return periods.get(periods.size() - 1);
+        return (double) (price / planDurationInMonths);
     }
 }

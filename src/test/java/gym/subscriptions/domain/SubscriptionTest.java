@@ -33,33 +33,35 @@ public class SubscriptionTest {
     }
 
     @Test
-    public void can_be_ongoing() {
-        var ongoingSubscription = monthlySubscription(100, fifthOfJune(), false);
-
-        var dateInJuin = LocalDate.parse("2018-06-19");
-
-        assertTrue(ongoingSubscription.isOngoing(dateInJuin));
-    }
-
-    @Test
-    public void tell_if_it_will_be_ended_at_a_given_date() {
-        var subscriptionEndingEndOfJune = monthlySubscription(100, fifthOfJune(), false);
-
-        assertFalse(subscriptionEndingEndOfJune.willBeEnded(LocalDate.parse("2018-07-04")));
-        assertTrue(subscriptionEndingEndOfJune.willBeEnded(LocalDate.parse("2018-07-05")));
-    }
-
-    @Test
     public void can_be_renewed() {
         var subscription = monthlySubscription(100, fifthOfJune(), false);
 
-        assertFalse(subscription.willBeEnded(LocalDate.parse("2018-07-04")));
-        assertTrue(subscription.willBeEnded(LocalDate.parse("2018-07-05")));
+        assertFalse(subscription.willBeEndedAfter(LocalDate.parse("2018-07-04")));
+        assertTrue(subscription.willBeEndedAfter(LocalDate.parse("2018-07-05")));
 
         subscription.renew();
 
-        assertFalse(subscription.willBeEnded(LocalDate.parse("2018-08-04")));
-        assertTrue(subscription.willBeEnded(LocalDate.parse("2018-08-05")));
+        assertFalse(subscription.willBeEndedAfter(LocalDate.parse("2018-08-04")));
+        assertTrue(subscription.willBeEndedAfter(LocalDate.parse("2018-08-05")));
+    }
+
+    @Test
+    public void can_be_ongoing() {
+        Subscription monthlySubscription = monthlySubscription(100, fifthOfJune(), false);
+
+        assertFalse(monthlySubscription.isOngoing(LocalDate.parse("2018-06-04")));
+        assertTrue(monthlySubscription.isOngoing(LocalDate.parse("2018-06-05")));
+        assertTrue(monthlySubscription.isOngoing(LocalDate.parse("2018-06-19")));
+        assertTrue(monthlySubscription.isOngoing(LocalDate.parse("2018-07-04")));
+        assertFalse(monthlySubscription.isOngoing(LocalDate.parse("2018-07-05")));
+    }
+
+    @Test
+    public void can_tell_if_it_will_be_ended_at_a_given_date() {
+        var subscriptionEndingEndOfJune = monthlySubscription(100, fifthOfJune(), false);
+
+        assertFalse(subscriptionEndingEndOfJune.willBeEndedAfter(LocalDate.parse("2018-07-04")));
+        assertTrue(subscriptionEndingEndOfJune.willBeEndedAfter(LocalDate.parse("2018-07-05")));
     }
 
     @Test
