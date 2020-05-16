@@ -21,6 +21,6 @@ public class PlanTest {
         var tested = new Plan(new PlanId("abc"), 400, 1);
         tested.changePrice(500);
 
-        assertEquals(new Price(500), tested.price);
+        assertEquals(500, (int) tested.price.amount);
     }
 }
