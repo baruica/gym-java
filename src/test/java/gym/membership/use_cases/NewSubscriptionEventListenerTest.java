@@ -4,10 +4,10 @@ import gym.membership.domain.Email;
 import gym.membership.domain.NewMemberSubscribed;
 import gym.membership.infrastructure.MemberInMemoryRepository;
 import gym.subscriptions.domain.NewSubscription;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class NewSubscriptionEventListenerTest {
 

@@ -1,11 +1,14 @@
 package gym.membership.domain;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class EmailTest {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void does_not_allow_invalid_emails() {
-        new Email("bob[at]gmail.com");
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            new Email("bob[at]gmail.com");
+        });
     }
 }

@@ -3,9 +3,9 @@ package gym.plans.use_cases;
 import gym.plans.domain.NewPlanCreated;
 import gym.plans.domain.PlanException;
 import gym.plans.infrastructure.PlanInMemoryRepository;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CreateNewPlanTest {
 

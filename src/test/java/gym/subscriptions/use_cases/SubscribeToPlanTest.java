@@ -3,9 +3,9 @@ package gym.subscriptions.use_cases;
 import gym.subscriptions.domain.NewSubscription;
 import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository;
 import gym.subscriptions.infrastructure.SubscriptionRepositoryException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SubscribeToPlanTest {
 
