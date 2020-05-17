@@ -1,6 +1,6 @@
 package gym.membership.infrastructure;
 
-import gym.membership.domain.EmailAddress;
+import gym.membership.domain.Email;
 import gym.membership.domain.Mailer;
 
 import java.util.HashMap;
@@ -12,7 +12,7 @@ public final class InMemoryMailer implements Mailer {
     public final Map<String, String> sentEmails = new HashMap<>();
 
     @Override
-    public void sendEmail(EmailAddress email, String message) {
+    public void sendEmail(Email email, String message) {
         sentEmails.put(UUID.randomUUID().toString(), message);
     }
 }

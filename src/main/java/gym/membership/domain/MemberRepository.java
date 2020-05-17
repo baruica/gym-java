@@ -14,7 +14,7 @@ public interface MemberRepository {
 
     Member get(MemberId memberId) throws MemberRepositoryException;
 
-    Optional<Member> findByEmail(EmailAddress email);
+    Optional<Member> findByEmail(Email email);
 
     Map<MemberId, Member> threeYearsAnniversaryMembers(LocalDate asOfDate);
 }

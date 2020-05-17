@@ -2,10 +2,10 @@ package gym.membership.domain;
 
 import org.junit.Test;
 
-public class EmailAddressTest {
+public class EmailTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void does_not_allow_invalid_emails() {
-        new EmailAddress("bob[at]gmail.com");
+        new Email("bob[at]gmail.com");
     }
 }

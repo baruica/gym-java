@@ -23,7 +23,7 @@ public class SendWelcomeEmailToNewMembersTest {
         var startDate = LocalDate.now();
         var member = new Member(
             memberId,
-            new EmailAddress(email),
+            new Email(email),
             subscriptionId,
             startDate
         );

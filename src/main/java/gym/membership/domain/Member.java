@@ -9,13 +9,13 @@ import java.util.List;
 public final class Member {
 
     public final MemberId id;
-    public final EmailAddress email;
+    public final Email email;
     public final SubscriptionId subscriptionId;
     public final LocalDate memberSince;
 
     private final List<MemberEvent> raisedEvents = new ArrayList<>();
 
-    public Member(MemberId id, EmailAddress email, SubscriptionId subscriptionId, LocalDate startDate) {
+    public Member(MemberId id, Email email, SubscriptionId subscriptionId, LocalDate startDate) {
         this.id = id;
         this.email = email;
         this.subscriptionId = subscriptionId;

@@ -1,6 +1,9 @@
 package gym.membership.infrastructure;
 
-import gym.membership.domain.*;
+import gym.membership.domain.Email;
+import gym.membership.domain.Member;
+import gym.membership.domain.MemberId;
+import gym.membership.domain.MemberRepository;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -33,7 +36,7 @@ public final class MemberInMemoryRepository implements MemberRepository {
     }
 
     @Override
-    public Optional<Member> findByEmail(EmailAddress email) {
+    public Optional<Member> findByEmail(Email email) {
         return members.values().stream()
             .filter(member -> email.equals(member.email))
             .findFirst();

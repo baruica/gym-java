@@ -1,6 +1,6 @@
 package gym.membership.use_cases;
 
-import gym.membership.domain.EmailAddress;
+import gym.membership.domain.Email;
 import gym.membership.domain.Member;
 import gym.membership.domain.MemberEvent;
 import gym.membership.domain.MemberRepository;
@@ -21,7 +21,7 @@ public final class NewSubscriptionEventListener {
 
     public List<MemberEvent> handle(NewSubscription event) {
 
-        var email = new EmailAddress(event.email);
+        var email = new Email(event.email);
         var knownMemberOpt = memberRepository.findByEmail(email);
 
         if (knownMemberOpt.isEmpty()) {

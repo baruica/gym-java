@@ -14,7 +14,7 @@ public class MemberTest {
     public void is_three_years_anniversary() {
         var memberWith3yearsAnniversaryOnTheFifthOfJune = new Member(
             new MemberId("abc"),
-            new EmailAddress("julie@gmail.com"),
+            new Email("julie@gmail.com"),
             new SubscriptionId("subscriptionId def"),
             fifthOfJune().minusYears(3)
         );

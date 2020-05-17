@@ -1,6 +1,6 @@
 package gym.membership.use_cases;
 
-import gym.membership.domain.EmailAddress;
+import gym.membership.domain.Email;
 import gym.membership.domain.NewMemberSubscribed;
 import gym.membership.infrastructure.MemberInMemoryRepository;
 import gym.subscriptions.domain.NewSubscription;
@@ -17,7 +17,7 @@ public class NewSubscriptionEventListenerTest {
 
         var email = "luke@gmail.com";
 
-        assertTrue(memberRepository.findByEmail(new EmailAddress(email)).isEmpty());
+        assertTrue(memberRepository.findByEmail(new Email(email)).isEmpty());
 
         var subscriptionId = "subscriptionId def";
         var subscriptionStartDate = "2018-06-05";
