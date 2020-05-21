@@ -16,7 +16,7 @@ public final class Subscription {
 
     private final List<SubscriptionEvent> raisedEvents = new ArrayList<>();
 
-    public Subscription(SubscriptionId id, LocalDate startDate, Integer planPrice, Integer planDurationInMonths, Boolean isStudent, String email) {
+    public Subscription(SubscriptionId id, LocalDate startDate, Integer planDurationInMonths, Integer planPrice, Boolean isStudent, String email) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = startDate.plus(planDurationInMonths, ChronoUnit.MONTHS).minusDays(1);

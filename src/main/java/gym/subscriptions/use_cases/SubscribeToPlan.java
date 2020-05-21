@@ -20,8 +20,7 @@ final class SubscribeToPlan {
         var subscription = new Subscription(
             subscriptionRepository.nextId(),
             LocalDate.parse(command.startDate),
-            command.planPrice,
-            command.planDurationInMonths,
+            command.planDurationInMonths, command.planPrice,
             command.isStudent,
             command.email
         );

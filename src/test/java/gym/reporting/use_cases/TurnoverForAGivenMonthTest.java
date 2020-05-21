@@ -22,8 +22,7 @@ public class TurnoverForAGivenMonthTest {
             new Subscription(
                 subscriptionRepository.nextId(),
                 today,
-                50,
-                1,
+                1, 50,
                 false,
                 "bob@gmail.com"
             )
@@ -32,8 +31,7 @@ public class TurnoverForAGivenMonthTest {
             new Subscription(
                 subscriptionRepository.nextId(),
                 inAMonth,
-                500,
-                12,
+                12, 500,
                 false,
                 "bob@gmail.com"
             )

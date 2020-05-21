@@ -19,8 +19,7 @@ public class RenewSubscriptionsAutomaticallyTest {
         var subscription = new Subscription(
             subscriptionRepository.nextId(),
             LocalDate.parse("2018-06-09"),
-            200,
-            1,
+            1, 200,
             false,
             "bob@gmail.com"
         );

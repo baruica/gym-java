@@ -89,8 +89,7 @@ public class SubscriptionTest {
         return new Subscription(
             new SubscriptionId(UUID.randomUUID().toString()),
             startDate,
-            basePrice,
-            durationInMonths,
+            durationInMonths, basePrice,
             isStudent,
             "luke@gmail.com"
         );
