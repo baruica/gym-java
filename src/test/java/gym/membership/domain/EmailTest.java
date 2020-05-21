@@ -7,8 +7,6 @@ public class EmailTest {
 
     @Test
     public void does_not_allow_invalid_emails() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new Email("bob[at]gmail.com");
-        });
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Email("bob[at]gmail.com"));
     }
 }
