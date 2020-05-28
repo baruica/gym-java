@@ -17,7 +17,7 @@ final class CreateNewPlan {
 
     List<PlanEvent> handle(CreateNewPlanCommand command) throws PlanException {
 
-        var newPlan = new Plan(
+        var newPlan = Plan.create(
             planRepository.nextId(),
             command.basePrice,
             command.planDurationsInMonths

@@ -19,7 +19,7 @@ public class TurnoverForAGivenMonthTest {
         var inAMonth = LocalDate.parse("2018-07-09");
 
         subscriptionRepository.store(
-            new Subscription(
+            Subscription.subscribe(
                 subscriptionRepository.nextId(),
                 today,
                 1, 50,
@@ -28,7 +28,7 @@ public class TurnoverForAGivenMonthTest {
             )
         );
         subscriptionRepository.store(
-            new Subscription(
+            Subscription.subscribe(
                 subscriptionRepository.nextId(),
                 inAMonth,
                 12, 500,

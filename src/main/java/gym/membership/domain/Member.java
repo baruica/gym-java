@@ -15,20 +15,31 @@ public final class Member {
 
     private final List<MemberEvent> raisedEvents = new ArrayList<>();
 
-    public Member(MemberId id, Email email, SubscriptionId subscriptionId, LocalDate startDate) {
+    private Member(MemberId id, Email email, SubscriptionId subscriptionId, LocalDate memberSince) {
         this.id = id;
         this.email = email;
         this.subscriptionId = subscriptionId;
-        this.memberSince = startDate;
+        this.memberSince = memberSince;
+    }
 
-        raisedEvents.add(
+    public static Member register(MemberId id, Email email, SubscriptionId subscriptionId, LocalDate memberSince) {
+        var member = new Member(
+            id,
+            email,
+            subscriptionId,
+            memberSince
+        );
+
+        member.raisedEvents.add(
             new NewMemberSubscribed(
-                this.id.toString(),
-                this.email.toString(),
-                this.subscriptionId.toString(),
-                this.memberSince.toString()
+                member.id.toString(),
+                member.email.toString(),
+                member.subscriptionId.toString(),
+                member.memberSince.toString()
             )
         );
+
+        return member;
     }
 
     public List<MemberEvent> getRaisedEvents() {

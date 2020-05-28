@@ -16,7 +16,7 @@ public class RenewSubscriptionsAutomaticallyTest {
 
         var subscriptionRepository = new SubscriptionInMemoryRepository();
 
-        var subscription = new Subscription(
+        var subscription = Subscription.subscribe(
             subscriptionRepository.nextId(),
             LocalDate.parse("2018-06-09"),
             1, 200,

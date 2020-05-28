@@ -17,7 +17,7 @@ final class SubscribeToPlan {
 
     public List<SubscriptionEvent> handle(SubscribeToPlanCommand command) {
 
-        var subscription = new Subscription(
+        var subscription = Subscription.subscribe(
             subscriptionRepository.nextId(),
             LocalDate.parse(command.startDate),
             command.planDurationInMonths, command.planPrice,

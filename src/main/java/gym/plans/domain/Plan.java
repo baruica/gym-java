@@ -10,23 +10,32 @@ public final class Plan {
 
     public final PlanId id;
     Price price;
-    private final Duration durationInMonths;
+    private final Duration duration;
 
     private final List<PlanEvent> raisedEvents = new ArrayList<>();
 
-    public Plan(PlanId id, Integer priceAmount, Integer durationInMonths) throws PlanException {
+    private Plan(PlanId id, Price price, Duration duration) {
         this.id = id;
+        this.price = price;
+        this.duration = duration;
+    }
 
-        this.price = new Price(priceAmount);
-        this.durationInMonths = new Duration(durationInMonths);
+    public static Plan create(PlanId id, Integer priceAmount, Integer durationInMonths) throws PlanException {
+        var plan = new Plan(
+            id,
+            new Price(priceAmount),
+            new Duration(durationInMonths)
+        );
 
-        this.raisedEvents.add(
+        plan.raisedEvents.add(
             new NewPlanCreated(
-                this.id.toString(),
-                this.price.amount,
-                this.durationInMonths.value
+                plan.id.toString(),
+                plan.price.amount,
+                plan.duration.value
             )
         );
+
+        return plan;
     }
 
     public List<PlanEvent> getRaisedEvents() {

@@ -9,28 +9,45 @@ import java.util.Objects;
 public final class Subscription {
 
     public final SubscriptionId id;
+    private final Integer planDurationInMonths;
     private final LocalDate startDate;
     private LocalDate endDate;
-    private final Integer planDurationInMonths;
-    public final Integer price;
+    public final Price price;
 
     private final List<SubscriptionEvent> raisedEvents = new ArrayList<>();
 
-    public Subscription(SubscriptionId id, LocalDate startDate, Integer planDurationInMonths, Integer planPrice, Boolean isStudent, String email) {
+    private Subscription(SubscriptionId id, Integer planDurationInMonths, LocalDate startDate, Price price) {
         this.id = id;
-        this.startDate = startDate;
-        this.endDate = startDate.plus(planDurationInMonths, ChronoUnit.MONTHS).minusDays(1);
         this.planDurationInMonths = planDurationInMonths;
+        this.startDate = startDate;
+        this.endDate = this.startDate.plus(this.planDurationInMonths, ChronoUnit.MONTHS).minusDays(1);
+        this.price = price;
+    }
 
-        this.price = new Price(planPrice).afterDiscount(planDurationInMonths, isStudent);
+    public static Subscription subscribe(
+        SubscriptionId id,
+        LocalDate startDate,
+        Integer planDurationInMonths,
+        Integer planPrice,
+        Boolean isStudent,
+        String email
+    ) {
+        var subscription = new Subscription(
+            id,
+            planDurationInMonths,
+            startDate,
+            new Price(planPrice).afterDiscount(planDurationInMonths, isStudent)
+        );
 
-        raisedEvents.add(
+        subscription.raisedEvents.add(
             new NewSubscription(
-                this.id.toString(),
-                this.startDate.toString(),
+                subscription.id.toString(),
+                subscription.startDate.toString(),
                 email
             )
         );
+
+        return subscription;
     }
 
     public List<SubscriptionEvent> getRaisedEvents() {
@@ -61,10 +78,10 @@ public final class Subscription {
     }
 
     public Double monthlyTurnover() {
-        return (double) (price / planDurationInMonths);
+        return (double) (price.amount / planDurationInMonths);
     }
 
-    private static final class Price {
+    static final class Price {
 
         private final Integer amount;
 
@@ -72,8 +89,8 @@ public final class Subscription {
             this.amount = amount;
         }
 
-        Integer afterDiscount(Integer durationInMonths, Boolean isStudent) {
-            return (int) (amount * (1 - new Discount(durationInMonths, isStudent).rate()));
+        Price afterDiscount(Integer durationInMonths, Boolean isStudent) {
+            return new Price((int) (amount * (1 - new Discount(durationInMonths, isStudent).rate())));
         }
 
         @Override

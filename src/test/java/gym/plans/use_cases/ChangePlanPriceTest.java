@@ -17,7 +17,7 @@ public class ChangePlanPriceTest {
         var planId = planRepository.nextId();
 
         planRepository.store(
-            new Plan(planId, 450, 12)
+            Plan.create(planId, 450, 12)
         );
 
         var tested = new ChangePlanPrice(planRepository);

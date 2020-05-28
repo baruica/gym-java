@@ -25,7 +25,7 @@ public final class NewSubscriptionEventListener {
         var knownMemberOpt = memberRepository.findByEmail(email);
 
         if (knownMemberOpt.isEmpty()) {
-            var member = new Member(
+            var member = Member.register(
                 memberRepository.nextId(),
                 email,
                 new SubscriptionId(event.subscriptionId),

@@ -1,5 +1,6 @@
 package gym.subscriptions.domain;
 
+import gym.subscriptions.domain.Subscription.Price;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -13,23 +14,23 @@ public class SubscriptionTest {
     public void base_price_for_monthly_subscription() {
         var subsciptionWithoutDiscount = monthlySubscription(300, fifthOfJune(), false);
 
-        assertEquals(300, (int) subsciptionWithoutDiscount.price);
+        assertEquals(new Price(300), subsciptionWithoutDiscount.price);
     }
 
     @Test
     public void thirty_percent_discount_for_yearly_subscriptions() {
         var subscriptionWithYearlyDiscount = yearlySubscription(1000, fifthOfJune(), false);
 
-        assertEquals(700, subscriptionWithYearlyDiscount.price, 0);
+        assertEquals(new Price(700), subscriptionWithYearlyDiscount.price);
     }
 
     @Test
     public void twenty_percent_discount_for_students() {
         var monthlySubscriptionWithStudentDiscount = monthlySubscription(100, fifthOfJune(), true);
-        assertEquals(80, (int) monthlySubscriptionWithStudentDiscount.price);
+        assertEquals(new Price(80), monthlySubscriptionWithStudentDiscount.price);
 
         var yearlySubscriptionWithStudentDiscount = yearlySubscription(100, fifthOfJune(), true);
-        assertEquals(50, (int) yearlySubscriptionWithStudentDiscount.price);
+        assertEquals(new Price(50), yearlySubscriptionWithStudentDiscount.price);
     }
 
     @Test
@@ -86,7 +87,7 @@ public class SubscriptionTest {
     }
 
     private Subscription newSubscription(Integer basePrice, Integer durationInMonths, LocalDate startDate, Boolean isStudent) {
-        return new Subscription(
+        return Subscription.subscribe(
             new SubscriptionId(UUID.randomUUID().toString()),
             startDate,
             durationInMonths, basePrice,

@@ -21,7 +21,7 @@ public class SendWelcomeEmailToNewMembersTest {
         var email = "bob@gmail.com";
         var subscriptionId = new SubscriptionId("def");
         var startDate = LocalDate.now();
-        var member = new Member(
+        var member = Member.register(
             memberId,
             new Email(email),
             subscriptionId,

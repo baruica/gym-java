@@ -56,7 +56,7 @@ public class Send3YearsAnniversaryThankYouEmailsTest {
     }
 
     private Member buildMember(String email, LocalDate startDate) {
-        return new Member(
+        return Member.register(
             new MemberId(UUID.randomUUID().toString()),
             new Email(email),
             new SubscriptionId("subscriptionId def"),
