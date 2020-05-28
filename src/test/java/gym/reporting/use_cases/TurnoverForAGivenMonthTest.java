@@ -22,7 +22,18 @@ public class TurnoverForAGivenMonthTest {
             Subscription.subscribe(
                 subscriptionRepository.nextId(),
                 today,
-                1, 50,
+                1,
+                50,
+                false,
+                "bob@gmail.com"
+            )
+        );
+        subscriptionRepository.store(
+            Subscription.subscribe(
+                subscriptionRepository.nextId(),
+                today,
+                12,
+                400,
                 false,
                 "bob@gmail.com"
             )
@@ -31,7 +42,8 @@ public class TurnoverForAGivenMonthTest {
             Subscription.subscribe(
                 subscriptionRepository.nextId(),
                 inAMonth,
-                12, 500,
+                12,
+                500,
                 false,
                 "bob@gmail.com"
             )
@@ -41,10 +53,10 @@ public class TurnoverForAGivenMonthTest {
             subscriptionRepository
         );
 
-        assertEquals(50, tested.handle(new TurnoverForAGivenMonthQuery("2018-06-09")), 0);
-        assertEquals(1, subscriptionRepository.ongoingSubscriptions(today).size());
+        assertEquals(73, tested.handle(new TurnoverForAGivenMonthQuery("2018-06-09")), 0);
+        assertEquals(2, subscriptionRepository.ongoingSubscriptions(today).size());
 
-        assertEquals(29, tested.handle(new TurnoverForAGivenMonthQuery("2018-07-09")), 1);
-        assertEquals(1, subscriptionRepository.ongoingSubscriptions(inAMonth).size());
+        assertEquals(52, tested.handle(new TurnoverForAGivenMonthQuery("2018-07-09")), 1);
+        assertEquals(2, subscriptionRepository.ongoingSubscriptions(inAMonth).size());
     }
 }
