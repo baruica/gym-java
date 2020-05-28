@@ -15,13 +15,11 @@ final class TurnoverForAGivenMonth {
 
     Double handle(TurnoverForAGivenMonthQuery query) {
 
-        var turnoverForGivenMonth = 0.0;
         var asOfDate = LocalDate.parse(query.asOfDate);
 
-        for (Subscription ongoingSubscription : subscriptionRepository.ongoingSubscriptions(asOfDate).values()) {
-            turnoverForGivenMonth += ongoingSubscription.monthlyTurnover();
-        }
-
-        return turnoverForGivenMonth;
+        return subscriptionRepository.ongoingSubscriptions(asOfDate).values()
+            .stream()
+            .map(Subscription::monthlyTurnover)
+            .reduce(0.0, Double::sum);
     }
 }
