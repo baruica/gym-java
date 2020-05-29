@@ -3,7 +3,7 @@ package gym.subscriptions.domain;
 import gym.subscriptions.infrastructure.SubscriptionRepositoryException;
 
 import java.time.LocalDate;
-import java.util.Map;
+import java.util.List;
 
 public interface SubscriptionRepository {
 
@@ -11,11 +11,11 @@ public interface SubscriptionRepository {
 
     void store(Subscription subscription);
 
-    void storeAll(Map<SubscriptionId, Subscription> subscriptions);
+    void storeAll(List<Subscription> subscriptions);
 
     Subscription get(SubscriptionId subscriptionId) throws SubscriptionRepositoryException;
 
-    Map<SubscriptionId, Subscription> ongoingSubscriptions(LocalDate date);
+    List<Subscription> ongoingSubscriptions(LocalDate date);
 
-    Map<SubscriptionId, Subscription> endedSubscriptions(LocalDate date);
+    List<Subscription> endedSubscriptions(LocalDate date);
 }

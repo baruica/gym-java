@@ -17,7 +17,7 @@ final class TurnoverForAGivenMonth {
 
         var asOfDate = LocalDate.parse(query.asOfDate);
 
-        return subscriptionRepository.ongoingSubscriptions(asOfDate).values()
+        return subscriptionRepository.ongoingSubscriptions(asOfDate)
             .stream()
             .map(Subscription::monthlyTurnover)
             .reduce(0.0, Double::sum);

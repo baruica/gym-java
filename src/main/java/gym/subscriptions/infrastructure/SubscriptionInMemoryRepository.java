@@ -6,6 +6,7 @@ import gym.subscriptions.domain.SubscriptionRepository;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -25,8 +26,8 @@ public final class SubscriptionInMemoryRepository implements SubscriptionReposit
     }
 
     @Override
-    public void storeAll(Map<SubscriptionId, Subscription> subscriptions) {
-        subscriptions.forEach((subscriptionId, subscription) -> store(subscription));
+    public void storeAll(List<Subscription> subscriptions) {
+        subscriptions.forEach(this::store);
     }
 
     @Override
@@ -40,18 +41,18 @@ public final class SubscriptionInMemoryRepository implements SubscriptionReposit
     }
 
     @Override
-    public Map<SubscriptionId, Subscription> ongoingSubscriptions(LocalDate asOfDate) {
+    public List<Subscription> ongoingSubscriptions(LocalDate asOfDate) {
 
-        return subscriptions.entrySet().stream()
-            .filter(subscription -> subscription.getValue().isOngoing(asOfDate))
-            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        return subscriptions.values().stream()
+            .filter(subscription -> subscription.isOngoing(asOfDate))
+            .collect(Collectors.toList());
     }
 
     @Override
-    public Map<SubscriptionId, Subscription> endedSubscriptions(LocalDate date) {
+    public List<Subscription> endedSubscriptions(LocalDate date) {
 
-        return subscriptions.entrySet().stream()
-            .filter(subscription -> subscription.getValue().willBeEndedAfter(date))
-            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        return subscriptions.values().stream()
+            .filter(subscription -> subscription.willBeEndedAfter(date))
+            .collect(Collectors.toList());
     }
 }

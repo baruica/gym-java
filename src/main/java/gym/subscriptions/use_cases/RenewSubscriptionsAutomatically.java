@@ -22,13 +22,13 @@ final class RenewSubscriptionsAutomatically {
             LocalDate.parse(command.asOfDate)
         );
 
-        endedSubscriptionsAsOf.values().forEach(
+        endedSubscriptionsAsOf.forEach(
             Subscription::renew
         );
 
         subscriptionRepository.storeAll(endedSubscriptionsAsOf);
 
-        return endedSubscriptionsAsOf.values().stream()
+        return endedSubscriptionsAsOf.stream()
             .map(subscription -> subscription.getRaisedEvents().get(subscription.getRaisedEvents().size() - 1))
             .collect(Collectors.toList());
     }
