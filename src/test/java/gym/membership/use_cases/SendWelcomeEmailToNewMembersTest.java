@@ -23,7 +23,7 @@ public class SendWelcomeEmailToNewMembersTest {
         var startDate = LocalDate.now();
         var member = Member.register(
             memberId,
-            new Email(email),
+            new EmailAddress(email),
             subscriptionId,
             startDate
         );
@@ -51,6 +51,6 @@ public class SendWelcomeEmailToNewMembersTest {
                 subscriptionId.toString()
             )
         );
-        assertTrue(mailer.sentEmails.containsValue("Thank you for subscribing bob@gmail.com !"));
+        assertTrue(mailer.welcomeEmailWasSentTo("bob@gmail.com"));
     }
 }

@@ -1,6 +1,6 @@
 package gym.membership.use_cases;
 
-import gym.membership.domain.Email;
+import gym.membership.domain.EmailAddress;
 import gym.membership.domain.Member;
 import gym.membership.domain.MemberId;
 import gym.membership.domain.ThreeYearsAnniversaryThankYouEmailSent;
@@ -41,13 +41,13 @@ public class Send3YearsAnniversaryThankYouEmailsTest {
             new Send3YearsAnniversaryThankYouEmailsCommand("2018-06-05")
         );
 
-        assertTrue(mailer.sentEmails.containsValue("Thank you for your loyalty julie@gmail.com !"));
+        assertTrue(mailer.threeYearsAnniversaryWasSentTo("julie@gmail.com"));
         assertTrue(events.contains(new ThreeYearsAnniversaryThankYouEmailSent(memberJulie.id.toString(), startDateJulie.toString())));
 
-        assertFalse(mailer.sentEmails.containsValue("Thank you for your loyalty bob@gmail.com !"));
+        assertFalse(mailer.threeYearsAnniversaryWasSentTo("bob@gmail.com"));
         assertFalse(events.contains(new ThreeYearsAnniversaryThankYouEmailSent(memberBob.id.toString(), startDateBob.toString())));
 
-        assertTrue(mailer.sentEmails.containsValue("Thank you for your loyalty luke@gmail.com !"));
+        assertTrue(mailer.threeYearsAnniversaryWasSentTo("luke@gmail.com"));
         assertTrue(events.contains(new ThreeYearsAnniversaryThankYouEmailSent(memberLuke.id.toString(), startDateLuke.toString())));
     }
 
@@ -58,7 +58,7 @@ public class Send3YearsAnniversaryThankYouEmailsTest {
     private Member buildMember(String email, LocalDate startDate) {
         return Member.register(
             new MemberId(UUID.randomUUID().toString()),
-            new Email(email),
+            new EmailAddress(email),
             new SubscriptionId("subscriptionId def"),
             startDate
         );

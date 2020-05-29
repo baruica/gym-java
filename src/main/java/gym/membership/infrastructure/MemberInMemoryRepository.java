@@ -1,15 +1,12 @@
 package gym.membership.infrastructure;
 
-import gym.membership.domain.Email;
+import gym.membership.domain.EmailAddress;
 import gym.membership.domain.Member;
 import gym.membership.domain.MemberId;
 import gym.membership.domain.MemberRepository;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public final class MemberInMemoryRepository implements MemberRepository {
@@ -36,16 +33,16 @@ public final class MemberInMemoryRepository implements MemberRepository {
     }
 
     @Override
-    public Optional<Member> findByEmail(Email email) {
+    public Optional<Member> findByEmail(EmailAddress emailAddress) {
         return members.values().stream()
-            .filter(member -> email.equals(member.email))
+            .filter(member -> emailAddress.equals(member.emailAddress))
             .findFirst();
     }
 
     @Override
-    public Map<MemberId, Member> threeYearsAnniversaryMembers(LocalDate asOfDate) {
-        return members.entrySet().stream()
-            .filter(member -> member.getValue().isThreeYearsAnniversary(asOfDate))
-            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    public List<Member> threeYearsAnniversaryMembers(LocalDate asOfDate) {
+        return members.values().stream()
+            .filter(member -> member.isThreeYearsAnniversary(asOfDate))
+            .collect(Collectors.toList());
     }
 }

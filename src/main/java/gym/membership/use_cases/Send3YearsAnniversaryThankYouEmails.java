@@ -24,14 +24,11 @@ public final class Send3YearsAnniversaryThankYouEmails {
             LocalDate.parse(command.asOfDate)
         );
 
-        threeYearsAnniversaryMembers.values().forEach(
-            (member) -> {
-                mailer.sendEmail(member.email, "Thank you for your loyalty " + member.email + " !");
-                member.mark3YearsAnniversaryThankYouEmailAsSent();
-            }
+        threeYearsAnniversaryMembers.forEach(
+            mailer::send3YearsAnniversaryEmail
         );
 
-        return threeYearsAnniversaryMembers.values().stream()
+        return threeYearsAnniversaryMembers.stream()
             .map((member -> member.getRaisedEvents().get(member.getRaisedEvents().size() - 1)))
             .collect(Collectors.toList());
     }

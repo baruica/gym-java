@@ -1,35 +1,42 @@
 package gym.membership.domain;
 
 import java.util.Objects;
-import java.util.regex.Pattern;
 
 public final class Email {
 
-    private final String email;
+    private final EmailAddress emailAddress;
+    private final String emailBody;
 
-    public Email(String email) {
-        if (!Pattern.matches("^[\\w-_.+]*[\\w-_.]@([\\w]+\\.)+[\\w]+[\\w]$", email)) {
-            throw new IllegalArgumentException();
-        }
-
-        this.email = email;
+    public Email(EmailAddress emailAddress, String emailBody) {
+        this.emailAddress = emailAddress;
+        this.emailBody = emailBody;
     }
 
-    @Override
-    public String toString() {
-        return email;
+    public static Email welcome(EmailAddress emailAddress) {
+        return new Email(
+            emailAddress,
+            "Thank you for subscribing " + emailAddress + " !"
+        );
+    }
+
+    public static Email threeYearsAnniversary(EmailAddress emailAddress) {
+        return new Email(
+            emailAddress,
+            "Thank you for your loyalty " + emailAddress + " !"
+        );
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Email that = (Email) o;
-        return email.equals(that.email);
+        Email email = (Email) o;
+        return emailAddress.equals(email.emailAddress) &&
+            emailBody.equals(email.emailBody);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(email);
+        return Objects.hash(emailAddress, emailBody);
     }
 }

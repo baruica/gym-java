@@ -19,12 +19,7 @@ final class SendWelcomeEmailToNewMembers {
 
         var member = memberRepository.get(new MemberId(event.memberId));
 
-        mailer.sendEmail(
-            member.email,
-            "Thank you for subscribing " + member.email + " !"
-        );
-
-        member.markWelcomeEmailAsSent();
+        mailer.sendWelcomeEmail(member);
 
         memberRepository.store(member);
 

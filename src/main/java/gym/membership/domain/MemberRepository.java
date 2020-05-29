@@ -3,7 +3,7 @@ package gym.membership.domain;
 import gym.membership.infrastructure.MemberRepositoryException;
 
 import java.time.LocalDate;
-import java.util.Map;
+import java.util.List;
 import java.util.Optional;
 
 public interface MemberRepository {
@@ -14,7 +14,7 @@ public interface MemberRepository {
 
     Member get(MemberId memberId) throws MemberRepositoryException;
 
-    Optional<Member> findByEmail(Email email);
+    Optional<Member> findByEmail(EmailAddress emailAddress);
 
-    Map<MemberId, Member> threeYearsAnniversaryMembers(LocalDate asOfDate);
+    List<Member> threeYearsAnniversaryMembers(LocalDate asOfDate);
 }
