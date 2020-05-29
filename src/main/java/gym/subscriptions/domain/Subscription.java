@@ -36,7 +36,7 @@ public final class Subscription {
             id,
             planDurationInMonths,
             startDate,
-            new Price(planPrice).afterDiscount(planDurationInMonths, isStudent)
+            new Price(planPrice).afterDiscount(new Discount(planDurationInMonths, isStudent))
         );
 
         subscription.raisedEvents.add(
@@ -89,8 +89,8 @@ public final class Subscription {
             this.amount = amount;
         }
 
-        Price afterDiscount(Integer durationInMonths, Boolean isStudent) {
-            return new Price((int) (amount * (1 - new Discount(durationInMonths, isStudent).rate())));
+        Price afterDiscount(Discount discount) {
+            return new Price((int) (amount * (1 - discount.rate)));
         }
 
         @Override
@@ -123,10 +123,6 @@ public final class Subscription {
             if (isStudent) {
                 rate += 0.2;
             }
-        }
-
-        Double rate() {
-            return rate;
         }
     }
 }
