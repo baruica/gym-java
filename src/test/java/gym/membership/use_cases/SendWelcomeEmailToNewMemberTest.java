@@ -1,7 +1,10 @@
 package gym.membership.use_cases;
 
 import common.RepositoryException;
-import gym.membership.domain.*;
+import gym.membership.domain.EmailAddress;
+import gym.membership.domain.Member;
+import gym.membership.domain.MemberId;
+import gym.membership.domain.WelcomeEmailWasSentToNewMember;
 import gym.membership.infrastructure.InMemoryMailer;
 import gym.membership.infrastructure.MemberInMemoryRepository;
 import gym.subscriptions.domain.SubscriptionId;
@@ -12,7 +15,7 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SendWelcomeEmailToNewMembersTest {
+public class SendWelcomeEmailToNewMemberTest {
 
     @Test
     public void handle() throws RepositoryException {
@@ -32,14 +35,11 @@ public class SendWelcomeEmailToNewMembersTest {
 
         var mailer = new InMemoryMailer();
 
-        var tested = new SendWelcomeEmailToNewMembers(memberRepository, mailer);
+        var tested = new SendWelcomeEmailToNewMember(memberRepository, mailer);
 
         var events = tested.handle(
-            new NewMemberSubscribed(
-                memberId.toString(),
-                email,
-                subscriptionId.toString(),
-                startDate.toString()
+            new SendWelcomeEmailToNewMemberCommand(
+                memberId.toString()
             )
         );
 

@@ -38,7 +38,7 @@ public final class Member implements Aggregate {
         );
 
         member.raisedEvents.add(
-            new NewMemberSubscribed(
+            new NewMemberRegistered(
                 member.id.toString(),
                 member.emailAddress.toString(),
                 member.subscriptionId.toString(),

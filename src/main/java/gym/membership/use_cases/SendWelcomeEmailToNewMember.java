@@ -5,19 +5,19 @@ import gym.membership.domain.*;
 
 import java.util.List;
 
-final class SendWelcomeEmailToNewMembers {
+final class SendWelcomeEmailToNewMember {
 
     private final MemberRepository memberRepository;
     private final Mailer mailer;
 
-    SendWelcomeEmailToNewMembers(MemberRepository memberRepository, Mailer mailer) {
+    SendWelcomeEmailToNewMember(MemberRepository memberRepository, Mailer mailer) {
         this.memberRepository = memberRepository;
         this.mailer = mailer;
     }
 
-    List<MemberEvent> handle(final NewMemberSubscribed event) throws RepositoryException {
+    List<MemberEvent> handle(final SendWelcomeEmailToNewMemberCommand command) throws RepositoryException {
 
-        var member = (Member) memberRepository.get(new MemberId(event.memberId));
+        var member = (Member) memberRepository.get(new MemberId(command.memberId));
 
         mailer.sendWelcomeEmail(member);
 
