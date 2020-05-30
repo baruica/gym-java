@@ -33,7 +33,7 @@ public final class PlanInMemoryRepository implements PlanRepository {
 
     @Override
     public Aggregate get(AggregateId aggregateId) throws RepositoryException {
-        if (plans.containsKey(aggregateId)) {
+        if (plans.containsKey((PlanId) aggregateId)) {
             return plans.get(aggregateId);
         }
 

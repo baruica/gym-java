@@ -35,7 +35,7 @@ public final class SubscriptionInMemoryRepository implements SubscriptionReposit
 
     @Override
     public Aggregate get(AggregateId aggregateId) throws RepositoryException {
-        if (subscriptions.containsKey(aggregateId)) {
+        if (subscriptions.containsKey((SubscriptionId) aggregateId)) {
             return subscriptions.get(aggregateId);
         }
 

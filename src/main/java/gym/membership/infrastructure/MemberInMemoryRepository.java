@@ -33,7 +33,7 @@ public final class MemberInMemoryRepository implements MemberRepository {
 
     @Override
     public Aggregate get(AggregateId aggregateId) throws RepositoryException {
-        if (members.containsKey(aggregateId)) {
+        if (members.containsKey((MemberId) aggregateId)) {
             return members.get(aggregateId);
         }
 
