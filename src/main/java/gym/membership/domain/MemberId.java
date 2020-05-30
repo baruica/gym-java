@@ -1,6 +1,6 @@
 package gym.membership.domain;
 
-import gym.AggregateId;
+import common.AggregateId;
 
 public final class MemberId extends AggregateId {
 

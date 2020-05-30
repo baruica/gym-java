@@ -4,14 +4,12 @@ import java.util.Objects;
 
 public final class NewMemberSubscribed extends MemberEvent {
 
-    public final String memberId;
     public final String memberEmail;
     public final String subscriptionId;
     public final String memberSince;
 
     public NewMemberSubscribed(String memberId, String memberEmail, String subscriptionId, String memberSince) {
         super(memberId);
-        this.memberId = memberId;
         this.memberEmail = memberEmail;
         this.subscriptionId = subscriptionId;
         this.memberSince = memberSince;

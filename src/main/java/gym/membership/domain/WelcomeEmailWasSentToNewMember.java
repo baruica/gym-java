@@ -4,13 +4,11 @@ import java.util.Objects;
 
 public final class WelcomeEmailWasSentToNewMember extends MemberEvent {
 
-    public final String memberId;
     public final String memberEmail;
     public final String memberSubscriptionId;
 
     public WelcomeEmailWasSentToNewMember(String memberId, String memberEmail, String memberSubscriptionId) {
         super(memberId);
-        this.memberId = memberId;
         this.memberEmail = memberEmail;
         this.memberSubscriptionId = memberSubscriptionId;
     }

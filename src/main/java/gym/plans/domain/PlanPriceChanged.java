@@ -4,13 +4,11 @@ import java.util.Objects;
 
 public final class PlanPriceChanged extends PlanEvent {
 
-    public final String planId;
     public final Integer oldPrice;
     public final Integer newPrice;
 
     public PlanPriceChanged(String planId, Integer oldPrice, Integer newPrice) {
         super(planId);
-        this.planId = planId;
         this.oldPrice = oldPrice;
         this.newPrice = newPrice;
     }

@@ -4,15 +4,13 @@ import java.util.Objects;
 
 public final class NewPlanCreated extends PlanEvent {
 
-    public final String planId;
     public final Integer planPrice;
-    public final Integer planDuration;
+    public final Integer planDurationInMonths;
 
-    public NewPlanCreated(final String planId, final Integer planPrice, final Integer planDuration) {
+    public NewPlanCreated(final String planId, final Integer planPrice, final Integer planDurationInMonths) {
         super(planId);
-        this.planId = planId;
         this.planPrice = planPrice;
-        this.planDuration = planDuration;
+        this.planDurationInMonths = planDurationInMonths;
     }
 
     @Override
@@ -23,11 +21,11 @@ public final class NewPlanCreated extends PlanEvent {
         NewPlanCreated that = (NewPlanCreated) o;
         return planId.equals(that.planId) &&
             planPrice.equals(that.planPrice) &&
-            planDuration.equals(that.planDuration);
+            planDurationInMonths.equals(that.planDurationInMonths);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), planId, planPrice, planDuration);
+        return Objects.hash(super.hashCode(), planId, planPrice, planDurationInMonths);
     }
 }

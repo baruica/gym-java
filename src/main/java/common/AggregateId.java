@@ -1,4 +1,4 @@
-package gym;
+package common;
 
 import java.util.Objects;
 

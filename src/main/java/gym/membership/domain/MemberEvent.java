@@ -1,9 +1,32 @@
 package gym.membership.domain;
 
-public class MemberEvent {
-    public final String aggregateId;
+import common.DomainEvent;
 
-    public MemberEvent(String aggregateId) {
-        this.aggregateId = aggregateId;
+import java.util.Objects;
+
+public abstract class MemberEvent implements DomainEvent {
+
+    public final String memberId;
+
+    public MemberEvent(String memberId) {
+        this.memberId = memberId;
+    }
+
+    @Override
+    public String aggregateId() {
+        return memberId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MemberEvent that = (MemberEvent) o;
+        return memberId.equals(that.memberId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(memberId);
     }
 }

@@ -1,6 +1,6 @@
 package gym.plans.domain;
 
-import gym.AggregateId;
+import common.AggregateId;
 
 public final class PlanId extends AggregateId {
 

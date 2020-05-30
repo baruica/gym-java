@@ -4,13 +4,11 @@ import java.util.Objects;
 
 public final class SubscriptionRenewed extends SubscriptionEvent {
 
-    public final String subscriptionId;
     public final String oldEndDate;
     public final String newEndDate;
 
     public SubscriptionRenewed(String subscriptionId, String oldEndDate, String newEndDate) {
         super(subscriptionId);
-        this.subscriptionId = subscriptionId;
         this.oldEndDate = oldEndDate;
         this.newEndDate = newEndDate;
     }

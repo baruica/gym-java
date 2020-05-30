@@ -4,12 +4,10 @@ import java.util.Objects;
 
 public final class ThreeYearsAnniversaryThankYouEmailSent extends MemberEvent {
 
-    public final String memberId;
     public final String memberSince;
 
     public ThreeYearsAnniversaryThankYouEmailSent(String memberId, String memberSince) {
         super(memberId);
-        this.memberId = memberId;
         this.memberSince = memberSince;
     }
 

@@ -23,7 +23,7 @@ public class CreateNewPlanTest {
         assertEquals(
             events.get(events.size() - 1),
             new NewPlanCreated(
-                events.get(events.size() - 1).aggregateId,
+                events.get(events.size() - 1).aggregateId(),
                 300,
                 1
             )

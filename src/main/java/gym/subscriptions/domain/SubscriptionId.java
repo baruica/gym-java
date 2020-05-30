@@ -1,6 +1,6 @@
 package gym.subscriptions.domain;
 
-import gym.AggregateId;
+import common.AggregateId;
 
 public final class SubscriptionId extends AggregateId {
 

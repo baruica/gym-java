@@ -33,7 +33,7 @@ public class NewSubscriptionEventListenerTest {
         assertEquals(
             events.get(events.size() - 1),
             new NewMemberSubscribed(
-                events.get(events.size() - 1).aggregateId,
+                events.get(events.size() - 1).aggregateId(),
                 email,
                 subscriptionId,
                 subscriptionStartDate

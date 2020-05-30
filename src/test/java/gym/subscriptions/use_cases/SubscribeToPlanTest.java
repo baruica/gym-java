@@ -27,7 +27,7 @@ public class SubscribeToPlanTest {
         assertEquals(
             events.get(events.size() - 1),
             new NewSubscription(
-                events.get(events.size() - 1).aggregateId,
+                events.get(events.size() - 1).aggregateId(),
                 "2018-12-18",
                 "bob@gmail.com"
             )

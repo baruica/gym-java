@@ -4,13 +4,11 @@ import java.util.Objects;
 
 public final class NewSubscription extends SubscriptionEvent {
 
-    public final String subscriptionId;
     public final String subscriptionStartDate;
     public final String email;
 
     public NewSubscription(final String subscriptionId, final String subscriptionStartDate, final String email) {
         super(subscriptionId);
-        this.subscriptionId = subscriptionId;
         this.subscriptionStartDate = subscriptionStartDate;
         this.email = email;
     }
