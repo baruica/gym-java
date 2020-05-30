@@ -18,7 +18,7 @@ final class RenewSubscriptionsAutomatically {
 
     List<SubscriptionEvent> handle(RenewSubscriptionsAutomaticallyCommand command) {
 
-        var endedSubscriptionsAsOf = subscriptionRepository.endedSubscriptions(
+        var endedSubscriptionsAsOf = (List<Subscription>) subscriptionRepository.endedSubscriptions(
             LocalDate.parse(command.asOfDate)
         );
 

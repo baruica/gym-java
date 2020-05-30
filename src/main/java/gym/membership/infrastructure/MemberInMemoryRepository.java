@@ -1,5 +1,8 @@
 package gym.membership.infrastructure;
 
+import common.Aggregate;
+import common.AggregateId;
+import common.RepositoryException;
 import gym.membership.domain.EmailAddress;
 import gym.membership.domain.Member;
 import gym.membership.domain.MemberId;
@@ -14,22 +17,27 @@ public final class MemberInMemoryRepository implements MemberRepository {
     private final Map<MemberId, Member> members = new HashMap<>();
 
     @Override
-    public MemberId nextId() {
-        return new MemberId(UUID.randomUUID().toString());
+    public String nextId() {
+        return UUID.randomUUID().toString();
     }
 
     @Override
-    public void store(Member member) {
-        members.put(member.id, member);
+    public void store(Aggregate aggregate) {
+        members.put((MemberId) aggregate.id(), (Member) aggregate);
     }
 
     @Override
-    public Member get(MemberId memberId) throws MemberRepositoryException {
-        if (members.containsKey(memberId)) {
-            return members.get(memberId);
+    public void storeAll(List<? extends Aggregate> aggregates) {
+        aggregates.forEach(this::store);
+    }
+
+    @Override
+    public Aggregate get(AggregateId aggregateId) throws RepositoryException {
+        if (members.containsKey(aggregateId)) {
+            return members.get(aggregateId);
         }
 
-        throw MemberRepositoryException.notFound(memberId);
+        throw RepositoryException.notFound(aggregateId);
     }
 
     @Override

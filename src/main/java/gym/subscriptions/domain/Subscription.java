@@ -1,12 +1,15 @@
 package gym.subscriptions.domain;
 
+import common.Aggregate;
+import common.AggregateId;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public final class Subscription {
+public final class Subscription implements Aggregate {
 
     public final SubscriptionId id;
     private final Integer planDurationInMonths;
@@ -22,6 +25,11 @@ public final class Subscription {
         this.startDate = startDate;
         this.endDate = this.startDate.plus(this.planDurationInMonths, ChronoUnit.MONTHS).minusDays(1);
         this.price = price;
+    }
+
+    @Override
+    public AggregateId id() {
+        return id;
     }
 
     public static Subscription subscribe(

@@ -1,7 +1,7 @@
 package gym.membership.use_cases;
 
+import common.RepositoryException;
 import gym.membership.domain.*;
-import gym.membership.infrastructure.MemberRepositoryException;
 
 import java.util.List;
 
@@ -15,9 +15,9 @@ final class SendWelcomeEmailToNewMembers {
         this.mailer = mailer;
     }
 
-    List<MemberEvent> handle(final NewMemberSubscribed event) throws MemberRepositoryException {
+    List<MemberEvent> handle(final NewMemberSubscribed event) throws RepositoryException {
 
-        var member = memberRepository.get(new MemberId(event.memberId));
+        var member = (Member) memberRepository.get(new MemberId(event.memberId));
 
         mailer.sendWelcomeEmail(member);
 

@@ -1,9 +1,9 @@
 package gym.membership.use_cases;
 
+import common.RepositoryException;
 import gym.membership.domain.*;
 import gym.membership.infrastructure.InMemoryMailer;
 import gym.membership.infrastructure.MemberInMemoryRepository;
-import gym.membership.infrastructure.MemberRepositoryException;
 import gym.subscriptions.domain.SubscriptionId;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class SendWelcomeEmailToNewMembersTest {
 
     @Test
-    public void handle() throws MemberRepositoryException {
+    public void handle() throws RepositoryException {
 
         var memberId = new MemberId("abc");
         var email = "bob@gmail.com";

@@ -1,5 +1,8 @@
 package gym.subscriptions.infrastructure;
 
+import common.Aggregate;
+import common.AggregateId;
+import common.RepositoryException;
 import gym.subscriptions.domain.Subscription;
 import gym.subscriptions.domain.SubscriptionId;
 import gym.subscriptions.domain.SubscriptionRepository;
@@ -16,28 +19,27 @@ public final class SubscriptionInMemoryRepository implements SubscriptionReposit
     private final Map<SubscriptionId, Subscription> subscriptions = new HashMap<>();
 
     @Override
-    public SubscriptionId nextId() {
-        return new SubscriptionId(UUID.randomUUID().toString());
+    public String nextId() {
+        return UUID.randomUUID().toString();
     }
 
     @Override
-    public void store(Subscription subscription) {
-        subscriptions.put(subscription.id, subscription);
+    public void store(Aggregate aggregate) {
+        subscriptions.put((SubscriptionId) aggregate.id(), (Subscription) aggregate);
     }
 
     @Override
-    public void storeAll(List<Subscription> subscriptions) {
-        subscriptions.forEach(this::store);
+    public void storeAll(List<? extends Aggregate> aggregates) {
+        aggregates.forEach(this::store);
     }
 
     @Override
-    public Subscription get(SubscriptionId subscriptionId) throws SubscriptionRepositoryException {
-
-        if (subscriptions.containsKey(subscriptionId)) {
-            return subscriptions.get(subscriptionId);
+    public Aggregate get(AggregateId aggregateId) throws RepositoryException {
+        if (subscriptions.containsKey(aggregateId)) {
+            return subscriptions.get(aggregateId);
         }
 
-        throw SubscriptionRepositoryException.notFound(subscriptionId);
+        throw RepositoryException.notFound(aggregateId);
     }
 
     @Override

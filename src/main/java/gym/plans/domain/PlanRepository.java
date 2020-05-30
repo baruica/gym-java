@@ -1,12 +1,6 @@
 package gym.plans.domain;
 
-import gym.plans.infrastructure.PlanRepositoryException;
+import common.Repository;
 
-public interface PlanRepository {
-
-    PlanId nextId();
-
-    void store(Plan plan);
-
-    Plan get(PlanId planId) throws PlanRepositoryException;
+public interface PlanRepository extends Repository {
 }

@@ -1,9 +1,6 @@
 package gym.membership.use_cases;
 
-import gym.membership.domain.EmailAddress;
-import gym.membership.domain.Member;
-import gym.membership.domain.MemberEvent;
-import gym.membership.domain.MemberRepository;
+import gym.membership.domain.*;
 import gym.subscriptions.domain.NewSubscription;
 import gym.subscriptions.domain.SubscriptionId;
 
@@ -26,7 +23,7 @@ public final class NewSubscriptionEventListener {
 
         if (knownMemberOpt.isEmpty()) {
             var member = Member.register(
-                memberRepository.nextId(),
+                new MemberId(memberRepository.nextId()),
                 email,
                 new SubscriptionId(event.subscriptionId),
                 LocalDate.parse(event.subscriptionStartDate)

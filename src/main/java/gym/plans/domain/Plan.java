@@ -1,12 +1,15 @@
 package gym.plans.domain;
 
+import common.Aggregate;
+import common.AggregateId;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import static java.util.Arrays.asList;
 
-public final class Plan {
+public final class Plan implements Aggregate {
 
     public final PlanId id;
     Price price;
@@ -18,6 +21,11 @@ public final class Plan {
         this.id = id;
         this.price = price;
         this.duration = duration;
+    }
+
+    @Override
+    public AggregateId id() {
+        return id;
     }
 
     public static Plan create(PlanId id, Integer priceAmount, Integer durationInMonths) throws PlanException {

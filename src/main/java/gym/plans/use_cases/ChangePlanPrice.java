@@ -1,10 +1,7 @@
 package gym.plans.use_cases;
 
-import gym.plans.domain.PlanEvent;
-import gym.plans.domain.PlanException;
-import gym.plans.domain.PlanId;
-import gym.plans.domain.PlanRepository;
-import gym.plans.infrastructure.PlanRepositoryException;
+import common.RepositoryException;
+import gym.plans.domain.*;
 
 import java.util.List;
 
@@ -16,9 +13,9 @@ final class ChangePlanPrice {
         this.planRepository = planRepository;
     }
 
-    List<PlanEvent> handle(ChangePlanPriceCommand command) throws PlanRepositoryException, PlanException {
+    List<PlanEvent> handle(ChangePlanPriceCommand command) throws RepositoryException, PlanException {
 
-        var plan = planRepository.get(new PlanId(command.planId));
+        var plan = (Plan) planRepository.get(new PlanId(command.planId));
 
         plan.changePrice(command.newPrice);
 

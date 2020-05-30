@@ -1,6 +1,7 @@
 package gym.subscriptions.use_cases;
 
 import gym.subscriptions.domain.Subscription;
+import gym.subscriptions.domain.SubscriptionId;
 import gym.subscriptions.domain.SubscriptionRenewed;
 import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ public class RenewSubscriptionsAutomaticallyTest {
         var subscriptionRepository = new SubscriptionInMemoryRepository();
 
         var subscription = Subscription.subscribe(
-            subscriptionRepository.nextId(),
+            new SubscriptionId(subscriptionRepository.nextId()),
             LocalDate.parse("2018-06-09"),
             1, 200,
             false,

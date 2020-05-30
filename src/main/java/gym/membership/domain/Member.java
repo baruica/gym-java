@@ -1,12 +1,14 @@
 package gym.membership.domain;
 
+import common.Aggregate;
+import common.AggregateId;
 import gym.subscriptions.domain.SubscriptionId;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class Member {
+public final class Member implements Aggregate {
 
     public final MemberId id;
     public final EmailAddress emailAddress;
@@ -20,6 +22,11 @@ public final class Member {
         this.emailAddress = emailAddress;
         this.subscriptionId = subscriptionId;
         this.memberSince = memberSince;
+    }
+
+    @Override
+    public AggregateId id() {
+        return id;
     }
 
     public static Member register(MemberId id, EmailAddress emailAddress, SubscriptionId subscriptionId, LocalDate memberSince) {

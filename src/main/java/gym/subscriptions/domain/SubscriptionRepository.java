@@ -1,19 +1,11 @@
 package gym.subscriptions.domain;
 
-import gym.subscriptions.infrastructure.SubscriptionRepositoryException;
+import common.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public interface SubscriptionRepository {
-
-    SubscriptionId nextId();
-
-    void store(Subscription subscription);
-
-    void storeAll(List<Subscription> subscriptions);
-
-    Subscription get(SubscriptionId subscriptionId) throws SubscriptionRepositoryException;
+public interface SubscriptionRepository extends Repository {
 
     List<Subscription> ongoingSubscriptions(LocalDate date);
 
