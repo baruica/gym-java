@@ -1,6 +1,5 @@
 package gym.subscriptions.use_cases;
 
-import gym.subscriptions.domain.NewSubscription;
 import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository;
 import org.junit.jupiter.api.Test;
 
@@ -10,27 +9,23 @@ public class SubscribeToPlanTest {
 
     @Test
     public void handle() {
-        var subscriptionRepository = new SubscriptionInMemoryRepository();
+        var repository = new SubscriptionInMemoryRepository();
+        var subscriptionId = repository.nextId();
 
-        var tested = new SubscribeToPlan(subscriptionRepository);
+        var tested = new SubscribeToPlan(repository);
 
-        var events = tested.handle(
+        var subscription = tested.handle(
             new SubscribeToPlanCommand(
+                subscriptionId,
                 500,
                 12,
                 "2018-12-18",
                 false,
-                "bob@gmail.com"
-            )
+                "bob@gmail.com")
         );
 
-        assertEquals(
-            events.get(events.size() - 1),
-            new NewSubscription(
-                events.get(events.size() - 1).aggregateId(),
-                "2018-12-18",
-                "bob@gmail.com"
-            )
-        );
+        assertEquals(subscriptionId, subscription.id.toString());
+        assertEquals("2018-12-18", subscription.startDate.toString());
+        assertEquals(350, subscription.price.amount);
     }
 }

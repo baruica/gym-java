@@ -1,7 +1,7 @@
 package gym.membership.use_cases;
 
 import gym.membership.domain.EmailAddress;
-import gym.membership.domain.NewMemberRegistered;
+import gym.membership.infrastructure.InMemoryMailer;
 import gym.membership.infrastructure.MemberInMemoryRepository;
 import org.junit.jupiter.api.Test;
 
@@ -12,31 +12,31 @@ class RegisterNewMemberTest {
 
     @Test
     void handle() {
-        var memberRepository = new MemberInMemoryRepository();
+        var repository = new MemberInMemoryRepository();
+        var memberId = repository.nextId();
 
         var email = "luke@gmail.com";
 
-        assertTrue(memberRepository.findByEmail(new EmailAddress(email)).isEmpty());
+        assertTrue(repository.findByEmail(new EmailAddress(email)).isEmpty());
 
         var subscriptionId = "subscriptionId def";
         var subscriptionStartDate = "2018-06-05";
         var command = new RegisterNewMemberCommand(
+            memberId,
             subscriptionId,
             subscriptionStartDate,
             email
         );
 
-        var tested = new RegisterNewMember(memberRepository);
-        var events = tested.handle(command);
+        var mailer = new InMemoryMailer();
 
-        assertEquals(
-            events.get(events.size() - 1),
-            new NewMemberRegistered(
-                events.get(events.size() - 1).aggregateId(),
-                email,
-                subscriptionId,
-                subscriptionStartDate
-            )
-        );
+        var tested = new RegisterNewMember(repository, mailer);
+        var member = tested.handle(command);
+
+        if (member != null) {
+            assertEquals(memberId, member.id.toString());
+        }
+
+        assertTrue(mailer.welcomeEmailWasSentTo("luke@gmail.com"));
     }
 }

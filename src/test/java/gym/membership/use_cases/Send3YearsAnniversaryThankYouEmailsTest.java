@@ -3,7 +3,6 @@ package gym.membership.use_cases;
 import gym.membership.domain.EmailAddress;
 import gym.membership.domain.Member;
 import gym.membership.domain.MemberId;
-import gym.membership.domain.ThreeYearsAnniversaryThankYouEmailSent;
 import gym.membership.infrastructure.InMemoryMailer;
 import gym.membership.infrastructure.MemberInMemoryRepository;
 import gym.subscriptions.domain.SubscriptionId;
@@ -37,18 +36,13 @@ public class Send3YearsAnniversaryThankYouEmailsTest {
 
         var tested = new Send3YearsAnniversaryThankYouEmails(memberRepository, mailer);
 
-        var events = tested.handle(
+        tested.handle(
             new Send3YearsAnniversaryThankYouEmailsCommand("2018-06-05")
         );
 
         assertTrue(mailer.threeYearsAnniversaryWasSentTo("julie@gmail.com"));
-        assertTrue(events.contains(new ThreeYearsAnniversaryThankYouEmailSent(memberJulie.id.toString(), startDateJulie.toString())));
-
         assertFalse(mailer.threeYearsAnniversaryWasSentTo("bob@gmail.com"));
-        assertFalse(events.contains(new ThreeYearsAnniversaryThankYouEmailSent(memberBob.id.toString(), startDateBob.toString())));
-
         assertTrue(mailer.threeYearsAnniversaryWasSentTo("luke@gmail.com"));
-        assertTrue(events.contains(new ThreeYearsAnniversaryThankYouEmailSent(memberLuke.id.toString(), startDateLuke.toString())));
     }
 
     private LocalDate fifthOfJune() {

@@ -4,35 +4,36 @@ import gym.membership.domain.*;
 import gym.subscriptions.domain.SubscriptionId;
 
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.List;
 
 public final class RegisterNewMember {
 
     private final MemberRepository memberRepository;
+    private final Mailer mailer;
 
-    public RegisterNewMember(MemberRepository memberRepository) {
+    public RegisterNewMember(MemberRepository memberRepository, Mailer mailer) {
         this.memberRepository = memberRepository;
+        this.mailer = mailer;
     }
 
-    public List<MemberEvent> handle(RegisterNewMemberCommand command) {
+    public Member handle(RegisterNewMemberCommand command) {
         var email = new EmailAddress(command.email);
         var knownMemberOpt = memberRepository.findByEmail(email);
 
         if (knownMemberOpt.isEmpty()) {
             var member = Member.register(
-                new MemberId(memberRepository.nextId()),
+                new MemberId(command.memberId),
                 email,
                 new SubscriptionId(command.subscriptionId),
                 LocalDate.parse(command.subscriptionStartDate)
             );
 
+            mailer.sendWelcomeEmail(member);
+
             memberRepository.store(member);
 
-            return member.getRaisedEvents();
+            return member;
         }
 
-        return Collections.emptyList();
-
+        return null;
     }
 }

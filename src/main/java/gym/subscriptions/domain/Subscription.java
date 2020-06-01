@@ -5,19 +5,15 @@ import common.AggregateId;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public final class Subscription implements Aggregate {
 
     public final SubscriptionId id;
     private final Integer planDurationInMonths;
-    private final LocalDate startDate;
-    private LocalDate endDate;
+    public final LocalDate startDate;
+    public LocalDate endDate;
     public final Price price;
-
-    private final List<SubscriptionEvent> raisedEvents = new ArrayList<>();
 
     private Subscription(SubscriptionId id, Integer planDurationInMonths, LocalDate startDate, Price price) {
         this.id = id;
@@ -40,40 +36,17 @@ public final class Subscription implements Aggregate {
         Boolean isStudent,
         String email
     ) {
-        var subscription = new Subscription(
+        return new Subscription(
             id,
             planDurationInMonths,
             startDate,
             new Price(planPrice).afterDiscount(new Discount(planDurationInMonths, isStudent))
         );
-
-        subscription.raisedEvents.add(
-            new NewSubscription(
-                subscription.id.toString(),
-                subscription.startDate.toString(),
-                email
-            )
-        );
-
-        return subscription;
-    }
-
-    public List<SubscriptionEvent> getRaisedEvents() {
-        return raisedEvents;
     }
 
     public void renew() {
         var oldEndDate = this.endDate;
-
         this.endDate = oldEndDate.plus(planDurationInMonths, ChronoUnit.MONTHS);
-
-        raisedEvents.add(
-            new SubscriptionRenewed(
-                id.toString(),
-                oldEndDate.toString(),
-                this.endDate.toString()
-            )
-        );
     }
 
     public Boolean willBeEndedAfter(final LocalDate asFrom) {
@@ -89,9 +62,9 @@ public final class Subscription implements Aggregate {
         return (double) (price.amount / planDurationInMonths);
     }
 
-    static final class Price {
+    public static final class Price {
 
-        private final Integer amount;
+        public final Integer amount;
 
         Price(Integer amount) {
             this.amount = amount;

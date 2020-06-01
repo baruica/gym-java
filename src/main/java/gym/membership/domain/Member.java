@@ -5,8 +5,6 @@ import common.AggregateId;
 import gym.subscriptions.domain.SubscriptionId;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public final class Member implements Aggregate {
 
@@ -14,8 +12,8 @@ public final class Member implements Aggregate {
     public final EmailAddress emailAddress;
     public final SubscriptionId subscriptionId;
     public final LocalDate memberSince;
-
-    private final List<MemberEvent> raisedEvents = new ArrayList<>();
+    private boolean welcomeEmailWasSent = false;
+    private boolean threeYearsAnniversaryThankYouEmailWasSent = false;
 
     private Member(MemberId id, EmailAddress emailAddress, SubscriptionId subscriptionId, LocalDate memberSince) {
         this.id = id;
@@ -30,27 +28,12 @@ public final class Member implements Aggregate {
     }
 
     public static Member register(MemberId id, EmailAddress emailAddress, SubscriptionId subscriptionId, LocalDate memberSince) {
-        var member = new Member(
+        return new Member(
             id,
             emailAddress,
             subscriptionId,
             memberSince
         );
-
-        member.raisedEvents.add(
-            new NewMemberRegistered(
-                member.id.toString(),
-                member.emailAddress.toString(),
-                member.subscriptionId.toString(),
-                member.memberSince.toString()
-            )
-        );
-
-        return member;
-    }
-
-    public List<MemberEvent> getRaisedEvents() {
-        return raisedEvents;
     }
 
     public Boolean isThreeYearsAnniversary(LocalDate asOfDate) {
@@ -58,21 +41,10 @@ public final class Member implements Aggregate {
     }
 
     public void markWelcomeEmailAsSent() {
-        raisedEvents.add(
-            new WelcomeEmailWasSentToNewMember(
-                id.toString(),
-                emailAddress.toString(),
-                subscriptionId.toString()
-            )
-        );
+        welcomeEmailWasSent = true;
     }
 
     public void mark3YearsAnniversaryThankYouEmailAsSent() {
-        raisedEvents.add(
-            new ThreeYearsAnniversaryThankYouEmailSent(
-                id.toString(),
-                memberSince.toString()
-            )
-        );
+        threeYearsAnniversaryThankYouEmailWasSent = true;
     }
 }

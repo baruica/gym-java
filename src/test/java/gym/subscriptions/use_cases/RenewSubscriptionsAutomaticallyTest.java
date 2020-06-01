@@ -2,7 +2,6 @@ package gym.subscriptions.use_cases;
 
 import gym.subscriptions.domain.Subscription;
 import gym.subscriptions.domain.SubscriptionId;
-import gym.subscriptions.domain.SubscriptionRenewed;
 import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository;
 import org.junit.jupiter.api.Test;
 
@@ -28,17 +27,10 @@ public class RenewSubscriptionsAutomaticallyTest {
 
         var tested = new RenewSubscriptionsAutomatically(subscriptionRepository);
 
-        var events = tested.handle(
+        var renewedSubscriptions = tested.handle(
             new RenewSubscriptionsAutomaticallyCommand("2018-07-09")
         );
 
-        assertEquals(
-            events.get(events.size() - 1),
-            new SubscriptionRenewed(
-                subscription.id.toString(),
-                "2018-07-08",
-                "2018-08-08"
-            )
-        );
+        assertEquals("2018-08-08", renewedSubscriptions.get(renewedSubscriptions.size() - 1).endDate.toString());
     }
 }

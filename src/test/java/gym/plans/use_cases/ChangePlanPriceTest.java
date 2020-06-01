@@ -4,7 +4,6 @@ import common.RepositoryException;
 import gym.plans.domain.Plan;
 import gym.plans.domain.PlanException;
 import gym.plans.domain.PlanId;
-import gym.plans.domain.PlanPriceChanged;
 import gym.plans.infrastructure.PlanInMemoryRepository;
 import org.junit.jupiter.api.Test;
 
@@ -23,17 +22,10 @@ public class ChangePlanPriceTest {
 
         var tested = new ChangePlanPrice(planRepository);
 
-        var events = tested.handle(
+        var plan = tested.handle(
             new ChangePlanPriceCommand(planId, 400)
         );
 
-        assertEquals(
-            events.get(events.size() - 1),
-            new PlanPriceChanged(
-                planId,
-                450,
-                400
-            )
-        );
+        assertEquals(400, plan.price.amount);
     }
 }

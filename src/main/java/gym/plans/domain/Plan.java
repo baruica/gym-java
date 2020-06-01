@@ -3,8 +3,6 @@ package gym.plans.domain;
 import common.Aggregate;
 import common.AggregateId;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import static java.util.Arrays.asList;
@@ -12,10 +10,8 @@ import static java.util.Arrays.asList;
 public final class Plan implements Aggregate {
 
     public final PlanId id;
-    Price price;
+    public Price price;
     private final Duration duration;
-
-    private final List<PlanEvent> raisedEvents = new ArrayList<>();
 
     private Plan(PlanId id, Price price, Duration duration) {
         this.id = id;
@@ -29,44 +25,20 @@ public final class Plan implements Aggregate {
     }
 
     public static Plan create(PlanId id, Integer priceAmount, Integer durationInMonths) throws PlanException {
-        var plan = new Plan(
+        return new Plan(
             id,
             new Price(priceAmount),
             new Duration(durationInMonths)
         );
-
-        plan.raisedEvents.add(
-            new NewPlanCreated(
-                plan.id.toString(),
-                plan.price.amount,
-                plan.duration.value
-            )
-        );
-
-        return plan;
-    }
-
-    public List<PlanEvent> getRaisedEvents() {
-        return raisedEvents;
     }
 
     public void changePrice(final Integer newPriceAmount) throws PlanException {
-        var oldPrice = price.amount;
-
         this.price = new Price(newPriceAmount);
-
-        this.raisedEvents.add(
-            new PlanPriceChanged(
-                this.id.toString(),
-                oldPrice,
-                this.price.amount
-            )
-        );
     }
 
-    static final class Price {
+    public static final class Price {
 
-        final Integer amount;
+        public final Integer amount;
 
         Price(Integer amount) throws PlanException {
             if (amount < 0) {

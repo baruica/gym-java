@@ -1,12 +1,10 @@
 package gym.subscriptions.use_cases;
 
 import gym.subscriptions.domain.Subscription;
-import gym.subscriptions.domain.SubscriptionEvent;
 import gym.subscriptions.domain.SubscriptionId;
 import gym.subscriptions.domain.SubscriptionRepository;
 
 import java.time.LocalDate;
-import java.util.List;
 
 final class SubscribeToPlan {
 
@@ -16,10 +14,10 @@ final class SubscribeToPlan {
         this.subscriptionRepository = subscriptionRepository;
     }
 
-    public List<SubscriptionEvent> handle(SubscribeToPlanCommand command) {
+    public Subscription handle(SubscribeToPlanCommand command) {
 
         var subscription = Subscription.subscribe(
-            new SubscriptionId(subscriptionRepository.nextId()),
+            new SubscriptionId(command.subscriptionId),
             LocalDate.parse(command.startDate),
             command.planDurationInMonths, command.planPrice,
             command.isStudent,
@@ -28,6 +26,6 @@ final class SubscribeToPlan {
 
         subscriptionRepository.store(subscription);
 
-        return subscription.getRaisedEvents();
+        return subscription;
     }
 }
