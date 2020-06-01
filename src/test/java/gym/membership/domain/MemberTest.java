@@ -13,7 +13,7 @@ public class MemberTest {
     @Test
     public void is_three_years_anniversary() {
         var memberWith3yearsAnniversaryOnTheFifthOfJune = Member.register(
-            new MemberId("abc"),
+            "member abc",
             new EmailAddress("julie@gmail.com"),
             new SubscriptionId("subscriptionId def"),
             fifthOfJune().minusYears(3)

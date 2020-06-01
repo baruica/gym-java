@@ -24,9 +24,9 @@ public final class Plan implements Aggregate {
         return id;
     }
 
-    public static Plan create(PlanId id, Integer priceAmount, Integer durationInMonths) throws PlanException {
+    public static Plan create(String id, Integer priceAmount, Integer durationInMonths) throws PlanException {
         return new Plan(
-            id,
+            new PlanId(id),
             new Price(priceAmount),
             new Duration(durationInMonths)
         );

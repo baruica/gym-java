@@ -10,8 +10,8 @@ public final class Member implements Aggregate {
 
     public final MemberId id;
     public final EmailAddress emailAddress;
-    public final SubscriptionId subscriptionId;
-    public final LocalDate memberSince;
+    private final SubscriptionId subscriptionId;
+    private final LocalDate memberSince;
     private boolean welcomeEmailWasSent = false;
     private boolean threeYearsAnniversaryThankYouEmailWasSent = false;
 
@@ -27,9 +27,9 @@ public final class Member implements Aggregate {
         return id;
     }
 
-    public static Member register(MemberId id, EmailAddress emailAddress, SubscriptionId subscriptionId, LocalDate memberSince) {
+    public static Member register(String id, EmailAddress emailAddress, SubscriptionId subscriptionId, LocalDate memberSince) {
         return new Member(
-            id,
+            new MemberId(id),
             emailAddress,
             subscriptionId,
             memberSince

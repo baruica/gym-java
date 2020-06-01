@@ -1,6 +1,9 @@
 package gym.membership.use_cases;
 
-import gym.membership.domain.*;
+import gym.membership.domain.EmailAddress;
+import gym.membership.domain.Mailer;
+import gym.membership.domain.Member;
+import gym.membership.domain.MemberRepository;
 import gym.subscriptions.domain.SubscriptionId;
 
 import java.time.LocalDate;
@@ -21,7 +24,7 @@ public final class RegisterNewMember {
 
         if (knownMemberOpt.isEmpty()) {
             var member = Member.register(
-                new MemberId(command.memberId),
+                command.memberId,
                 email,
                 new SubscriptionId(command.subscriptionId),
                 LocalDate.parse(command.subscriptionStartDate)

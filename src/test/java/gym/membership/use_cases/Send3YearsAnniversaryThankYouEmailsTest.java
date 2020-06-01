@@ -2,7 +2,6 @@ package gym.membership.use_cases;
 
 import gym.membership.domain.EmailAddress;
 import gym.membership.domain.Member;
-import gym.membership.domain.MemberId;
 import gym.membership.infrastructure.InMemoryMailer;
 import gym.membership.infrastructure.MemberInMemoryRepository;
 import gym.subscriptions.domain.SubscriptionId;
@@ -51,7 +50,7 @@ public class Send3YearsAnniversaryThankYouEmailsTest {
 
     private Member buildMember(String email, LocalDate startDate) {
         return Member.register(
-            new MemberId(UUID.randomUUID().toString()),
+            UUID.randomUUID().toString(),
             new EmailAddress(email),
             new SubscriptionId("subscriptionId def"),
             startDate

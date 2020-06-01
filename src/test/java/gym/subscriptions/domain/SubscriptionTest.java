@@ -88,7 +88,7 @@ public class SubscriptionTest {
 
     private Subscription newSubscription(Integer basePrice, Integer durationInMonths, LocalDate startDate, Boolean isStudent) {
         return Subscription.subscribe(
-            new SubscriptionId(UUID.randomUUID().toString()),
+            UUID.randomUUID().toString(),
             startDate,
             durationInMonths, basePrice,
             isStudent,

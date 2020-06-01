@@ -13,13 +13,13 @@ final class TurnoverForAGivenMonth {
         this.subscriptionRepository = subscriptionRepository;
     }
 
-    Double handle(TurnoverForAGivenMonthQuery query) {
+    Integer handle(TurnoverForAGivenMonthQuery query) {
 
         var asOfDate = LocalDate.parse(query.asOfDate);
 
         return subscriptionRepository.ongoingSubscriptions(asOfDate)
             .stream()
             .map(Subscription::monthlyTurnover)
-            .reduce(0.0, Double::sum);
+            .reduce(0, Integer::sum);
     }
 }

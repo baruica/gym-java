@@ -3,7 +3,6 @@ package gym.plans.use_cases;
 import common.RepositoryException;
 import gym.plans.domain.Plan;
 import gym.plans.domain.PlanException;
-import gym.plans.domain.PlanId;
 import gym.plans.infrastructure.PlanInMemoryRepository;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +16,7 @@ public class ChangePlanPriceTest {
         var planId = planRepository.nextId();
 
         planRepository.store(
-            Plan.create(new PlanId(planId), 450, 12)
+            Plan.create(planId, 450, 12)
         );
 
         var tested = new ChangePlanPrice(planRepository);

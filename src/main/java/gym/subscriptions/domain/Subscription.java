@@ -11,7 +11,7 @@ public final class Subscription implements Aggregate {
 
     public final SubscriptionId id;
     private final Integer planDurationInMonths;
-    public final LocalDate startDate;
+    private final LocalDate startDate;
     public LocalDate endDate;
     public final Price price;
 
@@ -29,7 +29,7 @@ public final class Subscription implements Aggregate {
     }
 
     public static Subscription subscribe(
-        SubscriptionId id,
+        String id,
         LocalDate startDate,
         Integer planDurationInMonths,
         Integer planPrice,
@@ -37,7 +37,7 @@ public final class Subscription implements Aggregate {
         String email
     ) {
         return new Subscription(
-            id,
+            new SubscriptionId(id),
             planDurationInMonths,
             startDate,
             new Price(planPrice).afterDiscount(new Discount(planDurationInMonths, isStudent))
@@ -58,8 +58,8 @@ public final class Subscription implements Aggregate {
             && (endDate.isEqual(date) || endDate.isAfter(date));
     }
 
-    public Double monthlyTurnover() {
-        return (double) (price.amount / planDurationInMonths);
+    public int monthlyTurnover() {
+        return (int) (price.amount / (double) planDurationInMonths);
     }
 
     public static final class Price {
@@ -97,7 +97,7 @@ public final class Subscription implements Aggregate {
 
         private Double rate = 0.0;
 
-        Discount(final Integer durationInMonths, final Boolean isStudent) {
+        Discount(final int durationInMonths, final boolean isStudent) {
             if (durationInMonths == 12) {
                 rate += 0.3;
             }

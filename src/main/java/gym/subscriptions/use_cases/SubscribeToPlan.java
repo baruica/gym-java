@@ -1,7 +1,6 @@
 package gym.subscriptions.use_cases;
 
 import gym.subscriptions.domain.Subscription;
-import gym.subscriptions.domain.SubscriptionId;
 import gym.subscriptions.domain.SubscriptionRepository;
 
 import java.time.LocalDate;
@@ -17,7 +16,7 @@ final class SubscribeToPlan {
     public Subscription handle(SubscribeToPlanCommand command) {
 
         var subscription = Subscription.subscribe(
-            new SubscriptionId(command.subscriptionId),
+            command.subscriptionId,
             LocalDate.parse(command.startDate),
             command.planDurationInMonths, command.planPrice,
             command.isStudent,
