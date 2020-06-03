@@ -42,7 +42,7 @@ public final class Plan implements Aggregate {
 
         Price(Integer amount) throws PlanException {
             if (amount < 0) {
-                throw new PlanException("Price amount must be non-negative, was " + amount);
+                throw new PlanException("Price amount must be non-negative, was [" + amount + "]");
             }
             this.amount = amount;
         }
@@ -67,9 +67,8 @@ public final class Plan implements Aggregate {
 
         public Duration(Integer durationInMonths) throws PlanException {
             if (!asList(1, 12).contains(durationInMonths)) {
-                throw new PlanException("Plan duration is either 1 month or 12 months, was " + durationInMonths);
+                throw new PlanException("Plan duration is either 1 month or 12 months, was [" + durationInMonths + "]");
             }
-
             this.value = durationInMonths;
         }
 

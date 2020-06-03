@@ -1,6 +1,7 @@
 package gym.reporting.use_cases;
 
 import gym.subscriptions.domain.Subscription;
+import gym.subscriptions.domain.SubscriptionException;
 import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TurnoverForAGivenMonthTest {
 
     @Test
-    public void turnover_for_a_given_month_with_ongoing_subscriptions() {
+    public void turnover_for_a_given_month_with_ongoing_subscriptions() throws SubscriptionException {
 
         var subscriptionRepository = new SubscriptionInMemoryRepository();
 

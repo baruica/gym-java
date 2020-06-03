@@ -35,7 +35,7 @@ public final class Subscription implements Aggregate {
         Integer planPrice,
         Boolean isStudent,
         String email
-    ) {
+    ) throws SubscriptionException {
         return new Subscription(
             new SubscriptionId(id),
             planDurationInMonths,
@@ -66,11 +66,14 @@ public final class Subscription implements Aggregate {
 
         public final Integer amount;
 
-        Price(Integer amount) {
+        Price(Integer amount) throws SubscriptionException {
+            if (amount < 0) {
+                throw new SubscriptionException("Price amount must be non-negative, was [" + amount + "]");
+            }
             this.amount = amount;
         }
 
-        Price afterDiscount(Discount discount) {
+        Price afterDiscount(Discount discount) throws SubscriptionException {
             return new Price((int) (amount * (1 - discount.rate)));
         }
 

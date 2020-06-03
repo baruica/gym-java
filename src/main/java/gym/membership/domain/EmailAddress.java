@@ -9,9 +9,8 @@ public final class EmailAddress {
 
     public EmailAddress(String email) {
         if (!Pattern.matches("^[\\w-_.+]*[\\w-_.]@([\\w]+\\.)+[\\w]+[\\w]$", email)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("EmailAddress must be a valid email address, was [" + email + "]");
         }
-
         this.value = email;
     }
 

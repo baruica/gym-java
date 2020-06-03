@@ -1,5 +1,6 @@
 package gym.subscriptions.use_cases;
 
+import gym.subscriptions.domain.SubscriptionException;
 import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository;
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class SubscribeToPlanTest {
 
     @Test
-    public void handle() {
+    public void handle() throws SubscriptionException {
         var repository = new SubscriptionInMemoryRepository();
         var subscriptionId = repository.nextId();
 
