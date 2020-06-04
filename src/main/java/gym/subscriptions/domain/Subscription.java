@@ -10,16 +10,16 @@ import java.util.Objects;
 public final class Subscription implements Aggregate {
 
     public final SubscriptionId id;
-    private final Integer planDurationInMonths;
+    private final Integer durationInMonths;
     private final LocalDate startDate;
     public LocalDate endDate;
     public final Price price;
 
-    private Subscription(SubscriptionId id, Integer planDurationInMonths, LocalDate startDate, Price price) {
+    private Subscription(SubscriptionId id, Integer planDurationInMonths, LocalDate startDate, LocalDate endDate, Price price) {
         this.id = id;
-        this.planDurationInMonths = planDurationInMonths;
+        this.durationInMonths = planDurationInMonths;
         this.startDate = startDate;
-        this.endDate = this.startDate.plus(this.planDurationInMonths, ChronoUnit.MONTHS).minusDays(1);
+        this.endDate = endDate;
         this.price = price;
     }
 
@@ -40,13 +40,14 @@ public final class Subscription implements Aggregate {
             new SubscriptionId(id),
             planDurationInMonths,
             startDate,
+            startDate.plus(planDurationInMonths, ChronoUnit.MONTHS).minusDays(1),
             new Price(planPrice).afterDiscount(new Discount(planDurationInMonths, isStudent))
         );
     }
 
     public void renew() {
         var oldEndDate = this.endDate;
-        this.endDate = oldEndDate.plus(planDurationInMonths, ChronoUnit.MONTHS);
+        this.endDate = oldEndDate.plus(durationInMonths, ChronoUnit.MONTHS);
     }
 
     public Boolean willBeEndedAfter(final LocalDate asFrom) {
@@ -59,7 +60,7 @@ public final class Subscription implements Aggregate {
     }
 
     public int monthlyTurnover() {
-        return (int) (price.amount / (double) planDurationInMonths);
+        return (int) (price.amount / (double) durationInMonths);
     }
 
     public static final class Price {
