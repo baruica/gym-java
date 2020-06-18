@@ -91,8 +91,7 @@ public class SubscriptionTest {
             UUID.randomUUID().toString(),
             startDate,
             durationInMonths, basePrice,
-            isStudent,
-            "luke@gmail.com"
+            isStudent
         );
     }
 }

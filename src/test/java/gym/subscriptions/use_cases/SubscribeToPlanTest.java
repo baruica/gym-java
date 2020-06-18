@@ -21,8 +21,8 @@ public class SubscribeToPlanTest {
                 500,
                 12,
                 "2018-12-18",
-                false,
-                "bob@gmail.com")
+                false
+            )
         );
 
         assertEquals(subscriptionId, subscription.id.toString());

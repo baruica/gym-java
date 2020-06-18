@@ -20,8 +20,7 @@ final class SubscribeToPlan {
             command.subscriptionId,
             LocalDate.parse(command.startDate),
             command.planDurationInMonths, command.planPrice,
-            command.isStudent,
-            command.email
+            command.isStudent
         );
 
         subscriptionRepository.store(subscription);

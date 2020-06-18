@@ -33,8 +33,7 @@ public final class Subscription implements Aggregate {
         LocalDate startDate,
         Integer planDurationInMonths,
         Integer planPrice,
-        Boolean isStudent,
-        String email
+        Boolean isStudent
     ) throws SubscriptionException {
         return new Subscription(
             new SubscriptionId(id),

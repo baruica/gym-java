@@ -25,8 +25,7 @@ public class TurnoverForAGivenMonthTest {
                 today,
                 1,
                 50,
-                false,
-                "bob@gmail.com"
+                false
             )
         );
         subscriptionRepository.store(
@@ -35,8 +34,7 @@ public class TurnoverForAGivenMonthTest {
                 today,
                 12,
                 400,
-                false,
-                "bob@gmail.com"
+                false
             )
         );
         subscriptionRepository.store(
@@ -45,8 +43,7 @@ public class TurnoverForAGivenMonthTest {
                 inAMonth,
                 12,
                 500,
-                false,
-                "bob@gmail.com"
+                false
             )
         );
 

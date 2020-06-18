@@ -20,8 +20,7 @@ public class RenewSubscriptionsAutomaticallyTest {
             subscriptionRepository.nextId(),
             LocalDate.parse("2018-06-09"),
             1, 200,
-            false,
-            "bob@gmail.com"
+            false
         );
         subscriptionRepository.store(subscription);
 
