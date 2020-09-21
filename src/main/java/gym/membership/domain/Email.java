@@ -7,7 +7,7 @@ public final class Email {
     private final EmailAddress emailAddress;
     private final String emailBody;
 
-    public Email(EmailAddress emailAddress, String emailBody) {
+    private Email(EmailAddress emailAddress, String emailBody) {
         this.emailAddress = emailAddress;
         this.emailBody = emailBody;
     }
