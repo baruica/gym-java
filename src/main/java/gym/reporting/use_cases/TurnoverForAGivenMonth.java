@@ -1,6 +1,6 @@
 package gym.reporting.use_cases;
 
-import gym.subscriptions.domain.Subscription;
+import gym.reporting.Turnover;
 import gym.subscriptions.domain.SubscriptionRepository;
 
 import java.time.LocalDate;
@@ -13,13 +13,12 @@ final class TurnoverForAGivenMonth {
         this.subscriptionRepository = subscriptionRepository;
     }
 
-    Integer handle(TurnoverForAGivenMonthQuery query) {
+    Turnover handle(TurnoverForAGivenMonthQuery query) {
 
         var asOfDate = LocalDate.parse(query.asOfDate);
 
-        return subscriptionRepository.ongoingSubscriptions(asOfDate)
-            .stream()
-            .map(Subscription::monthlyTurnover)
-            .reduce(0, Integer::sum);
+        return Turnover.monthly(
+            subscriptionRepository.ongoingSubscriptions(asOfDate)
+        );
     }
 }

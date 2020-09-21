@@ -1,5 +1,6 @@
 package gym.reporting.use_cases;
 
+import gym.reporting.Turnover;
 import gym.subscriptions.domain.Subscription;
 import gym.subscriptions.domain.SubscriptionException;
 import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository;
@@ -51,10 +52,10 @@ public class TurnoverForAGivenMonthTest {
             subscriptionRepository
         );
 
-        assertEquals(73, tested.handle(new TurnoverForAGivenMonthQuery("2018-06-09")), 0);
         assertEquals(2, subscriptionRepository.ongoingSubscriptions(today).size());
+        assertEquals(new Turnover(73), tested.handle(new TurnoverForAGivenMonthQuery("2018-06-09")));
 
-        assertEquals(52, tested.handle(new TurnoverForAGivenMonthQuery("2018-07-09")), 1);
         assertEquals(2, subscriptionRepository.ongoingSubscriptions(inAMonth).size());
+        assertEquals(new Turnover(52), tested.handle(new TurnoverForAGivenMonthQuery("2018-07-09")));
     }
 }
