@@ -1,20 +1,15 @@
 package gym.plans.infrastructure;
 
-import common.Aggregate;
-import common.AggregateId;
-import common.RepositoryException;
 import gym.plans.domain.Plan;
-import gym.plans.domain.PlanId;
 import gym.plans.domain.PlanRepository;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 public final class PlanInMemoryRepository implements PlanRepository {
 
-    private final Map<PlanId, Plan> plans = new HashMap<>();
+    private final Map<Plan.PlanId, Plan> plans = new HashMap<>();
 
     @Override
     public String nextId() {
@@ -22,21 +17,16 @@ public final class PlanInMemoryRepository implements PlanRepository {
     }
 
     @Override
-    public void store(Aggregate aggregate) {
-        plans.put((PlanId) aggregate.id(), (Plan) aggregate);
+    public void store(Plan plan) {
+        plans.put(plan.id, plan);
     }
 
     @Override
-    public void storeAll(List<? extends Aggregate> aggregates) {
-        aggregates.forEach(this::store);
-    }
-
-    @Override
-    public Aggregate get(AggregateId aggregateId) throws RepositoryException {
-        if (plans.containsKey((PlanId) aggregateId)) {
-            return plans.get(aggregateId);
+    public Plan get(Plan.PlanId planId) {
+        if (plans.containsKey(planId)) {
+            return plans.get(planId);
         }
 
-        throw RepositoryException.notFound(aggregateId);
+        throw new RuntimeException(planId + " not found.");
     }
 }

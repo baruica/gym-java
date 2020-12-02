@@ -1,10 +1,6 @@
 package gym.subscriptions.infrastructure;
 
-import common.Aggregate;
-import common.AggregateId;
-import common.RepositoryException;
 import gym.subscriptions.domain.Subscription;
-import gym.subscriptions.domain.SubscriptionId;
 import gym.subscriptions.domain.SubscriptionRepository;
 
 import java.time.LocalDate;
@@ -16,7 +12,7 @@ import java.util.stream.Collectors;
 
 public final class SubscriptionInMemoryRepository implements SubscriptionRepository {
 
-    private final Map<SubscriptionId, Subscription> subscriptions = new HashMap<>();
+    private final Map<Subscription.SubscriptionId, Subscription> subscriptions = new HashMap<>();
 
     @Override
     public String nextId() {
@@ -24,22 +20,13 @@ public final class SubscriptionInMemoryRepository implements SubscriptionReposit
     }
 
     @Override
-    public void store(Aggregate aggregate) {
-        subscriptions.put((SubscriptionId) aggregate.id(), (Subscription) aggregate);
+    public void store(Subscription subscription) {
+        subscriptions.put(subscription.id, subscription);
     }
 
     @Override
-    public void storeAll(List<? extends Aggregate> aggregates) {
-        aggregates.forEach(this::store);
-    }
-
-    @Override
-    public Aggregate get(AggregateId aggregateId) throws RepositoryException {
-        if (subscriptions.containsKey((SubscriptionId) aggregateId)) {
-            return subscriptions.get(aggregateId);
-        }
-
-        throw RepositoryException.notFound(aggregateId);
+    public void storeAll(List<? extends Subscription> subscriptions) {
+        subscriptions.forEach(this::store);
     }
 
     @Override

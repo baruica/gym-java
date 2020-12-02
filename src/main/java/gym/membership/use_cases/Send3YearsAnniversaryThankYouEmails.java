@@ -20,7 +20,7 @@ public final class Send3YearsAnniversaryThankYouEmails {
     public List<Member> handle(Send3YearsAnniversaryThankYouEmailsCommand command) {
 
         var threeYearsAnniversaryMembers = memberRepository.threeYearsAnniversaryMembers(
-            LocalDate.parse(command.asOfDate)
+            LocalDate.parse(command.asOfDate())
         );
 
         threeYearsAnniversaryMembers.forEach(

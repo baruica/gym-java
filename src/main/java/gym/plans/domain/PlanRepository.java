@@ -1,6 +1,10 @@
 package gym.plans.domain;
 
-import common.Repository;
+public interface PlanRepository {
 
-public interface PlanRepository extends Repository {
+    String nextId();
+
+    void store(Plan plan);
+
+    Plan get(Plan.PlanId planId) throws RuntimeException;
 }

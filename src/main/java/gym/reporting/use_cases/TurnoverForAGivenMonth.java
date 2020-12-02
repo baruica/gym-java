@@ -15,7 +15,7 @@ final class TurnoverForAGivenMonth {
 
     Turnover handle(TurnoverForAGivenMonthQuery query) {
 
-        var asOfDate = LocalDate.parse(query.asOfDate);
+        var asOfDate = LocalDate.parse(query.asOfDate());
 
         return Turnover.monthly(
             subscriptionRepository.ongoingSubscriptions(asOfDate)

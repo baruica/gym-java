@@ -4,7 +4,7 @@ import gym.membership.domain.EmailAddress;
 import gym.membership.domain.Mailer;
 import gym.membership.domain.Member;
 import gym.membership.domain.MemberRepository;
-import gym.subscriptions.domain.SubscriptionId;
+import gym.subscriptions.domain.Subscription;
 
 import java.time.LocalDate;
 
@@ -19,15 +19,15 @@ public final class RegisterNewMember {
     }
 
     public Member handle(RegisterNewMemberCommand command) {
-        var email = new EmailAddress(command.email);
+        var email = new EmailAddress(command.email());
         var knownMemberOpt = memberRepository.findByEmail(email);
 
         if (knownMemberOpt.isEmpty()) {
             var member = Member.register(
-                command.memberId,
+                command.memberId(),
                 email,
-                new SubscriptionId(command.subscriptionId),
-                LocalDate.parse(command.subscriptionStartDate)
+                new Subscription.SubscriptionId(command.subscriptionId()),
+                LocalDate.parse(command.subscriptionStartDate())
             );
 
             mailer.sendWelcomeEmail(member);

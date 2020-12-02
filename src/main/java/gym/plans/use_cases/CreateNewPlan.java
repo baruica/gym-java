@@ -1,7 +1,6 @@
 package gym.plans.use_cases;
 
 import gym.plans.domain.Plan;
-import gym.plans.domain.PlanException;
 import gym.plans.domain.PlanRepository;
 
 final class CreateNewPlan {
@@ -12,12 +11,12 @@ final class CreateNewPlan {
         this.planRepository = planRepository;
     }
 
-    Plan handle(CreateNewPlanCommand command) throws PlanException {
+    Plan handle(CreateNewPlanCommand command) {
 
         var newPlan = Plan.create(
-            command.planId,
-            command.basePrice,
-            command.planDurationsInMonths
+            command.planId(),
+            command.basePrice(),
+            command.planDurationsInMonths()
         );
 
         planRepository.store(newPlan);

@@ -1,17 +1,15 @@
 package gym.plans.domain;
 
-import common.Aggregate;
-import common.AggregateId;
-
-import java.util.Objects;
-
 import static java.util.Arrays.asList;
 
-public final class Plan implements Aggregate {
+public final class Plan {
 
     public final PlanId id;
     public Price price;
     private final Duration duration;
+
+    public static record PlanId(String id) {
+    }
 
     private Plan(PlanId id, Price price, Duration duration) {
         this.id = id;
@@ -19,12 +17,7 @@ public final class Plan implements Aggregate {
         this.duration = duration;
     }
 
-    @Override
-    public AggregateId id() {
-        return id;
-    }
-
-    public static Plan create(String id, Integer priceAmount, Integer durationInMonths) throws PlanException {
+    public static Plan create(String id, Integer priceAmount, Integer durationInMonths) {
         return new Plan(
             new PlanId(id),
             new Price(priceAmount),
@@ -32,57 +25,27 @@ public final class Plan implements Aggregate {
         );
     }
 
-    public void changePrice(final Integer newPriceAmount) throws PlanException {
+    public void changePrice(final Integer newPriceAmount) {
         this.price = new Price(newPriceAmount);
     }
 
-    public static final class Price {
+    public record Price(Integer amount) {
 
-        public final Integer amount;
-
-        Price(Integer amount) throws PlanException {
+        public Price {
             if (amount < 0) {
-                throw new PlanException("Price amount must be non-negative, was [" + amount + "]");
+                throw new IllegalArgumentException("Price amount must be non-negative, was [" + amount + "]");
             }
-            this.amount = amount;
         }
 
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Price price = (Price) o;
-            return amount.equals(price.amount);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(amount);
-        }
     }
 
-    private static final class Duration {
+    private record Duration(Integer durationInMonths) {
 
-        final Integer value;
-
-        public Duration(Integer durationInMonths) throws PlanException {
+        public Duration {
             if (!asList(1, 12).contains(durationInMonths)) {
-                throw new PlanException("Plan duration is either 1 month or 12 months, was [" + durationInMonths + "]");
+                throw new IllegalArgumentException("Plan duration is either 1 month or 12 months, was [" + durationInMonths + "]");
             }
-            this.value = durationInMonths;
         }
 
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Duration duration = (Duration) o;
-            return value.equals(duration.value);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(value);
-        }
     }
 }

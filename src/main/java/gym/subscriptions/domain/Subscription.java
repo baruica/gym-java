@@ -1,19 +1,18 @@
 package gym.subscriptions.domain;
 
-import common.Aggregate;
-import common.AggregateId;
-
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.Objects;
 
-public final class Subscription implements Aggregate {
+public final class Subscription {
 
     public final SubscriptionId id;
     private final Integer durationInMonths;
     private final LocalDate startDate;
     public LocalDate endDate;
     public final Price price;
+
+    public static record SubscriptionId(String id) {
+    }
 
     private Subscription(SubscriptionId id, Integer planDurationInMonths, LocalDate startDate, LocalDate endDate, Price price) {
         this.id = id;
@@ -23,24 +22,19 @@ public final class Subscription implements Aggregate {
         this.price = price;
     }
 
-    @Override
-    public AggregateId id() {
-        return id;
-    }
-
     public static Subscription subscribe(
         String id,
         LocalDate startDate,
         Integer planDurationInMonths,
         Integer planPrice,
         Boolean isStudent
-    ) throws SubscriptionException {
+    ) {
         return new Subscription(
             new SubscriptionId(id),
             planDurationInMonths,
             startDate,
             startDate.plus(planDurationInMonths, ChronoUnit.MONTHS).minusDays(1),
-            new Price(planPrice).afterDiscount(new Discount(planDurationInMonths, isStudent))
+            new Price(planPrice).afterDiscount(planDurationInMonths, isStudent)
         );
     }
 
@@ -62,51 +56,24 @@ public final class Subscription implements Aggregate {
         return (int) (price.amount / (double) durationInMonths);
     }
 
-    public static final class Price {
+    public record Price(Integer amount) {
 
-        public final Integer amount;
-
-        Price(Integer amount) throws SubscriptionException {
+        public Price {
             if (amount < 0) {
-                throw new SubscriptionException("Price amount must be non-negative, was [" + amount + "]");
+                throw new IllegalArgumentException("Price amount must be non-negative, was [" + amount + "]");
             }
-            this.amount = amount;
         }
 
-        Price afterDiscount(Discount discount) throws SubscriptionException {
-            return new Price((int) (amount * (1 - discount.rate)));
-        }
+        Price afterDiscount(Integer durationInMonths, Boolean isStudent) {
+            var rate = 0.0;
 
-        @Override
-        public String toString() {
-            return String.valueOf(amount.intValue());
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Price price = (Price) o;
-            return Objects.equals(amount, price.amount);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(amount);
-        }
-    }
-
-    private static final class Discount {
-
-        private Double rate = 0.0;
-
-        Discount(final int durationInMonths, final boolean isStudent) {
             if (durationInMonths == 12) {
                 rate += 0.3;
             }
             if (isStudent) {
                 rate += 0.2;
             }
+            return new Price((int) (amount * (1 - rate)));
         }
     }
 }

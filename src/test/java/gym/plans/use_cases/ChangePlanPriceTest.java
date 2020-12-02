@@ -1,18 +1,18 @@
 package gym.plans.use_cases;
 
-import common.RepositoryException;
 import gym.plans.domain.Plan;
-import gym.plans.domain.PlanException;
+import gym.plans.domain.PlanRepository;
 import gym.plans.infrastructure.PlanInMemoryRepository;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ChangePlanPriceTest {
 
     @Test
-    public void handle() throws RepositoryException, PlanException {
-        var planRepository = new PlanInMemoryRepository();
+    public void handle() {
+        PlanRepository planRepository = new PlanInMemoryRepository();
         var planId = planRepository.nextId();
 
         planRepository.store(
@@ -25,6 +25,17 @@ public class ChangePlanPriceTest {
             new ChangePlanPriceCommand(planId, 400)
         );
 
-        assertEquals(400, plan.price.amount);
+        assertEquals(400, plan.price.amount());
+    }
+
+    @Test
+    public void plan_not_found() {
+        var planRepository = new PlanInMemoryRepository();
+
+        var tested = new ChangePlanPrice(planRepository);
+
+        assertThrows(RuntimeException.class, () -> tested.handle(
+            new ChangePlanPriceCommand("unknown planId", 400)
+        ));
     }
 }

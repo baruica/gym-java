@@ -1,12 +1,14 @@
 package gym.membership.domain;
 
-import common.Repository;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-public interface MemberRepository extends Repository {
+public interface MemberRepository {
+
+    String nextId();
+
+    void store(Member member);
 
     Optional<Member> findByEmail(EmailAddress emailAddress);
 

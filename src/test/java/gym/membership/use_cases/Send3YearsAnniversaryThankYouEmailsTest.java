@@ -4,7 +4,7 @@ import gym.membership.domain.EmailAddress;
 import gym.membership.domain.Member;
 import gym.membership.infrastructure.InMemoryMailer;
 import gym.membership.infrastructure.MemberInMemoryRepository;
-import gym.subscriptions.domain.SubscriptionId;
+import gym.subscriptions.domain.Subscription;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -52,7 +52,7 @@ public class Send3YearsAnniversaryThankYouEmailsTest {
         return Member.register(
             UUID.randomUUID().toString(),
             new EmailAddress(email),
-            new SubscriptionId("subscriptionId def"),
+            new Subscription.SubscriptionId("subscriptionId def"),
             startDate
         );
     }
