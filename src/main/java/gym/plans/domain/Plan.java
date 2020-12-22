@@ -30,22 +30,18 @@ public final class Plan {
     }
 
     public record Price(Integer amount) {
-
         public Price {
             if (amount < 0) {
                 throw new IllegalArgumentException("Price amount must be non-negative, was [" + amount + "]");
             }
         }
-
     }
 
     private record Duration(Integer durationInMonths) {
-
         public Duration {
             if (!asList(1, 12).contains(durationInMonths)) {
                 throw new IllegalArgumentException("Plan duration is either 1 month or 12 months, was [" + durationInMonths + "]");
             }
         }
-
     }
 }
