@@ -4,7 +4,6 @@ import gym.membership.domain.EmailAddress;
 import gym.membership.domain.Mailer;
 import gym.membership.domain.Member;
 import gym.membership.domain.MemberRepository;
-import gym.subscriptions.domain.Subscription;
 
 import java.time.LocalDate;
 
@@ -26,7 +25,6 @@ public final class RegisterNewMember {
             var member = Member.register(
                 command.memberId(),
                 email,
-                new Subscription.SubscriptionId(command.subscriptionId()),
                 LocalDate.parse(command.subscriptionStartDate())
             );
 

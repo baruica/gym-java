@@ -1,14 +1,11 @@
 package gym.membership.domain;
 
-import gym.subscriptions.domain.Subscription;
-
 import java.time.LocalDate;
 
 public final class Member {
 
     public final MemberId id;
     public final EmailAddress emailAddress;
-    private final Subscription.SubscriptionId subscriptionId;
     private final LocalDate memberSince;
     private boolean welcomeEmailWasSent = false;
     private boolean threeYearsAnniversaryThankYouEmailWasSent = false;
@@ -16,18 +13,16 @@ public final class Member {
     public static record MemberId(String id) {
     }
 
-    private Member(MemberId id, EmailAddress emailAddress, Subscription.SubscriptionId subscriptionId, LocalDate memberSince) {
+    private Member(MemberId id, EmailAddress emailAddress, LocalDate memberSince) {
         this.id = id;
         this.emailAddress = emailAddress;
-        this.subscriptionId = subscriptionId;
         this.memberSince = memberSince;
     }
 
-    public static Member register(String id, EmailAddress emailAddress, Subscription.SubscriptionId subscriptionId, LocalDate memberSince) {
+    public static Member register(String id, EmailAddress emailAddress, LocalDate memberSince) {
         return new Member(
             new MemberId(id),
             emailAddress,
-            subscriptionId,
             memberSince
         );
     }
