@@ -2,7 +2,6 @@ package gym.plans.use_cases;
 
 import gym.plans.domain.Plan;
 import gym.plans.domain.PlanRepository;
-import gym.plans.infrastructure.PlanInMemoryRepository;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,7 +11,7 @@ public class ChangePlanPriceTest {
 
     @Test
     public void handle() {
-        PlanRepository planRepository = new PlanInMemoryRepository();
+        PlanRepository planRepository = new InMemoryPlanRepository();
         var planId = planRepository.nextId();
 
         planRepository.store(
@@ -30,7 +29,7 @@ public class ChangePlanPriceTest {
 
     @Test
     public void plan_not_found() {
-        var planRepository = new PlanInMemoryRepository();
+        var planRepository = new InMemoryPlanRepository();
 
         var tested = new ChangePlanPrice(planRepository);
 

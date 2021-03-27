@@ -1,4 +1,4 @@
-package gym.plans.infrastructure;
+package gym.plans.use_cases;
 
 import gym.plans.domain.Plan;
 import gym.plans.domain.PlanRepository;
@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public final class PlanInMemoryRepository implements PlanRepository {
+public final class InMemoryPlanRepository implements PlanRepository {
 
     private final Map<Plan.PlanId, Plan> plans = new HashMap<>();
 

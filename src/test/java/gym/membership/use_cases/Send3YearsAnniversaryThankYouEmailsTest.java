@@ -2,8 +2,6 @@ package gym.membership.use_cases;
 
 import gym.membership.domain.EmailAddress;
 import gym.membership.domain.Member;
-import gym.membership.infrastructure.InMemoryMailer;
-import gym.membership.infrastructure.MemberInMemoryRepository;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -16,7 +14,7 @@ public class Send3YearsAnniversaryThankYouEmailsTest {
 
     @Test
     public void handle() {
-        var memberRepository = new MemberInMemoryRepository();
+        var memberRepository = new InMemoryMemberRepository();
 
         var startDateJulie = fifthOfJune().minusYears(3);
         var memberJulie = buildMember("julie@gmail.com", startDateJulie);

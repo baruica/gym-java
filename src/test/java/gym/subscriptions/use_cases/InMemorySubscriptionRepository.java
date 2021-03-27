@@ -1,4 +1,4 @@
-package gym.subscriptions.infrastructure;
+package gym.subscriptions.use_cases;
 
 import gym.subscriptions.domain.Subscription;
 import gym.subscriptions.domain.SubscriptionRepository;
@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public final class SubscriptionInMemoryRepository implements SubscriptionRepository {
+public final class InMemorySubscriptionRepository implements SubscriptionRepository {
 
     private final Map<Subscription.SubscriptionId, Subscription> subscriptions = new HashMap<>();
 

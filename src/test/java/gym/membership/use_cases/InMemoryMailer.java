@@ -1,4 +1,4 @@
-package gym.membership.infrastructure;
+package gym.membership.use_cases;
 
 import gym.membership.domain.Email;
 import gym.membership.domain.EmailAddress;

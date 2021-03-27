@@ -3,7 +3,7 @@ package gym.reporting.use_cases;
 import gym.reporting.Turnover;
 import gym.subscriptions.domain.Subscription;
 import gym.subscriptions.domain.SubscriptionRepository;
-import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository;
+import gym.subscriptions.use_cases.InMemorySubscriptionRepository;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -15,7 +15,7 @@ public class TurnoverForAGivenMonthTest {
     @Test
     public void turnover_for_a_given_month_with_ongoing_subscriptions() {
 
-        SubscriptionRepository subscriptionRepository = new SubscriptionInMemoryRepository();
+        SubscriptionRepository subscriptionRepository = new InMemorySubscriptionRepository();
 
         var today = LocalDate.parse("2018-06-09");
         var inAMonth = LocalDate.parse("2018-07-09");

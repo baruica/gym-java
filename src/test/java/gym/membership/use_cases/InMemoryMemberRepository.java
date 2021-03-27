@@ -1,4 +1,4 @@
-package gym.membership.infrastructure;
+package gym.membership.use_cases;
 
 import gym.membership.domain.EmailAddress;
 import gym.membership.domain.Member;
@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public final class MemberInMemoryRepository implements MemberRepository {
+public final class InMemoryMemberRepository implements MemberRepository {
 
     private final Map<Member.MemberId, Member> members = new HashMap<>();
 
