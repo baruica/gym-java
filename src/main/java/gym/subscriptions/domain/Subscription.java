@@ -47,6 +47,10 @@ public final class Subscription {
         return asFrom.isAfter(endDate);
     }
 
+    public boolean isMonthly() {
+        return durationInMonths == 1;
+    }
+
     public Boolean isOngoing(final LocalDate date) {
         return (startDate.isEqual(date) || startDate.isBefore(date))
             && (endDate.isEqual(date) || endDate.isAfter(date));

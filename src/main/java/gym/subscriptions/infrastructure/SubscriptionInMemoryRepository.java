@@ -38,9 +38,10 @@ public final class SubscriptionInMemoryRepository implements SubscriptionReposit
     }
 
     @Override
-    public List<Subscription> endedSubscriptions(LocalDate date) {
+    public List<Subscription> endedMonthlySubscriptions(LocalDate date) {
 
         return subscriptions.values().stream()
+            .filter(Subscription::isMonthly)
             .filter(subscription -> subscription.willBeEndedAfter(date))
             .collect(Collectors.toList());
     }
