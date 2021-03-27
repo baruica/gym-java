@@ -18,10 +18,10 @@ public class SubscriptionTest {
     }
 
     @Test
-    public void thirty_percent_discount_for_yearly_subscriptions() {
+    public void ten_percent_discount_for_yearly_subscriptions() {
         var subscriptionWithYearlyDiscount = yearlySubscription(1000, fifthOfJune(), false);
 
-        assertEquals(new Price(700), subscriptionWithYearlyDiscount.price);
+        assertEquals(new Price(900), subscriptionWithYearlyDiscount.price);
     }
 
     @Test
@@ -30,7 +30,7 @@ public class SubscriptionTest {
         assertEquals(new Price(80), monthlySubscriptionWithStudentDiscount.price);
 
         var yearlySubscriptionWithStudentDiscount = yearlySubscription(100, fifthOfJune(), true);
-        assertEquals(new Price(50), yearlySubscriptionWithStudentDiscount.price);
+        assertEquals(new Price(70), yearlySubscriptionWithStudentDiscount.price);
     }
 
     @Test
@@ -71,7 +71,7 @@ public class SubscriptionTest {
         assertEquals(100, monthlySubscription.monthlyTurnover(), 0);
 
         var yearlySubscription = yearlySubscription(1200, fifthOfJune(), false);
-        assertEquals(70, yearlySubscription.monthlyTurnover(), 0);
+        assertEquals(90, yearlySubscription.monthlyTurnover(), 0);
     }
 
     private LocalDate fifthOfJune() {

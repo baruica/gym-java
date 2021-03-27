@@ -53,9 +53,9 @@ public class TurnoverForAGivenMonthTest {
         );
 
         assertEquals(2, subscriptionRepository.ongoingSubscriptions(today).size());
-        assertEquals(new Turnover(73), tested.handle(new TurnoverForAGivenMonthQuery("2018-06-09")));
+        assertEquals(new Turnover(80), tested.handle(new TurnoverForAGivenMonthQuery("2018-06-09")));
 
         assertEquals(2, subscriptionRepository.ongoingSubscriptions(inAMonth).size());
-        assertEquals(new Turnover(52), tested.handle(new TurnoverForAGivenMonthQuery("2018-07-09")));
+        assertEquals(new Turnover(67), tested.handle(new TurnoverForAGivenMonthQuery("2018-07-09")));
     }
 }

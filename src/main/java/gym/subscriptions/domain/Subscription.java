@@ -68,7 +68,7 @@ public final class Subscription {
             var rate = 0.0;
 
             if (durationInMonths == 12) {
-                rate += 0.3;
+                rate += 0.1;
             }
             if (isStudent) {
                 rate += 0.2;

@@ -26,6 +26,6 @@ public class SubscribeToPlanTest {
         );
 
         assertEquals(new Subscription.SubscriptionId(subscriptionId), subscription.id);
-        assertEquals(350, subscription.price.amount());
+        assertEquals(450, subscription.price.amount());
     }
 }
