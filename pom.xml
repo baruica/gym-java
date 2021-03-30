@@ -13,7 +13,7 @@
     <name>The gym</name>
 
     <properties>
-        <java.version>15</java.version>
+        <java.version>16</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -36,11 +36,8 @@
                 <version>3.8.1</version>
                 <configuration>
                     <release>${java.version}</release>
-                    <source>15</source>
-                    <target>15</target>
-                    <compilerArgs>
-                        <arg>--enable-preview</arg>
-                    </compilerArgs>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
             </plugin>
         </plugins>
