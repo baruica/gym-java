@@ -14,4 +14,6 @@ public interface SubscriptionRepository {
     List<Subscription> ongoingSubscriptions(LocalDate date);
 
     List<Subscription> endedMonthlySubscriptions(LocalDate date);
+
+    List<Subscription> threeYearsAnniversarySubscriptions(LocalDate date);
 }

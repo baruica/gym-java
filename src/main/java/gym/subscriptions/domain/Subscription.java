@@ -9,7 +9,7 @@ public final class Subscription {
     private final Integer durationInMonths;
     private final LocalDate startDate;
     public LocalDate endDate;
-    public final Price price;
+    public Price price;
 
     public static record SubscriptionId(String id) {
     }
@@ -34,7 +34,9 @@ public final class Subscription {
             planDurationInMonths,
             startDate,
             startDate.plus(planDurationInMonths, ChronoUnit.MONTHS).minusDays(1),
-            new Price(planPrice).afterDiscount(planDurationInMonths, isStudent)
+            new Price(planPrice)
+                .applyDurationDiscount(planDurationInMonths)
+                .applyStudentDiscount(isStudent)
         );
     }
 
@@ -60,6 +62,16 @@ public final class Subscription {
         return (price.amount / durationInMonths);
     }
 
+    public boolean hasThreeYearsAnniversaryOn(LocalDate date) {
+        return startDate.plusYears(3).equals(date);
+    }
+
+    public void applyThreeYearsAnniversaryDiscount(LocalDate date) {
+        price = price.applyThreeYearsAnniversaryDiscount(
+            hasThreeYearsAnniversaryOn(date)
+        );
+    }
+
     public record Price(Double amount) {
 
         public Price {
@@ -72,16 +84,20 @@ public final class Subscription {
             this(Double.valueOf(amount));
         }
 
-        Price afterDiscount(Integer durationInMonths, Boolean isStudent) {
-            var rate = 0.0;
+        public Price applyDurationDiscount(Integer durationInMonths) {
+            return (durationInMonths == 12) ? applyDiscount(0.1) : this;
+        }
 
-            if (durationInMonths == 12) {
-                rate += 0.1;
-            }
-            if (isStudent) {
-                rate += 0.2;
-            }
-            return new Price((int) (amount * (1 - rate)));
+        public Price applyStudentDiscount(Boolean isStudent) {
+            return isStudent ? applyDiscount(0.2) : this;
+        }
+
+        public Price applyThreeYearsAnniversaryDiscount(boolean hasThreeYearsAnniversary) {
+            return hasThreeYearsAnniversary ? applyDiscount(0.05) : this;
+        }
+
+        private Price applyDiscount(double rate) {
+            return new Price(amount * (1 - rate));
         }
     }
 }

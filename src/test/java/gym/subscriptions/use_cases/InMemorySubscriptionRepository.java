@@ -45,4 +45,12 @@ public final class InMemorySubscriptionRepository implements SubscriptionReposit
             .filter(subscription -> subscription.willBeEndedAfter(date))
             .collect(Collectors.toList());
     }
+
+    @Override
+    public List<Subscription> threeYearsAnniversarySubscriptions(LocalDate date) {
+
+        return subscriptions.values().stream()
+            .filter(subscription -> subscription.hasThreeYearsAnniversaryOn(date))
+            .collect(Collectors.toList());
+    }
 }

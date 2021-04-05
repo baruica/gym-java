@@ -30,7 +30,7 @@ public class SubscriptionTest {
         assertEquals(new Price(80), monthlySubscriptionWithStudentDiscount.price);
 
         var yearlySubscriptionWithStudentDiscount = yearlySubscription(100, fifthOfJune(), true);
-        assertEquals(new Price(70), yearlySubscriptionWithStudentDiscount.price);
+        assertEquals(new Price(72), yearlySubscriptionWithStudentDiscount.price);
     }
 
     @Test
@@ -66,12 +66,31 @@ public class SubscriptionTest {
     }
 
     @Test
-    public void monthly_turnover() {
+    public void has_a_monthly_turnover() {
         var monthlySubscription = monthlySubscription(100, fifthOfJune(), false);
         assertEquals(100, monthlySubscription.monthlyTurnover(), 0);
 
         var yearlySubscription = yearlySubscription(1200, fifthOfJune(), false);
         assertEquals(90, yearlySubscription.monthlyTurnover(), 0);
+    }
+
+    @Test
+    public void can_tell_if_it_will_have_its_three_years_anniversary_on_a_given_date() {
+        var threeYearsAnniversarySubscription = yearlySubscription(1000, fifthOfJune(), false);
+
+        assertFalse(threeYearsAnniversarySubscription.hasThreeYearsAnniversaryOn(LocalDate.parse("2021-06-04")));
+        assertTrue(threeYearsAnniversarySubscription.hasThreeYearsAnniversaryOn(LocalDate.parse("2021-06-05")));
+        assertFalse(threeYearsAnniversarySubscription.hasThreeYearsAnniversaryOn(LocalDate.parse("2021-06-06")));
+    }
+
+    @Test
+    public void five_percent_discount_after_three_years() {
+        var threeYearsOldSubscription = yearlySubscription(1000, fifthOfJune(), false);
+
+        assertEquals(new Price(900), threeYearsOldSubscription.price);
+
+        threeYearsOldSubscription.applyThreeYearsAnniversaryDiscount(LocalDate.parse("2021-06-05"));
+        assertEquals(new Price(855), threeYearsOldSubscription.price);
     }
 
     private LocalDate fifthOfJune() {
