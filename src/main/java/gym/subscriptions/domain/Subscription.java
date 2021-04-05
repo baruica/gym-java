@@ -58,8 +58,8 @@ public final class Subscription {
             && (endDate.isEqual(date) || endDate.isAfter(date));
     }
 
-    public double monthlyTurnover() {
-        return (price.amount / durationInMonths);
+    public int monthlyTurnover() {
+        return (int) Math.round(price.amount / durationInMonths);
     }
 
     public boolean hasThreeYearsAnniversaryOn(LocalDate date) {
