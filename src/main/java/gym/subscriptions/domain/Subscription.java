@@ -56,16 +56,20 @@ public final class Subscription {
             && (endDate.isEqual(date) || endDate.isAfter(date));
     }
 
-    public int monthlyTurnover() {
-        return (int) (price.amount / (double) durationInMonths);
+    public double monthlyTurnover() {
+        return (price.amount / durationInMonths);
     }
 
-    public record Price(Integer amount) {
+    public record Price(Double amount) {
 
         public Price {
             if (amount < 0) {
                 throw new IllegalArgumentException("Price amount must be non-negative, was [" + amount + "]");
             }
+        }
+
+        public Price(Integer amount) {
+            this(Double.valueOf(amount));
         }
 
         Price afterDiscount(Integer durationInMonths, Boolean isStudent) {
