@@ -1,7 +1,6 @@
 package gym.subscriptions.domain;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 public final class Subscription {
 
@@ -33,7 +32,7 @@ public final class Subscription {
             new SubscriptionId(id),
             planDurationInMonths,
             startDate,
-            startDate.plus(planDurationInMonths, ChronoUnit.MONTHS).minusDays(1),
+            startDate.plusMonths(planDurationInMonths),
             new Price(planPrice)
                 .applyDurationDiscount(planDurationInMonths)
                 .applyStudentDiscount(isStudent)
@@ -41,8 +40,7 @@ public final class Subscription {
     }
 
     public void renew() {
-        var oldEndDate = this.endDate;
-        this.endDate = oldEndDate.plus(durationInMonths, ChronoUnit.MONTHS);
+        endDate = endDate.plusMonths(durationInMonths);
     }
 
     public Boolean willBeEndedAfter(final LocalDate date) {
@@ -63,12 +61,14 @@ public final class Subscription {
     }
 
     public boolean hasThreeYearsAnniversaryOn(LocalDate date) {
-        return startDate.plusYears(3).equals(date);
+        return date.equals(startDate.plusYears(3))
+            && date.equals(endDate);
     }
 
     public void applyThreeYearsAnniversaryDiscount(LocalDate date) {
+        boolean hasThreeYearsAnniversary = hasThreeYearsAnniversaryOn(date);
         price = price.applyThreeYearsAnniversaryDiscount(
-            hasThreeYearsAnniversaryOn(date)
+            hasThreeYearsAnniversary
         );
     }
 

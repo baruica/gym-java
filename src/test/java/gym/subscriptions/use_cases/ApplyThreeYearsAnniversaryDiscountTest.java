@@ -13,15 +13,16 @@ class ApplyThreeYearsAnniversaryDiscountTest {
     void handle() {
         var repository = new InMemorySubscriptionRepository();
 
-        repository.store(
-            Subscription.subscribe(
-                repository.nextId(),
-                LocalDate.parse("2015-07-09"),
-                12,
-                1300,
-                false
-            )
+        var subscription = Subscription.subscribe(
+            repository.nextId(),
+            LocalDate.parse("2015-07-09"),
+            12,
+            1300,
+            false
         );
+        subscription.renew();
+        subscription.renew();
+        repository.store(subscription);
 
         var tested = new ApplyThreeYearsAnniversaryDiscount(repository);
 

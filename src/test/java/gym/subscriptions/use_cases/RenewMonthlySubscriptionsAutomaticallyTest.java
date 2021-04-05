@@ -39,12 +39,12 @@ public class RenewMonthlySubscriptionsAutomaticallyTest {
         var tested = new RenewMonthlySubscriptionsAutomatically(subscriptionRepository);
 
         var renewedSubscriptions = tested.handle(
-            new RenewMonthlySubscriptionsAutomaticallyCommand("2018-07-09")
+            new RenewMonthlySubscriptionsAutomaticallyCommand("2018-07-10")
         );
 
         assertEquals(1, renewedSubscriptions.size());
         assertEquals(
-            "2018-08-08",
+            "2018-08-09",
             renewedSubscriptions.get(renewedSubscriptions.size() - 1).endDate.toString()
         );
     }
