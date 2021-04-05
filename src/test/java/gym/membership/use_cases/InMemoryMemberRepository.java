@@ -30,9 +30,9 @@ public final class InMemoryMemberRepository implements MemberRepository {
     }
 
     @Override
-    public List<Member> threeYearsAnniversaryMembers(LocalDate asOfDate) {
+    public List<Member> threeYearsAnniversaryMembers(LocalDate date) {
         return members.values().stream()
-            .filter(member -> member.isThreeYearsAnniversary(asOfDate))
+            .filter(member -> member.isThreeYearsAnniversary(date))
             .collect(Collectors.toList());
     }
 }

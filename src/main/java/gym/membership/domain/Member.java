@@ -27,8 +27,8 @@ public final class Member {
         );
     }
 
-    public Boolean isThreeYearsAnniversary(LocalDate asOfDate) {
-        return asOfDate.minusYears(3).isEqual(memberSince);
+    public Boolean isThreeYearsAnniversary(LocalDate date) {
+        return date.minusYears(3).isEqual(memberSince);
     }
 
     public void markWelcomeEmailAsSent() {

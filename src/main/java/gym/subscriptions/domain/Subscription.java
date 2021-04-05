@@ -43,8 +43,8 @@ public final class Subscription {
         this.endDate = oldEndDate.plus(durationInMonths, ChronoUnit.MONTHS);
     }
 
-    public Boolean willBeEndedAfter(final LocalDate asFrom) {
-        return asFrom.isAfter(endDate);
+    public Boolean willBeEndedAfter(final LocalDate date) {
+        return date.isAfter(endDate);
     }
 
     public boolean isMonthly() {

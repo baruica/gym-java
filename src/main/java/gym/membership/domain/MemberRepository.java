@@ -12,5 +12,5 @@ public interface MemberRepository {
 
     Optional<Member> findByEmail(EmailAddress emailAddress);
 
-    List<Member> threeYearsAnniversaryMembers(LocalDate asOfDate);
+    List<Member> threeYearsAnniversaryMembers(LocalDate date);
 }

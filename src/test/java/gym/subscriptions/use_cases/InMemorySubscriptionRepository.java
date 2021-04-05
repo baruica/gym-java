@@ -30,10 +30,10 @@ public final class InMemorySubscriptionRepository implements SubscriptionReposit
     }
 
     @Override
-    public List<Subscription> ongoingSubscriptions(LocalDate asOfDate) {
+    public List<Subscription> ongoingSubscriptions(LocalDate date) {
 
         return subscriptions.values().stream()
-            .filter(subscription -> subscription.isOngoing(asOfDate))
+            .filter(subscription -> subscription.isOngoing(date))
             .collect(Collectors.toList());
     }
 
