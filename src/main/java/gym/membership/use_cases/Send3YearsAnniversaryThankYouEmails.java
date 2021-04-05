@@ -2,10 +2,8 @@ package gym.membership.use_cases;
 
 import gym.membership.domain.Mailer;
 import gym.membership.domain.Member;
+import gym.membership.domain.Member.MemberId;
 import gym.membership.domain.MemberRepository;
-
-import java.time.LocalDate;
-import java.util.List;
 
 public final class Send3YearsAnniversaryThankYouEmails {
 
@@ -17,16 +15,15 @@ public final class Send3YearsAnniversaryThankYouEmails {
         this.mailer = mailer;
     }
 
-    public List<Member> handle(Send3YearsAnniversaryThankYouEmailsCommand command) {
+    public Member handle(Send3YearsAnniversaryThankYouEmailsCommand command) {
 
-        var threeYearsAnniversaryMembers = memberRepository.threeYearsAnniversaryMembers(
-            LocalDate.parse(command.asOfDate())
+        var threeYearsAnniversaryMember = memberRepository.get(new MemberId(command.memberId()));
+
+        mailer.send3YearsAnniversaryEmail(
+            threeYearsAnniversaryMember,
+            command.newSubscriptionPrice()
         );
 
-        threeYearsAnniversaryMembers.forEach(
-            mailer::send3YearsAnniversaryEmail
-        );
-
-        return threeYearsAnniversaryMembers;
+        return threeYearsAnniversaryMember;
     }
 }

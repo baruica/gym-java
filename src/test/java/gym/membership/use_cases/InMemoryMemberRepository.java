@@ -2,6 +2,7 @@ package gym.membership.use_cases;
 
 import gym.membership.domain.EmailAddress;
 import gym.membership.domain.Member;
+import gym.membership.domain.Member.MemberId;
 import gym.membership.domain.MemberRepository;
 
 import java.time.LocalDate;
@@ -10,7 +11,7 @@ import java.util.stream.Collectors;
 
 public final class InMemoryMemberRepository implements MemberRepository {
 
-    private final Map<Member.MemberId, Member> members = new HashMap<>();
+    private final Map<MemberId, Member> members = new HashMap<>();
 
     @Override
     public String nextId() {
@@ -23,7 +24,16 @@ public final class InMemoryMemberRepository implements MemberRepository {
     }
 
     @Override
-    public Optional<Member> findByEmail(EmailAddress emailAddress) {
+    public Member get(MemberId memberId) {
+        if (members.containsKey(memberId)) {
+            return members.get(memberId);
+        }
+
+        throw new RuntimeException(memberId + " not found.");
+    }
+
+    @Override
+    public Optional<Member> findByEmailAddress(EmailAddress emailAddress) {
         return members.values().stream()
             .filter(member -> emailAddress.equals(member.emailAddress))
             .findFirst();

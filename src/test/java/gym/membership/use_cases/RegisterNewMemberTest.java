@@ -15,9 +15,9 @@ class RegisterNewMemberTest {
         MemberRepository repository = new InMemoryMemberRepository();
         var memberId = repository.nextId();
 
-        var email = "luke@gmail.com";
+        var emailAddress = new EmailAddress("luke@gmail.com");
 
-        assertTrue(repository.findByEmail(new EmailAddress(email)).isEmpty());
+        assertTrue(repository.findByEmailAddress(emailAddress).isEmpty());
 
         var subscriptionId = "subscriptionId def";
         var subscriptionStartDate = "2018-06-05";
@@ -25,7 +25,7 @@ class RegisterNewMemberTest {
             memberId,
             subscriptionId,
             subscriptionStartDate,
-            email
+            emailAddress.value()
         );
 
         var mailer = new InMemoryMailer();
@@ -37,6 +37,6 @@ class RegisterNewMemberTest {
             assertEquals(new Member.MemberId(memberId), member.id);
         }
 
-        assertTrue(mailer.welcomeEmailWasSentTo("luke@gmail.com"));
+        assertTrue(mailer.welcomeEmailWasSentTo(emailAddress));
     }
 }

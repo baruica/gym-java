@@ -1,5 +1,7 @@
 package gym.membership.domain;
 
+import gym.membership.domain.Member.MemberId;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +12,9 @@ public interface MemberRepository {
 
     void store(Member member);
 
-    Optional<Member> findByEmail(EmailAddress emailAddress);
+    Member get(MemberId memberId);
+
+    Optional<Member> findByEmailAddress(EmailAddress emailAddress);
 
     List<Member> threeYearsAnniversaryMembers(LocalDate date);
 }

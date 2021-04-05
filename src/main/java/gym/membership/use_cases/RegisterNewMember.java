@@ -19,7 +19,7 @@ public final class RegisterNewMember {
 
     public Member handle(RegisterNewMemberCommand command) {
         var email = new EmailAddress(command.email());
-        var knownMemberOpt = memberRepository.findByEmail(email);
+        var knownMemberOpt = memberRepository.findByEmailAddress(email);
 
         if (knownMemberOpt.isEmpty()) {
             var member = Member.register(

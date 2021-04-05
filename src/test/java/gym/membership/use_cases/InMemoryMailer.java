@@ -15,27 +15,33 @@ public final class InMemoryMailer implements Mailer {
 
     @Override
     public void sendWelcomeEmail(Member member) {
-        sentEmails.put(UUID.randomUUID().toString(), Email.welcome(member.emailAddress));
+        sentEmails.put(
+            UUID.randomUUID().toString(),
+            Email.welcome(member.emailAddress)
+        );
 
         member.markWelcomeEmailAsSent();
     }
 
     @Override
-    public void send3YearsAnniversaryEmail(Member member) {
-        sentEmails.put(UUID.randomUUID().toString(), Email.threeYearsAnniversary(member.emailAddress));
+    public void send3YearsAnniversaryEmail(Member member, Double newSubscriptionPrice) {
+        sentEmails.put(
+            UUID.randomUUID().toString(),
+            Email.threeYearsAnniversary(member.emailAddress, newSubscriptionPrice)
+        );
 
         member.mark3YearsAnniversaryThankYouEmailAsSent();
     }
 
-    public boolean welcomeEmailWasSentTo(String emailAddress) {
+    public boolean welcomeEmailWasSentTo(EmailAddress emailAddress) {
         return sentEmails.containsValue(
-            Email.welcome(new EmailAddress(emailAddress))
+            Email.welcome(emailAddress)
         );
     }
 
-    public boolean threeYearsAnniversaryWasSentTo(String emailAddress) {
+    public boolean threeYearsAnniversaryWasSentTo(EmailAddress emailAddress, Double newSubscriptionPrice) {
         return sentEmails.containsValue(
-            Email.threeYearsAnniversary(new EmailAddress(emailAddress))
+            Email.threeYearsAnniversary(emailAddress, newSubscriptionPrice)
         );
     }
 }
