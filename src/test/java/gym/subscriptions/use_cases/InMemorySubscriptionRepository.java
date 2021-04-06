@@ -42,7 +42,7 @@ public final class InMemorySubscriptionRepository implements SubscriptionReposit
 
         return subscriptions.values().stream()
             .filter(Subscription::isMonthly)
-            .filter(subscription -> subscription.willBeEndedAfter(date))
+            .filter(subscription -> subscription.willBeEndedAsFrom(date))
             .collect(Collectors.toList());
     }
 

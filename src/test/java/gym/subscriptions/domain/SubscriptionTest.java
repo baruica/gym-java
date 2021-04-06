@@ -50,13 +50,13 @@ public class SubscriptionTest {
     public void can_be_renewed() {
         var subscription = monthlySubscription(100, LocalDate.parse("2018-06-05"), false);
 
-        assertFalse(subscription.willBeEndedAfter(LocalDate.parse("2018-07-05")));
-        assertTrue(subscription.willBeEndedAfter(LocalDate.parse("2018-07-06")));
+        assertFalse(subscription.willBeEndedAsFrom(LocalDate.parse("2018-07-05")));
+        assertTrue(subscription.willBeEndedAsFrom(LocalDate.parse("2018-07-06")));
 
         subscription.renew();
 
-        assertFalse(subscription.willBeEndedAfter(LocalDate.parse("2018-08-05")));
-        assertTrue(subscription.willBeEndedAfter(LocalDate.parse("2018-08-06")));
+        assertFalse(subscription.willBeEndedAsFrom(LocalDate.parse("2018-08-05")));
+        assertTrue(subscription.willBeEndedAsFrom(LocalDate.parse("2018-08-06")));
     }
 
     @Test
@@ -74,8 +74,8 @@ public class SubscriptionTest {
     public void can_tell_if_it_will_be_ended_at_a_given_date() {
         var subscriptionEndingEndOfJune = monthlySubscription(100, LocalDate.parse("2018-06-05"), false);
 
-        assertFalse(subscriptionEndingEndOfJune.willBeEndedAfter(LocalDate.parse("2018-07-05")));
-        assertTrue(subscriptionEndingEndOfJune.willBeEndedAfter(LocalDate.parse("2018-07-06")));
+        assertFalse(subscriptionEndingEndOfJune.willBeEndedAsFrom(LocalDate.parse("2018-07-05")));
+        assertTrue(subscriptionEndingEndOfJune.willBeEndedAsFrom(LocalDate.parse("2018-07-06")));
     }
 
     @Test

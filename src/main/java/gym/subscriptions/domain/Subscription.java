@@ -43,7 +43,7 @@ public final class Subscription {
         endDate = endDate.plusMonths(durationInMonths);
     }
 
-    public Boolean willBeEndedAfter(final LocalDate date) {
+    public Boolean willBeEndedAsFrom(final LocalDate date) {
         return date.isAfter(endDate);
     }
 
