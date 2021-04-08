@@ -9,16 +9,18 @@ public final class Subscription {
     private final LocalDate startDate;
     public LocalDate endDate;
     public Price price;
+    private Boolean threeYearsAnniversaryDiscountApplied;
 
     public static record SubscriptionId(String id) {
     }
 
-    private Subscription(SubscriptionId id, Integer planDurationInMonths, LocalDate startDate, LocalDate endDate, Price price) {
+    private Subscription(SubscriptionId id, Integer planDurationInMonths, LocalDate startDate, LocalDate endDate, Price price, Boolean threeYearsAnniversaryDiscountApplied) {
         this.id = id;
         this.durationInMonths = planDurationInMonths;
         this.startDate = startDate;
         this.endDate = endDate;
         this.price = price;
+        this.threeYearsAnniversaryDiscountApplied = threeYearsAnniversaryDiscountApplied;
     }
 
     public static Subscription subscribe(
@@ -35,7 +37,8 @@ public final class Subscription {
             startDate.plusMonths(planDurationInMonths),
             new Price(planPrice)
                 .applyDurationDiscount(planDurationInMonths)
-                .applyStudentDiscount(isStudent)
+                .applyStudentDiscount(isStudent),
+            false
         );
     }
 
@@ -66,10 +69,16 @@ public final class Subscription {
     }
 
     public void applyThreeYearsAnniversaryDiscount(LocalDate date) {
-        boolean hasThreeYearsAnniversary = hasThreeYearsAnniversaryOn(date);
-        price = price.applyThreeYearsAnniversaryDiscount(
-            hasThreeYearsAnniversary
-        );
+        if (!threeYearsAnniversaryDiscountApplied) {
+            var newPrice = price.applyThreeYearsAnniversaryDiscount(
+                hasThreeYearsAnniversaryOn(date)
+            );
+
+            if (price != newPrice) {
+                price = newPrice;
+                threeYearsAnniversaryDiscountApplied = true;
+            }
+        }
     }
 
     public record Price(Double amount) {

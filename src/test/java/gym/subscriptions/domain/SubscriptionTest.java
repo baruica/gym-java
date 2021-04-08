@@ -47,6 +47,21 @@ public class SubscriptionTest {
     }
 
     @Test
+    void three_years_anniversary_can_only_be_applied_once() {
+        var subscription = yearlySubscription(1000, LocalDate.parse("2018-06-05"), false);
+        subscription.applyThreeYearsAnniversaryDiscount(LocalDate.parse("2021-06-05"));
+        assertEquals(new Price(900), subscription.price);
+
+        subscription.renew();
+        subscription.renew();
+        subscription.applyThreeYearsAnniversaryDiscount(LocalDate.parse("2021-06-05"));
+        assertEquals(new Price(855), subscription.price);
+
+        subscription.applyThreeYearsAnniversaryDiscount(LocalDate.parse("2021-06-05"));
+        assertEquals(new Price(855), subscription.price);
+    }
+
+    @Test
     public void can_be_renewed() {
         var subscription = monthlySubscription(100, LocalDate.parse("2018-06-05"), false);
 
