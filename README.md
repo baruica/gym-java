@@ -10,7 +10,7 @@
 - Monthly subscriptions are renewed automatically
 - A welcome email is sent to new members
 - A summary of the new subscriptions is sent by email
-- After 3 years of membership, we apply 5% off all their subscriptions and give them the good news with an email
+- After the first 3 years of membership, we apply 5% off all their subscriptions and give them the good news with an email
 
 ## Choices
 
