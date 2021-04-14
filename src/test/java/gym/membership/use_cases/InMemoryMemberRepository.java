@@ -35,7 +35,7 @@ public final class InMemoryMemberRepository implements MemberRepository {
     @Override
     public Optional<Member> findByEmailAddress(EmailAddress emailAddress) {
         return members.values().stream()
-            .filter(member -> emailAddress.equals(member.emailAddress))
+            .filter(member -> Objects.equals(emailAddress, member.emailAddress))
             .findFirst();
     }
 
