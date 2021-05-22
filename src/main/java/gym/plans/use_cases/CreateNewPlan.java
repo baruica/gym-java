@@ -3,14 +3,9 @@ package gym.plans.use_cases;
 import gym.plans.domain.Plan;
 import gym.plans.domain.PlanRepository;
 
-final class CreateNewPlan {
-
-    private final PlanRepository planRepository;
-
-    CreateNewPlan(PlanRepository planRepository) {
-        this.planRepository = planRepository;
-    }
-
+record CreateNewPlan(
+    PlanRepository planRepository
+) {
     Plan handle(CreateNewPlanCommand command) {
 
         var newPlan = Plan.create(

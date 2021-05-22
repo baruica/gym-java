@@ -6,14 +6,9 @@ import gym.subscriptions.domain.SubscriptionRepository;
 import java.time.LocalDate;
 import java.util.List;
 
-final class RenewMonthlySubscriptionsAutomatically {
-
-    private final SubscriptionRepository subscriptionRepository;
-
-    RenewMonthlySubscriptionsAutomatically(SubscriptionRepository subscriptionRepository) {
-        this.subscriptionRepository = subscriptionRepository;
-    }
-
+record RenewMonthlySubscriptionsAutomatically(
+    SubscriptionRepository subscriptionRepository
+) {
     List<Subscription> handle(RenewMonthlySubscriptionsAutomaticallyCommand command) {
 
         var endedMonthlySubscriptionsAsOf = (List<Subscription>) subscriptionRepository.endedMonthlySubscriptions(

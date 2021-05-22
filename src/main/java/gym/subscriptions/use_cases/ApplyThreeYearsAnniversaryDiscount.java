@@ -6,14 +6,9 @@ import gym.subscriptions.domain.SubscriptionRepository;
 import java.time.LocalDate;
 import java.util.List;
 
-public class ApplyThreeYearsAnniversaryDiscount {
-
-    private final SubscriptionRepository subscriptionRepository;
-
-    public ApplyThreeYearsAnniversaryDiscount(SubscriptionRepository subscriptionRepository) {
-        this.subscriptionRepository = subscriptionRepository;
-    }
-
+public record ApplyThreeYearsAnniversaryDiscount(
+    SubscriptionRepository subscriptionRepository
+) {
     List<Subscription> handle(ApplyThreeYearsAnniversaryDiscountCommand command) {
 
         var date = LocalDate.parse(command.asOfDate());

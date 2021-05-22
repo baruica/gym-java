@@ -5,19 +5,15 @@ import gym.membership.domain.Member;
 import gym.membership.domain.Member.MemberId;
 import gym.membership.domain.MemberRepository;
 
-public final class Send3YearsAnniversaryThankYouEmails {
-
-    private final MemberRepository memberRepository;
-    private final Mailer mailer;
-
-    Send3YearsAnniversaryThankYouEmails(MemberRepository memberRepository, Mailer mailer) {
-        this.memberRepository = memberRepository;
-        this.mailer = mailer;
-    }
-
+public record Send3YearsAnniversaryThankYouEmails(
+    MemberRepository memberRepository,
+    Mailer mailer
+) {
     public Member handle(Send3YearsAnniversaryThankYouEmailsCommand command) {
 
-        var threeYearsAnniversaryMember = memberRepository.get(new MemberId(command.memberId()));
+        var threeYearsAnniversaryMember = memberRepository.get(
+            new MemberId(command.memberId())
+        );
 
         mailer.send3YearsAnniversaryEmail(
             threeYearsAnniversaryMember,

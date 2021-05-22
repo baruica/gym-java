@@ -5,14 +5,9 @@ import gym.subscriptions.domain.SubscriptionRepository;
 
 import java.time.LocalDate;
 
-final class SubscribeToPlan {
-
-    private final SubscriptionRepository subscriptionRepository;
-
-    SubscribeToPlan(SubscriptionRepository subscriptionRepository) {
-        this.subscriptionRepository = subscriptionRepository;
-    }
-
+record SubscribeToPlan(
+    SubscriptionRepository subscriptionRepository
+) {
     public Subscription handle(SubscribeToPlanCommand command) {
 
         var subscription = Subscription.subscribe(

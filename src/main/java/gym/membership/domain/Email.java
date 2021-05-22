@@ -1,18 +1,31 @@
 package gym.membership.domain;
 
-public final record Email(EmailAddress emailAddress, String emailBody) {
+public sealed interface Email permits Email.Welcome, Email.SubscriptionSummary, Email.ThreeYearsAnniversary {
 
-    public static Email welcome(EmailAddress emailAddress) {
-        return new Email(
-            emailAddress,
-            "Thank you for subscribing " + emailAddress + " !"
-        );
+    final record Welcome(EmailAddress emailAddress, String emailBody) implements Email {
+        public Welcome(EmailAddress emailAddress) {
+            this(
+                emailAddress,
+                "Welcome to our gym :)"
+            );
+        }
     }
 
-    public static Email threeYearsAnniversary(EmailAddress emailAddress, Double newSubscriptionPrice) {
-        return new Email(
-            emailAddress,
-            "To thank you for your loyalty, we've applied a 5% discount on your subscription, you will now pay " + newSubscriptionPrice + " !"
-        );
+    final record SubscriptionSummary(EmailAddress emailAddress, String emailBody) implements Email {
+        public SubscriptionSummary(EmailAddress emailAddress, String startDate, String endDate, Integer price) {
+            this(
+                emailAddress,
+                "Thank you for subscribing, this subscription will run from " + startDate + " until " + endDate + ", and will only cost you " + price + "!"
+            );
+        }
+    }
+
+    final record ThreeYearsAnniversary(EmailAddress emailAddress, String emailBody) implements Email {
+        public ThreeYearsAnniversary(EmailAddress emailAddress, Double newSubscriptionPrice) {
+            this(
+                emailAddress,
+                "To thank you for your loyalty, we've applied a 5% discount on your subscription, you will now pay " + newSubscriptionPrice + " !"
+            );
+        }
     }
 }

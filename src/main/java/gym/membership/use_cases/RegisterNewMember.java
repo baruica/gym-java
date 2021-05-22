@@ -7,24 +7,18 @@ import gym.membership.domain.MemberRepository;
 
 import java.time.LocalDate;
 
-public final class RegisterNewMember {
-
-    private final MemberRepository memberRepository;
-    private final Mailer mailer;
-
-    public RegisterNewMember(MemberRepository memberRepository, Mailer mailer) {
-        this.memberRepository = memberRepository;
-        this.mailer = mailer;
-    }
-
+public record RegisterNewMember(
+    MemberRepository memberRepository,
+    Mailer mailer
+) {
     public Member handle(RegisterNewMemberCommand command) {
-        var email = new EmailAddress(command.email());
-        var knownMemberOpt = memberRepository.findByEmailAddress(email);
+        var emailAddress = new EmailAddress(command.email());
+        var knownMemberOpt = memberRepository.findByEmailAddress(emailAddress);
 
         if (knownMemberOpt.isEmpty()) {
             var member = Member.register(
                 command.memberId(),
-                email,
+                emailAddress,
                 LocalDate.parse(command.subscriptionStartDate())
             );
 
