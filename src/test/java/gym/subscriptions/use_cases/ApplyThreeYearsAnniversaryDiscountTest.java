@@ -32,12 +32,12 @@ class ApplyThreeYearsAnniversaryDiscountTest {
         assertEquals(0, subscriptionsBeforeThreeYearsAnniversary.size());
 
         var subscriptionsWithThreeYearsDiscount = tested.handle(
-            new ApplyThreeYearsAnniversaryDiscountCommand("2018-07-09")
+            new ApplyThreeYearsAnniversaryDiscountCommand("2018-07-12")
         );
         assertEquals(1111.5, subscriptionsWithThreeYearsDiscount.get(subscriptionsWithThreeYearsDiscount.size() - 1).price.amount());
 
         var subscriptionsAfterThreeYearsAnniversary = tested.handle(
-            new ApplyThreeYearsAnniversaryDiscountCommand("2018-07-10")
+            new ApplyThreeYearsAnniversaryDiscountCommand("2018-07-09")
         );
         assertEquals(0, subscriptionsAfterThreeYearsAnniversary.size());
     }

@@ -63,15 +63,21 @@ public final class Subscription {
         return (int) Math.round(price.amount / durationInMonths);
     }
 
-    public boolean hasThreeYearsAnniversaryOn(LocalDate date) {
-        return date.equals(startDate.plusYears(3))
-            && date.equals(endDate);
+    public boolean hasThreeYearsAnniversaryAfter(LocalDate date) {
+        LocalDate threeYearsAfterStartDate = startDate.plusYears(3);
+
+        return (date.equals(threeYearsAfterStartDate) || date.isAfter(threeYearsAfterStartDate))
+            && threeYearsAfterStartDate.equals(endDate)
+            && (date.equals(endDate) || date.isAfter(endDate))
+            && !threeYearsAnniversaryDiscountApplied;
     }
 
     public void applyThreeYearsAnniversaryDiscount(LocalDate date) {
-        if (!threeYearsAnniversaryDiscountApplied) {
+        boolean hasThreeYearsAnniversaryPassed = hasThreeYearsAnniversaryAfter(date);
+
+        if (hasThreeYearsAnniversaryPassed) {
             var newPrice = price.applyThreeYearsAnniversaryDiscount(
-                hasThreeYearsAnniversaryOn(date)
+                hasThreeYearsAnniversaryPassed
             );
 
             if (price != newPrice) {

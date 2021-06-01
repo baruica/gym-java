@@ -50,7 +50,7 @@ public final class InMemorySubscriptionRepository implements SubscriptionReposit
     public List<Subscription> threeYearsAnniversarySubscriptions(LocalDate date) {
 
         return subscriptions.values().stream()
-            .filter(subscription -> subscription.hasThreeYearsAnniversaryOn(date))
+            .filter(subscription -> subscription.hasThreeYearsAnniversaryAfter(date))
             .collect(Collectors.toList());
     }
 }
