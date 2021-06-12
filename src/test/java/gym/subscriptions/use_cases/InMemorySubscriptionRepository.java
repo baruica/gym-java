@@ -1,38 +1,19 @@
 package gym.subscriptions.use_cases;
 
+import gym.InMemoryRepository;
 import gym.subscriptions.domain.Subscription;
 import gym.subscriptions.domain.SubscriptionRepository;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
-public final class InMemorySubscriptionRepository implements SubscriptionRepository {
-
-    private final Map<Subscription.SubscriptionId, Subscription> subscriptions = new HashMap<>();
-
-    @Override
-    public String nextId() {
-        return UUID.randomUUID().toString();
-    }
-
-    @Override
-    public void store(Subscription subscription) {
-        subscriptions.put(subscription.id, subscription);
-    }
-
-    @Override
-    public void storeAll(List<? extends Subscription> subscriptions) {
-        subscriptions.forEach(this::store);
-    }
+public final class InMemorySubscriptionRepository extends InMemoryRepository<Subscription> implements SubscriptionRepository {
 
     @Override
     public List<Subscription> ongoingSubscriptions(LocalDate date) {
 
-        return subscriptions.values().stream()
+        return items.values().stream()
             .filter(subscription -> subscription.isOngoing(date))
             .collect(Collectors.toList());
     }
@@ -40,7 +21,7 @@ public final class InMemorySubscriptionRepository implements SubscriptionReposit
     @Override
     public List<Subscription> endedMonthlySubscriptions(LocalDate date) {
 
-        return subscriptions.values().stream()
+        return items.values().stream()
             .filter(Subscription::isMonthly)
             .filter(subscription -> subscription.willBeEndedAsFrom(date))
             .collect(Collectors.toList());
@@ -49,7 +30,7 @@ public final class InMemorySubscriptionRepository implements SubscriptionReposit
     @Override
     public List<Subscription> threeYearsAnniversarySubscriptions(LocalDate date) {
 
-        return subscriptions.values().stream()
+        return items.values().stream()
             .filter(subscription -> subscription.hasThreeYearsAnniversaryAfter(date))
             .collect(Collectors.toList());
     }

@@ -15,8 +15,9 @@ public class Send3YearsAnniversaryThankYouEmailsTest {
     public void handle() {
         var memberRepository = new InMemoryMemberRepository();
 
+        var memberId = UUID.randomUUID().toString();
         var memberLuke = Member.register(
-            UUID.randomUUID().toString(),
+            memberId,
             new EmailAddress("luke@gmail.com"),
             LocalDate.parse("2018-06-05").minusYears(3)
         );
@@ -27,7 +28,7 @@ public class Send3YearsAnniversaryThankYouEmailsTest {
         var tested = new Send3YearsAnniversaryThankYouEmails(memberRepository, mailer);
 
         tested.handle(
-            new Send3YearsAnniversaryThankYouEmailsCommand(memberLuke.id.id(), 780.0)
+            new Send3YearsAnniversaryThankYouEmailsCommand(memberId, 780.0)
         );
 
         assertTrue(mailer.threeYearsAnniversaryWasSentTo(memberLuke.emailAddress, 780.0));

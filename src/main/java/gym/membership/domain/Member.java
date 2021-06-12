@@ -1,14 +1,21 @@
 package gym.membership.domain;
 
+import gym.HasAnId;
+
 import java.time.LocalDate;
 
-public final class Member {
+public final class Member implements HasAnId {
 
     public final MemberId id;
     public final EmailAddress emailAddress;
     private final LocalDate memberSince;
     private boolean welcomeEmailWasSent = false;
     private boolean threeYearsAnniversaryThankYouEmailWasSent = false;
+
+    @Override
+    public String getId() {
+        return this.id.id();
+    }
 
     public static record MemberId(String id) {
     }
