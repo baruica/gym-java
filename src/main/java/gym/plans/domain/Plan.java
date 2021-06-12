@@ -1,12 +1,19 @@
 package gym.plans.domain;
 
+import gym.HasAnId;
+
 import static java.util.Arrays.asList;
 
-public final class Plan {
+public final class Plan implements HasAnId {
 
     public final PlanId id;
     public Price price;
     private final Duration duration;
+
+    @Override
+    public String getId() {
+        return this.id.id();
+    }
 
     public static record PlanId(String id) {
     }

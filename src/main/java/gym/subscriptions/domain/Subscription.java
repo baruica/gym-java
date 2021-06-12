@@ -1,8 +1,10 @@
 package gym.subscriptions.domain;
 
+import gym.HasAnId;
+
 import java.time.LocalDate;
 
-public final class Subscription {
+public final class Subscription implements HasAnId {
 
     public final SubscriptionId id;
     private final Integer durationInMonths;
@@ -10,6 +12,11 @@ public final class Subscription {
     public LocalDate endDate;
     public Price price;
     private Boolean threeYearsAnniversaryDiscountApplied;
+
+    @Override
+    public String getId() {
+        return this.id.id();
+    }
 
     public static record SubscriptionId(String id) {
     }

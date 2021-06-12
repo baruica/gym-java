@@ -8,7 +8,7 @@ record ChangePlanPrice(
 ) {
     Plan handle(ChangePlanPriceCommand command) {
 
-        var plan = (Plan) planRepository.get(new Plan.PlanId(command.planId()));
+        var plan = (Plan) planRepository.get(command.planId());
 
         plan.changePrice(command.newPrice());
 
