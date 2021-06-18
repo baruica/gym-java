@@ -1,5 +1,5 @@
 package gym;
 
-public interface HasAnId {
+public interface Aggregate {
     String getId();
 }

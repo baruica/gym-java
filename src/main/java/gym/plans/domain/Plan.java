@@ -1,10 +1,10 @@
 package gym.plans.domain;
 
-import gym.HasAnId;
+import gym.Aggregate;
 
 import static java.util.Arrays.asList;
 
-public final class Plan implements HasAnId {
+public final class Plan implements Aggregate {
 
     public final PlanId id;
     public Price price;

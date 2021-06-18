@@ -1,10 +1,10 @@
 package gym.subscriptions.domain;
 
-import gym.HasAnId;
+import gym.Aggregate;
 
 import java.time.LocalDate;
 
-public final class Subscription implements HasAnId {
+public final class Subscription implements Aggregate {
 
     public final SubscriptionId id;
     private final Integer durationInMonths;

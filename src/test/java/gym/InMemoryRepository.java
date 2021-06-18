@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class InMemoryRepository<T extends HasAnId> implements Repository<T> {
+public class InMemoryRepository<T extends Aggregate> implements Repository<T> {
 
     protected final Map<String, T> items = new HashMap<>();
 

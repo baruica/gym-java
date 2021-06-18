@@ -1,10 +1,10 @@
 package gym.membership.domain;
 
-import gym.HasAnId;
+import gym.Aggregate;
 
 import java.time.LocalDate;
 
-public final class Member implements HasAnId {
+public final class Member implements Aggregate {
 
     public final MemberId id;
     public final EmailAddress emailAddress;
