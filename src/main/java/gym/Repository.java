@@ -6,9 +6,9 @@ public interface Repository<T> {
 
     String nextId();
 
-    void store(T item);
+    void store(T aggregate);
 
-    void storeAll(List<T> items);
+    void storeAll(List<T> aggregates);
 
-    T get(String itemId);
+    T get(String aggregateId);
 }

@@ -13,7 +13,7 @@ public final class InMemorySubscriptionRepository extends InMemoryRepository<Sub
     @Override
     public List<Subscription> ongoingSubscriptions(LocalDate date) {
 
-        return items.values().stream()
+        return aggregates.values().stream()
             .filter(subscription -> subscription.isOngoing(date))
             .collect(Collectors.toList());
     }
@@ -21,7 +21,7 @@ public final class InMemorySubscriptionRepository extends InMemoryRepository<Sub
     @Override
     public List<Subscription> endedMonthlySubscriptions(LocalDate date) {
 
-        return items.values().stream()
+        return aggregates.values().stream()
             .filter(Subscription::isMonthly)
             .filter(subscription -> subscription.willBeEndedAsFrom(date))
             .collect(Collectors.toList());
@@ -30,7 +30,7 @@ public final class InMemorySubscriptionRepository extends InMemoryRepository<Sub
     @Override
     public List<Subscription> threeYearsAnniversarySubscriptions(LocalDate date) {
 
-        return items.values().stream()
+        return aggregates.values().stream()
             .filter(subscription -> subscription.hasThreeYearsAnniversaryAfter(date))
             .collect(Collectors.toList());
     }

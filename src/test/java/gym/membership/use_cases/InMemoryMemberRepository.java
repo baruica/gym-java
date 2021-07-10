@@ -15,14 +15,14 @@ public final class InMemoryMemberRepository extends InMemoryRepository<Member> i
 
     @Override
     public Optional<Member> findByEmailAddress(EmailAddress emailAddress) {
-        return items.values().stream()
+        return aggregates.values().stream()
             .filter(member -> Objects.equals(emailAddress, member.emailAddress))
             .findFirst();
     }
 
     @Override
     public List<Member> threeYearsAnniversaryMembers(LocalDate date) {
-        return items.values().stream()
+        return aggregates.values().stream()
             .filter(member -> member.isThreeYearsAnniversary(date))
             .collect(Collectors.toList());
     }
