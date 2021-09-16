@@ -1,6 +1,6 @@
 package gym.membership.domain;
 
-public sealed interface Email permits Email.Welcome, Email.SubscriptionSummary, Email.ThreeYearsAnniversary {
+public sealed interface Email {
 
     final record Welcome(EmailAddress emailAddress, String emailBody) implements Email {
         public Welcome(EmailAddress emailAddress) {
