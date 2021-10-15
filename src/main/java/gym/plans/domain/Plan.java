@@ -2,7 +2,7 @@ package gym.plans.domain;
 
 import gym.Aggregate;
 
-import static java.util.Arrays.asList;
+import static kotlin.collections.CollectionsKt.listOf;
 
 public final class Plan implements Aggregate {
 
@@ -46,7 +46,7 @@ public final class Plan implements Aggregate {
 
     private record Duration(Integer durationInMonths) {
         public Duration {
-            if (!asList(1, 12).contains(durationInMonths)) {
+            if (!listOf(1, 12).contains(durationInMonths)) {
                 throw new IllegalArgumentException("Plan duration is either 1 month or 12 months, was [" + durationInMonths + "]");
             }
         }
