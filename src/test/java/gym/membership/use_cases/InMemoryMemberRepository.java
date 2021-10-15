@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public final class InMemoryMemberRepository extends InMemoryRepository<Member> implements MemberRepository {
 
@@ -24,6 +23,6 @@ public final class InMemoryMemberRepository extends InMemoryRepository<Member> i
     public List<Member> threeYearsAnniversaryMembers(LocalDate date) {
         return aggregates.values().stream()
             .filter(member -> member.isThreeYearsAnniversary(date))
-            .collect(Collectors.toList());
+            .toList();
     }
 }

@@ -6,7 +6,6 @@ import gym.subscriptions.domain.SubscriptionRepository;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public final class InMemorySubscriptionRepository extends InMemoryRepository<Subscription> implements SubscriptionRepository {
 
@@ -15,7 +14,7 @@ public final class InMemorySubscriptionRepository extends InMemoryRepository<Sub
 
         return aggregates.values().stream()
             .filter(subscription -> subscription.isOngoing(date))
-            .collect(Collectors.toList());
+            .toList();
     }
 
     @Override
@@ -24,7 +23,7 @@ public final class InMemorySubscriptionRepository extends InMemoryRepository<Sub
         return aggregates.values().stream()
             .filter(Subscription::isMonthly)
             .filter(subscription -> subscription.willBeEndedAsFrom(date))
-            .collect(Collectors.toList());
+            .toList();
     }
 
     @Override
@@ -32,6 +31,6 @@ public final class InMemorySubscriptionRepository extends InMemoryRepository<Sub
 
         return aggregates.values().stream()
             .filter(subscription -> subscription.hasThreeYearsAnniversaryAfter(date))
-            .collect(Collectors.toList());
+            .toList();
     }
 }
