@@ -15,7 +15,7 @@ public class SubscribeToPlanTest {
         var tested = new SubscribeToPlan(repository);
 
         var subscription = tested.handle(
-            new SubscribeToPlanCommand(
+            new SubscribeToPlan.SubscribeToPlanCommand(
                 subscriptionId,
                 500,
                 12,

@@ -23,4 +23,7 @@ record RenewMonthlySubscriptionsAutomatically(
 
         return endedMonthlySubscriptionsAsOf;
     }
+
+    public static final record RenewMonthlySubscriptionsAutomaticallyCommand(String asOfDate) {
+    }
 }

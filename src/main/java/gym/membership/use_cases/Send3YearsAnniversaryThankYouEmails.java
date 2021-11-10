@@ -21,4 +21,10 @@ public record Send3YearsAnniversaryThankYouEmails(
 
         return threeYearsAnniversaryMember;
     }
+
+    public static final record Send3YearsAnniversaryThankYouEmailsCommand(
+        String memberId,
+        Double newSubscriptionPrice
+    ) {
+    }
 }

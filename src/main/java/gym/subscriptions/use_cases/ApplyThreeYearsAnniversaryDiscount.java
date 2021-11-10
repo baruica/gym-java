@@ -23,4 +23,7 @@ public record ApplyThreeYearsAnniversaryDiscount(
 
         return threeYearsAnniversarySubscriptions;
     }
+
+    public static final record ApplyThreeYearsAnniversaryDiscountCommand(String asOfDate) {
+    }
 }

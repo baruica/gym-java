@@ -16,4 +16,10 @@ record ChangePlanPrice(
 
         return plan;
     }
+
+    public static final record ChangePlanPriceCommand(
+        String planId,
+        Integer newPrice
+    ) {
+    }
 }

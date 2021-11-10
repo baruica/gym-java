@@ -39,7 +39,7 @@ public class RenewMonthlySubscriptionsAutomaticallyTest {
         var tested = new RenewMonthlySubscriptionsAutomatically(subscriptionRepository);
 
         var renewedSubscriptions = tested.handle(
-            new RenewMonthlySubscriptionsAutomaticallyCommand("2018-07-10")
+            new RenewMonthlySubscriptionsAutomatically.RenewMonthlySubscriptionsAutomaticallyCommand("2018-07-10")
         );
 
         assertEquals(1, renewedSubscriptions.size());

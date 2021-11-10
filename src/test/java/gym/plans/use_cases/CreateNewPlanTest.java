@@ -17,7 +17,7 @@ public class CreateNewPlanTest {
         var tested = new CreateNewPlan(repository);
 
         var newPlan = tested.handle(
-            new CreateNewPlanCommand(planId, 300, 1)
+            new CreateNewPlan.CreateNewPlanCommand(planId, 300, 1)
         );
 
         assertEquals(new Plan.PlanId(planId), newPlan.id);

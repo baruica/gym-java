@@ -31,4 +31,11 @@ public record RegisterNewMember(
 
         return null;
     }
+
+    public static final record RegisterNewMemberCommand(
+        String memberId,
+        String subscriptionId,
+        String subscriptionStartDate, String email
+    ) {
+    }
 }

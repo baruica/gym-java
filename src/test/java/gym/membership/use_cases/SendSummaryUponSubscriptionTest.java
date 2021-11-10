@@ -19,7 +19,7 @@ class SendSummaryUponSubscriptionTest {
         var tested = new SendSummaryUponSubscription(mailer);
 
         tested.handle(
-            new SendSummaryUponSubscriptionCommand(
+            new SendSummaryUponSubscription.SendSummaryUponSubscriptionCommand(
                 emailAddress,
                 startDate,
                 endDate,

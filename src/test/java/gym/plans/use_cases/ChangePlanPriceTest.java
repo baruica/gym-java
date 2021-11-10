@@ -21,7 +21,7 @@ public class ChangePlanPriceTest {
         var tested = new ChangePlanPrice(planRepository);
 
         var plan = tested.handle(
-            new ChangePlanPriceCommand(planId, 400)
+            new ChangePlanPrice.ChangePlanPriceCommand(planId, 400)
         );
 
         assertEquals(400, plan.price.amount());
@@ -34,7 +34,7 @@ public class ChangePlanPriceTest {
         var tested = new ChangePlanPrice(planRepository);
 
         assertThrows(RuntimeException.class, () -> tested.handle(
-            new ChangePlanPriceCommand("unknown planId", 400)
+            new ChangePlanPrice.ChangePlanPriceCommand("unknown planId", 400)
         ));
     }
 }

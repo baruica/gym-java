@@ -15,4 +15,12 @@ record SendSummaryUponSubscription(
             command.price()
         );
     }
+
+    public static record SendSummaryUponSubscriptionCommand(
+        String email,
+        String startDate,
+        String endDate,
+        Integer price
+    ) {
+    }
 }

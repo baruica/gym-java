@@ -28,7 +28,7 @@ public class Send3YearsAnniversaryThankYouEmailsTest {
         var tested = new Send3YearsAnniversaryThankYouEmails(memberRepository, mailer);
 
         tested.handle(
-            new Send3YearsAnniversaryThankYouEmailsCommand(memberId, 780.0)
+            new Send3YearsAnniversaryThankYouEmails.Send3YearsAnniversaryThankYouEmailsCommand(memberId, 780.0)
         );
 
         assertTrue(mailer.threeYearsAnniversaryWasSentTo(memberLuke.emailAddress, 780.0));

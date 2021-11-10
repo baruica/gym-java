@@ -16,4 +16,7 @@ record TurnoverForAGivenMonth(
             subscriptionRepository.ongoingSubscriptions(asOfDate)
         );
     }
+
+    public static final record TurnoverForAGivenMonthQuery(String asOfDate) {
+    }
 }

@@ -21,7 +21,7 @@ class RegisterNewMemberTest {
 
         var subscriptionId = "subscriptionId def";
         var subscriptionStartDate = "2018-06-05";
-        var command = new RegisterNewMemberCommand(
+        var command = new RegisterNewMember.RegisterNewMemberCommand(
             memberId,
             subscriptionId,
             subscriptionStartDate,

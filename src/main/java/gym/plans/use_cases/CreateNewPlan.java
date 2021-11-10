@@ -18,4 +18,11 @@ record CreateNewPlan(
 
         return newPlan;
     }
+
+    public static final record CreateNewPlanCommand(
+        String planId,
+        Integer basePrice,
+        Integer planDurationsInMonths
+    ) {
+    }
 }

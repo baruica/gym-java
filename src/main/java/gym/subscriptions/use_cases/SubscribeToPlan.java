@@ -22,4 +22,13 @@ record SubscribeToPlan(
 
         return subscription;
     }
+
+    public static final record SubscribeToPlanCommand(
+        String subscriptionId,
+        Integer planPrice,
+        Integer planDurationInMonths,
+        String startDate,
+        Boolean isStudent
+    ) {
+    }
 }
