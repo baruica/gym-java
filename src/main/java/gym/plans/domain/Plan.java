@@ -15,8 +15,7 @@ public final class Plan implements Aggregate {
         return this.id.id();
     }
 
-    public static record PlanId(String id) {
-    }
+    public static record PlanId(String id) {}
 
     private Plan(PlanId id, Price price, Duration duration) {
         this.id = id;
@@ -45,7 +44,7 @@ public final class Plan implements Aggregate {
     }
 
     private record Duration(Integer durationInMonths) {
-        public Duration {
+        private Duration {
             if (!listOf(1, 12).contains(durationInMonths)) {
                 throw new IllegalArgumentException("Plan duration is either 1 month or 12 months, was [" + durationInMonths + "]");
             }

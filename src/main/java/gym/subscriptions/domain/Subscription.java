@@ -18,8 +18,7 @@ public final class Subscription implements Aggregate {
         return this.id.id();
     }
 
-    public static record SubscriptionId(String id) {
-    }
+    public static record SubscriptionId(String id) {}
 
     private Subscription(SubscriptionId id, Integer planDurationInMonths, LocalDate startDate, LocalDate endDate, Price price, Boolean threeYearsAnniversaryDiscountApplied) {
         this.id = id;
@@ -102,19 +101,19 @@ public final class Subscription implements Aggregate {
             }
         }
 
-        public Price(Integer amount) {
+        Price(Integer amount) {
             this(Double.valueOf(amount));
         }
 
-        public Price applyDurationDiscount(Integer durationInMonths) {
+        Price applyDurationDiscount(Integer durationInMonths) {
             return (durationInMonths == 12) ? applyDiscount(0.1) : this;
         }
 
-        public Price applyStudentDiscount(Boolean isStudent) {
+        Price applyStudentDiscount(Boolean isStudent) {
             return isStudent ? applyDiscount(0.2) : this;
         }
 
-        public Price applyThreeYearsAnniversaryDiscount(boolean hasThreeYearsAnniversary) {
+        Price applyThreeYearsAnniversaryDiscount(boolean hasThreeYearsAnniversary) {
             return hasThreeYearsAnniversary ? applyDiscount(0.05) : this;
         }
 
