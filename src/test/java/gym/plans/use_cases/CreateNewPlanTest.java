@@ -14,10 +14,10 @@ public class CreateNewPlanTest {
         PlanRepository repository = new InMemoryPlanRepository();
         var planId = repository.nextId();
 
-        var tested = new CreateNewPlan(repository);
+        var tested = new CreateNewPlan.Handler(repository);
 
         var newPlan = tested.handle(
-            new CreateNewPlan.CreateNewPlanCommand(planId, 300, 1)
+            new CreateNewPlan(planId, 300, 1)
         );
 
         assertEquals(new Plan.PlanId(planId), newPlan.id);

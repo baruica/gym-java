@@ -12,10 +12,10 @@ public class SubscribeToPlanTest {
         var repository = new InMemorySubscriptionRepository();
         var subscriptionId = repository.nextId();
 
-        var tested = new SubscribeToPlan(repository);
+        var tested = new SubscribeToPlan.Handler(repository);
 
         var subscription = tested.handle(
-            new SubscribeToPlan.SubscribeToPlanCommand(
+            new SubscribeToPlan(
                 subscriptionId,
                 500,
                 12,

@@ -15,7 +15,7 @@ public final class Plan implements Aggregate {
         return this.id.id();
     }
 
-    public static record PlanId(String id) {}
+    public record PlanId(String id) {}
 
     private Plan(PlanId id, Price price, Duration duration) {
         this.id = id;

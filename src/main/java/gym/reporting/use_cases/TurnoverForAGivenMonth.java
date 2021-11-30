@@ -5,18 +5,17 @@ import gym.subscriptions.domain.SubscriptionRepository;
 
 import java.time.LocalDate;
 
-record TurnoverForAGivenMonth(
-    SubscriptionRepository subscriptionRepository
-) {
-    Turnover handle(TurnoverForAGivenMonthQuery query) {
+public record TurnoverForAGivenMonth(String asOfDate) {
+    record Handler(
+        SubscriptionRepository subscriptionRepository
+    ) {
+        Turnover handle(TurnoverForAGivenMonth query) {
 
-        var asOfDate = LocalDate.parse(query.asOfDate());
+            var asOfDate = LocalDate.parse(query.asOfDate());
 
-        return Turnover.monthly(
-            subscriptionRepository.ongoingSubscriptions(asOfDate)
-        );
-    }
-
-    public static final record TurnoverForAGivenMonthQuery(String asOfDate) {
+            return Turnover.monthly(
+                subscriptionRepository.ongoingSubscriptions(asOfDate)
+            );
+        }
     }
 }

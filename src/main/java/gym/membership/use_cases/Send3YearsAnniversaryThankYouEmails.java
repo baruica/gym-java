@@ -5,26 +5,25 @@ import gym.membership.domain.Member;
 import gym.membership.domain.MemberRepository;
 
 public record Send3YearsAnniversaryThankYouEmails(
-    MemberRepository memberRepository,
-    Mailer mailer
+    String memberId,
+    Double newSubscriptionPrice
 ) {
-    public Member handle(Send3YearsAnniversaryThankYouEmailsCommand command) {
-
-        var threeYearsAnniversaryMember = memberRepository.get(
-            command.memberId()
-        );
-
-        mailer.send3YearsAnniversaryEmail(
-            threeYearsAnniversaryMember,
-            command.newSubscriptionPrice()
-        );
-
-        return threeYearsAnniversaryMember;
-    }
-
-    public static final record Send3YearsAnniversaryThankYouEmailsCommand(
-        String memberId,
-        Double newSubscriptionPrice
+    public record Handler(
+        MemberRepository memberRepository,
+        Mailer mailer
     ) {
+        public Member handle(Send3YearsAnniversaryThankYouEmails command) {
+
+            var threeYearsAnniversaryMember = memberRepository.get(
+                command.memberId()
+            );
+
+            mailer.send3YearsAnniversaryEmail(
+                threeYearsAnniversaryMember,
+                command.newSubscriptionPrice()
+            );
+
+            return threeYearsAnniversaryMember;
+        }
     }
 }

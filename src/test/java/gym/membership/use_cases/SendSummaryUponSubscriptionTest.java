@@ -16,10 +16,10 @@ class SendSummaryUponSubscriptionTest {
 
         var mailer = new InMemoryMailer();
 
-        var tested = new SendSummaryUponSubscription(mailer);
+        var tested = new SendSummaryUponSubscription.Handler(mailer);
 
         tested.handle(
-            new SendSummaryUponSubscription.SendSummaryUponSubscriptionCommand(
+            new SendSummaryUponSubscription(
                 emailAddress,
                 startDate,
                 endDate,

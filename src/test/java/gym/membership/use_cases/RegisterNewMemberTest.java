@@ -21,7 +21,7 @@ class RegisterNewMemberTest {
 
         var subscriptionId = "subscriptionId def";
         var subscriptionStartDate = "2018-06-05";
-        var command = new RegisterNewMember.RegisterNewMemberCommand(
+        var command = new RegisterNewMember(
             memberId,
             subscriptionId,
             subscriptionStartDate,
@@ -30,7 +30,7 @@ class RegisterNewMemberTest {
 
         var mailer = new InMemoryMailer();
 
-        var tested = new RegisterNewMember(repository, mailer);
+        var tested = new RegisterNewMember.Handler(repository, mailer);
         var member = tested.handle(command);
 
         if (member != null) {

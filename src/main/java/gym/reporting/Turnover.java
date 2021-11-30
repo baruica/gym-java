@@ -4,7 +4,7 @@ import gym.subscriptions.domain.Subscription;
 
 import java.util.List;
 
-public final record Turnover(int total) {
+public record Turnover(int total) {
 
     public static Turnover monthly(List<Subscription> subscriptions) {
         return new Turnover(

@@ -18,10 +18,10 @@ public class ChangePlanPriceTest {
             Plan.create(planId, 450, 12)
         );
 
-        var tested = new ChangePlanPrice(planRepository);
+        var tested = new ChangePlanPrice.Handler(planRepository);
 
         var plan = tested.handle(
-            new ChangePlanPrice.ChangePlanPriceCommand(planId, 400)
+            new ChangePlanPrice(planId, 400)
         );
 
         assertEquals(400, plan.price.amount());
@@ -31,10 +31,10 @@ public class ChangePlanPriceTest {
     public void plan_not_found() {
         var planRepository = new InMemoryPlanRepository();
 
-        var tested = new ChangePlanPrice(planRepository);
+        var tested = new ChangePlanPrice.Handler(planRepository);
 
         assertThrows(RuntimeException.class, () -> tested.handle(
-            new ChangePlanPrice.ChangePlanPriceCommand("unknown planId", 400)
+            new ChangePlanPrice("unknown planId", 400)
         ));
     }
 }

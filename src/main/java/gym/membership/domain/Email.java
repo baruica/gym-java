@@ -2,7 +2,7 @@ package gym.membership.domain;
 
 public sealed interface Email {
 
-    final record Welcome(EmailAddress emailAddress, String emailBody) implements Email {
+    record Welcome(EmailAddress emailAddress, String emailBody) implements Email {
         public Welcome(EmailAddress emailAddress) {
             this(
                 emailAddress,
@@ -11,7 +11,7 @@ public sealed interface Email {
         }
     }
 
-    final record SubscriptionSummary(EmailAddress emailAddress, String emailBody) implements Email {
+    record SubscriptionSummary(EmailAddress emailAddress, String emailBody) implements Email {
         public SubscriptionSummary(EmailAddress emailAddress, String startDate, String endDate, Integer price) {
             this(
                 emailAddress,
@@ -20,7 +20,7 @@ public sealed interface Email {
         }
     }
 
-    final record ThreeYearsAnniversary(EmailAddress emailAddress, String emailBody) implements Email {
+    record ThreeYearsAnniversary(EmailAddress emailAddress, String emailBody) implements Email {
         public ThreeYearsAnniversary(EmailAddress emailAddress, Double newSubscriptionPrice) {
             this(
                 emailAddress,

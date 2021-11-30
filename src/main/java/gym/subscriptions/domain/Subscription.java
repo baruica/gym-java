@@ -18,7 +18,7 @@ public final class Subscription implements Aggregate {
         return this.id.id();
     }
 
-    public static record SubscriptionId(String id) {}
+    public record SubscriptionId(String id) {}
 
     private Subscription(SubscriptionId id, Integer planDurationInMonths, LocalDate startDate, LocalDate endDate, Price price, Boolean threeYearsAnniversaryDiscountApplied) {
         this.id = id;

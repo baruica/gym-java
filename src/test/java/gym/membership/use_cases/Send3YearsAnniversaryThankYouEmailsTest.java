@@ -25,10 +25,10 @@ public class Send3YearsAnniversaryThankYouEmailsTest {
 
         var mailer = new InMemoryMailer();
 
-        var tested = new Send3YearsAnniversaryThankYouEmails(memberRepository, mailer);
+        var tested = new Send3YearsAnniversaryThankYouEmails.Handler(memberRepository, mailer);
 
         tested.handle(
-            new Send3YearsAnniversaryThankYouEmails.Send3YearsAnniversaryThankYouEmailsCommand(memberId, 780.0)
+            new Send3YearsAnniversaryThankYouEmails(memberId, 780.0)
         );
 
         assertTrue(mailer.threeYearsAnniversaryWasSentTo(memberLuke.emailAddress, 780.0));

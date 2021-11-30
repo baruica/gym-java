@@ -17,7 +17,7 @@ public final class Member implements Aggregate {
         return this.id.id();
     }
 
-    public static record MemberId(String id) {}
+    public record MemberId(String id) {}
 
     private Member(MemberId id, EmailAddress emailAddress, LocalDate memberSince) {
         this.id = id;
