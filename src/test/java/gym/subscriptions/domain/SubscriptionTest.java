@@ -1,10 +1,10 @@
 package gym.subscriptions.domain;
 
+import com.github.f4b6a3.ulid.UlidCreator;
 import gym.subscriptions.domain.Subscription.Price;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -142,7 +142,7 @@ public class SubscriptionTest {
 
     private Subscription newSubscription(Integer basePrice, Integer durationInMonths, LocalDate startDate, Boolean isStudent) {
         return Subscription.subscribe(
-            UUID.randomUUID().toString(),
+            UlidCreator.getUlid().toString(),
             startDate,
             durationInMonths, basePrice,
             isStudent

@@ -1,5 +1,6 @@
 package gym.membership.use_cases;
 
+import com.github.f4b6a3.ulid.UlidCreator;
 import gym.membership.domain.Email;
 import gym.membership.domain.EmailAddress;
 import gym.membership.domain.Mailer;
@@ -7,7 +8,6 @@ import gym.membership.domain.Member;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 public final class InMemoryMailer implements Mailer {
 
@@ -16,7 +16,7 @@ public final class InMemoryMailer implements Mailer {
     @Override
     public void sendWelcomeEmail(Member member) {
         sentEmails.put(
-            UUID.randomUUID().toString(),
+            UlidCreator.getUlid().toString(),
             new Email.Welcome(member.emailAddress)
         );
         member.markWelcomeEmailAsSent();
@@ -25,7 +25,7 @@ public final class InMemoryMailer implements Mailer {
     @Override
     public void sendSubscriptionSummary(EmailAddress emailAddress, String startDate, String endDate, Integer price) {
         sentEmails.put(
-            UUID.randomUUID().toString(),
+            UlidCreator.getUlid().toString(),
             new Email.SubscriptionSummary(emailAddress, startDate, endDate, price)
         );
     }
@@ -33,7 +33,7 @@ public final class InMemoryMailer implements Mailer {
     @Override
     public void send3YearsAnniversaryEmail(Member member, Double newSubscriptionPrice) {
         sentEmails.put(
-            UUID.randomUUID().toString(),
+            UlidCreator.getUlid().toString(),
             new Email.ThreeYearsAnniversary(member.emailAddress, newSubscriptionPrice)
         );
         member.mark3YearsAnniversaryThankYouEmailAsSent();
