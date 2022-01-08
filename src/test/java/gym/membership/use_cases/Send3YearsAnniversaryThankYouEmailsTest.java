@@ -1,8 +1,8 @@
 package gym.membership.use_cases;
 
-import com.github.f4b6a3.ulid.UlidCreator;
 import gym.membership.domain.EmailAddress;
 import gym.membership.domain.Member;
+import gym.membership.domain.MemberRepository;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -11,11 +11,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class Send3YearsAnniversaryThankYouEmailsTest {
 
+    private final MemberRepository memberRepository = new InMemoryMemberRepository();
+
     @Test
     public void handle() {
-        var memberRepository = new InMemoryMemberRepository();
-
-        var memberId = UlidCreator.getUlid().toString();
+        var memberId = memberRepository.nextId();
         var memberLuke = Member.register(
             memberId,
             new EmailAddress("luke@gmail.com"),
