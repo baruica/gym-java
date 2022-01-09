@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class InMemoryRepository<T extends Aggregate> implements Repository<T> {
+public class InMemoryRepository<AGGREGATE extends Aggregate> implements Repository<AGGREGATE> {
 
-    protected final Map<String, T> aggregates = new HashMap<>();
+    protected final Map<String, AGGREGATE> aggregates = new HashMap<>();
 
     @Override
     public String nextId() {
@@ -16,17 +16,17 @@ public class InMemoryRepository<T extends Aggregate> implements Repository<T> {
     }
 
     @Override
-    public void store(T aggregate) {
+    public void store(AGGREGATE aggregate) {
         aggregates.put(aggregate.getId(), aggregate);
     }
 
     @Override
-    public void storeAll(List<T> aggregates) {
+    public void storeAll(List<AGGREGATE> aggregates) {
         aggregates.forEach(this::store);
     }
 
     @Override
-    public T get(String aggregateId) {
+    public AGGREGATE get(String aggregateId) {
         if (aggregates.containsKey(aggregateId)) {
             return aggregates.get(aggregateId);
         }

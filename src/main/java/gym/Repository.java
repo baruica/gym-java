@@ -2,13 +2,13 @@ package gym;
 
 import java.util.List;
 
-public interface Repository<T> {
+public interface Repository<AGGREGATE> {
 
     String nextId();
 
-    void store(T aggregate);
+    void store(AGGREGATE aggregate);
 
-    void storeAll(List<T> aggregates);
+    void storeAll(List<AGGREGATE> aggregates);
 
-    T get(String aggregateId);
+    AGGREGATE get(String aggregateId);
 }
