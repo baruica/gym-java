@@ -5,6 +5,8 @@ import gym.membership.domain.Member;
 import gym.membership.domain.MemberRepository;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -24,7 +26,7 @@ class RegisterNewMemberTest {
         var command = new RegisterNewMember(
             memberId,
             subscriptionId,
-            subscriptionStartDate,
+            LocalDate.parse(subscriptionStartDate),
             emailAddress.value()
         );
 

@@ -9,7 +9,7 @@ public record SubscribeToPlan(
     String subscriptionId,
     Integer planPrice,
     Integer planDurationInMonths,
-    String startDate,
+    LocalDate startDate,
     Boolean isStudent
 ) {
     record Handler(
@@ -19,7 +19,7 @@ public record SubscribeToPlan(
 
             var subscription = Subscription.subscribe(
                 command.subscriptionId(),
-                LocalDate.parse(command.startDate()),
+                command.startDate(),
                 command.planDurationInMonths(),
                 command.planPrice(),
                 command.isStudent()

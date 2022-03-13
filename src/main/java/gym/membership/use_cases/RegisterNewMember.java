@@ -10,7 +10,8 @@ import java.time.LocalDate;
 public record RegisterNewMember(
     String memberId,
     String subscriptionId,
-    String subscriptionStartDate, String email
+    LocalDate subscriptionStartDate,
+    String email
 ) {
     public record Handler(
         MemberRepository memberRepository,
@@ -24,7 +25,7 @@ public record RegisterNewMember(
                 var member = Member.register(
                     command.memberId(),
                     emailAddress,
-                    LocalDate.parse(command.subscriptionStartDate())
+                    command.subscriptionStartDate()
                 );
 
                 mailer.sendWelcomeEmail(member);

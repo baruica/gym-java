@@ -39,7 +39,7 @@ public class RenewMonthlySubscriptionsAutomaticallyTest {
         var tested = new RenewMonthlySubscriptionsAutomatically.Handler(subscriptionRepository);
 
         var renewedSubscriptions = tested.handle(
-            new RenewMonthlySubscriptionsAutomatically("2018-07-10")
+            new RenewMonthlySubscriptionsAutomatically(LocalDate.parse("2018-07-10"))
         );
 
         assertEquals(1, renewedSubscriptions.size());

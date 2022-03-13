@@ -6,14 +6,14 @@ import gym.subscriptions.domain.SubscriptionRepository;
 import java.time.LocalDate;
 import java.util.List;
 
-public record RenewMonthlySubscriptionsAutomatically(String asOfDate) {
+public record RenewMonthlySubscriptionsAutomatically(LocalDate asOfDate) {
     record Handler(
         SubscriptionRepository subscriptionRepository
     ) {
         List<Subscription> handle(RenewMonthlySubscriptionsAutomatically command) {
 
             var endedMonthlySubscriptionsAsOf = (List<Subscription>) subscriptionRepository.endedMonthlySubscriptions(
-                LocalDate.parse(command.asOfDate())
+                command.asOfDate()
             );
 
             endedMonthlySubscriptionsAsOf.forEach(

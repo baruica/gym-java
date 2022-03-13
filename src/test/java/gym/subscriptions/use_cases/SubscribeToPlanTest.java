@@ -3,6 +3,8 @@ package gym.subscriptions.use_cases;
 import gym.subscriptions.domain.Subscription;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SubscribeToPlanTest {
@@ -19,7 +21,7 @@ public class SubscribeToPlanTest {
                 subscriptionId,
                 500,
                 12,
-                "2018-12-18",
+                LocalDate.parse("2018-12-18"),
                 false
             )
         );
