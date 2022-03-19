@@ -2,10 +2,11 @@ package gym.membership.use_cases;
 
 import gym.membership.domain.Mailer;
 import gym.membership.domain.Member;
+import gym.membership.domain.Member.MemberId;
 import gym.membership.domain.MemberRepository;
 
 public record Send3YearsAnniversaryThankYouEmails(
-    String memberId,
+    MemberId memberId,
     Double newSubscriptionPrice
 ) {
     public record Handler(
@@ -15,7 +16,7 @@ public record Send3YearsAnniversaryThankYouEmails(
         public Member handle(Send3YearsAnniversaryThankYouEmails command) {
 
             var threeYearsAnniversaryMember = memberRepository.get(
-                command.memberId()
+                command.memberId().toString()
             );
 
             mailer.send3YearsAnniversaryEmail(

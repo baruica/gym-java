@@ -15,7 +15,12 @@ public final class Plan implements Aggregate {
         return this.id.id();
     }
 
-    public record PlanId(String id) {}
+    public record PlanId(String id) {
+        @Override
+        public String toString() {
+            return id;
+        }
+    }
 
     private Plan(PlanId id, Price price, Duration duration) {
         this.id = id;
@@ -23,9 +28,9 @@ public final class Plan implements Aggregate {
         this.duration = duration;
     }
 
-    public static Plan create(String id, Integer priceAmount, Integer durationInMonths) {
+    public static Plan create(PlanId id, Integer priceAmount, Integer durationInMonths) {
         return new Plan(
-            new PlanId(id),
+            id,
             new Price(priceAmount),
             new Duration(durationInMonths)
         );

@@ -1,6 +1,7 @@
 package gym.subscriptions.use_cases;
 
 import gym.subscriptions.domain.Subscription;
+import gym.subscriptions.domain.Subscription.SubscriptionId;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -14,7 +15,7 @@ class ApplyThreeYearsAnniversaryDiscountTest {
         var repository = new InMemorySubscriptionRepository();
 
         var subscription = Subscription.subscribe(
-            repository.nextId(),
+            new SubscriptionId(repository.nextId()),
             LocalDate.parse("2015-07-09"),
             12,
             1300,

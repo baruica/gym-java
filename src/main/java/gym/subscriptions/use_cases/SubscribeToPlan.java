@@ -1,12 +1,13 @@
 package gym.subscriptions.use_cases;
 
 import gym.subscriptions.domain.Subscription;
+import gym.subscriptions.domain.Subscription.SubscriptionId;
 import gym.subscriptions.domain.SubscriptionRepository;
 
 import java.time.LocalDate;
 
 public record SubscribeToPlan(
-    String subscriptionId,
+    SubscriptionId subscriptionId,
     Integer planPrice,
     Integer planDurationInMonths,
     LocalDate startDate,

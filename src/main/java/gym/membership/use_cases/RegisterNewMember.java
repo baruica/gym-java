@@ -3,28 +3,29 @@ package gym.membership.use_cases;
 import gym.membership.domain.EmailAddress;
 import gym.membership.domain.Mailer;
 import gym.membership.domain.Member;
+import gym.membership.domain.Member.MemberId;
 import gym.membership.domain.MemberRepository;
+import gym.subscriptions.domain.Subscription.SubscriptionId;
 
 import java.time.LocalDate;
 
 public record RegisterNewMember(
-    String memberId,
-    String subscriptionId,
+    MemberId memberId,
+    SubscriptionId subscriptionId,
     LocalDate subscriptionStartDate,
-    String email
+    EmailAddress email
 ) {
     public record Handler(
         MemberRepository memberRepository,
         Mailer mailer
     ) {
         public Member handle(RegisterNewMember command) {
-            var emailAddress = new EmailAddress(command.email());
-            var knownMemberOpt = memberRepository.findByEmailAddress(emailAddress);
+            var knownMemberOpt = memberRepository.findByEmailAddress(command.email());
 
             if (knownMemberOpt.isEmpty()) {
                 var member = Member.register(
                     command.memberId(),
-                    emailAddress,
+                    command.email(),
                     command.subscriptionStartDate()
                 );
 

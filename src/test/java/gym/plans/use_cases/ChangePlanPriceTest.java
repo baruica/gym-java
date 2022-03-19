@@ -1,6 +1,7 @@
 package gym.plans.use_cases;
 
 import gym.plans.domain.Plan;
+import gym.plans.domain.Plan.PlanId;
 import gym.plans.domain.PlanRepository;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +13,7 @@ public class ChangePlanPriceTest {
     @Test
     public void handle() {
         PlanRepository planRepository = new InMemoryPlanRepository();
-        var planId = planRepository.nextId();
+        var planId = new PlanId(planRepository.nextId());
 
         planRepository.store(
             Plan.create(planId, 450, 12)
@@ -34,7 +35,7 @@ public class ChangePlanPriceTest {
         var tested = new ChangePlanPrice.Handler(planRepository);
 
         assertThrows(RuntimeException.class, () -> tested.handle(
-            new ChangePlanPrice("unknown planId", 400)
+            new ChangePlanPrice(new PlanId("unknown planId"), 400)
         ));
     }
 }

@@ -17,7 +17,12 @@ public final class Member implements Aggregate {
         return this.id.id();
     }
 
-    public record MemberId(String id) {}
+    public record MemberId(String id) {
+        @Override
+        public String toString() {
+            return id;
+        }
+    }
 
     private Member(MemberId id, EmailAddress emailAddress, LocalDate memberSince) {
         this.id = id;
@@ -25,9 +30,9 @@ public final class Member implements Aggregate {
         this.memberSince = memberSince;
     }
 
-    public static Member register(String id, EmailAddress emailAddress, LocalDate memberSince) {
+    public static Member register(MemberId id, EmailAddress emailAddress, LocalDate memberSince) {
         return new Member(
-            new MemberId(id),
+            id,
             emailAddress,
             memberSince
         );

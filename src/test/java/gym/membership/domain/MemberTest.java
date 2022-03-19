@@ -1,5 +1,6 @@
 package gym.membership.domain;
 
+import gym.membership.domain.Member.MemberId;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -12,7 +13,7 @@ public class MemberTest {
     @Test
     public void is_three_years_anniversary() {
         var memberWith3yearsAnniversaryOnTheFifthOfJune = Member.register(
-            "member abc",
+            new MemberId("member abc"),
             new EmailAddress("julie@gmail.com"),
             fifthOfJune().minusYears(3)
         );

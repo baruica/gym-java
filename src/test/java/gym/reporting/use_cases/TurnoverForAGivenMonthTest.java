@@ -2,6 +2,7 @@ package gym.reporting.use_cases;
 
 import gym.reporting.Turnover;
 import gym.subscriptions.domain.Subscription;
+import gym.subscriptions.domain.Subscription.SubscriptionId;
 import gym.subscriptions.domain.SubscriptionRepository;
 import gym.subscriptions.use_cases.InMemorySubscriptionRepository;
 import org.junit.jupiter.api.Test;
@@ -22,7 +23,7 @@ public class TurnoverForAGivenMonthTest {
 
         subscriptionRepository.store(
             Subscription.subscribe(
-                subscriptionRepository.nextId(),
+                new SubscriptionId(subscriptionRepository.nextId()),
                 today,
                 1,
                 50,
@@ -31,7 +32,7 @@ public class TurnoverForAGivenMonthTest {
         );
         subscriptionRepository.store(
             Subscription.subscribe(
-                subscriptionRepository.nextId(),
+                new SubscriptionId(subscriptionRepository.nextId()),
                 today,
                 12,
                 400,
@@ -40,7 +41,7 @@ public class TurnoverForAGivenMonthTest {
         );
         subscriptionRepository.store(
             Subscription.subscribe(
-                subscriptionRepository.nextId(),
+                new SubscriptionId(subscriptionRepository.nextId()),
                 inAMonth,
                 12,
                 500,

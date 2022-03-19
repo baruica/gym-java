@@ -6,6 +6,7 @@ import gym.membership.domain.EmailAddress;
 import gym.membership.domain.Mailer;
 import gym.membership.domain.Member;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +24,7 @@ public final class InMemoryMailer implements Mailer {
     }
 
     @Override
-    public void sendSubscriptionSummary(EmailAddress emailAddress, String startDate, String endDate, Integer price) {
+    public void sendSubscriptionSummary(EmailAddress emailAddress, LocalDate startDate, LocalDate endDate, Integer price) {
         sentEmails.put(
             UlidCreator.getUlid().toString(),
             new Email.SubscriptionSummary(emailAddress, startDate, endDate, price)
@@ -45,7 +46,7 @@ public final class InMemoryMailer implements Mailer {
         );
     }
 
-    public boolean subscriptionSummaryEmailWasSentTo(EmailAddress emailAddress, String startDate, String endDate, int price) {
+    public boolean subscriptionSummaryEmailWasSentTo(EmailAddress emailAddress, LocalDate startDate, LocalDate endDate, int price) {
         return sentEmails.containsValue(
             new Email.SubscriptionSummary(emailAddress, startDate, endDate, price)
         );

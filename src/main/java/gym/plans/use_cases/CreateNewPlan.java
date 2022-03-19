@@ -1,10 +1,11 @@
 package gym.plans.use_cases;
 
 import gym.plans.domain.Plan;
+import gym.plans.domain.Plan.PlanId;
 import gym.plans.domain.PlanRepository;
 
 public record CreateNewPlan(
-    String planId,
+    PlanId planId,
     Integer basePrice,
     Integer planDurationsInMonths
 ) {

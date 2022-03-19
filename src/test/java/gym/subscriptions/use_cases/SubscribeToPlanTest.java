@@ -1,6 +1,6 @@
 package gym.subscriptions.use_cases;
 
-import gym.subscriptions.domain.Subscription;
+import gym.subscriptions.domain.Subscription.SubscriptionId;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -12,7 +12,7 @@ public class SubscribeToPlanTest {
     @Test
     public void handle() {
         var repository = new InMemorySubscriptionRepository();
-        var subscriptionId = repository.nextId();
+        var subscriptionId = new SubscriptionId(repository.nextId());
 
         var tested = new SubscribeToPlan.Handler(repository);
 
@@ -26,7 +26,7 @@ public class SubscribeToPlanTest {
             )
         );
 
-        assertEquals(new Subscription.SubscriptionId(subscriptionId), subscription.id);
+        assertEquals(subscriptionId, subscription.id);
         assertEquals(450, subscription.price.amount());
     }
 }

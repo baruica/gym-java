@@ -3,10 +3,12 @@ package gym.membership.use_cases;
 import gym.membership.domain.EmailAddress;
 import gym.membership.domain.Mailer;
 
+import java.time.LocalDate;
+
 public record SendSummaryUponSubscription(
-    String email,
-    String startDate,
-    String endDate,
+    EmailAddress email,
+    LocalDate startDate,
+    LocalDate endDate,
     Integer price
 ) {
     record Handler(
@@ -15,7 +17,7 @@ public record SendSummaryUponSubscription(
         public void handle(SendSummaryUponSubscription command) {
 
             mailer.sendSubscriptionSummary(
-                new EmailAddress(command.email()),
+                command.email(),
                 command.startDate(),
                 command.endDate(),
                 command.price()

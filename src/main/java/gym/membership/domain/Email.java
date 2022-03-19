@@ -1,5 +1,7 @@
 package gym.membership.domain;
 
+import java.time.LocalDate;
+
 public sealed interface Email {
 
     record Welcome(EmailAddress emailAddress, String emailBody) implements Email {
@@ -12,7 +14,7 @@ public sealed interface Email {
     }
 
     record SubscriptionSummary(EmailAddress emailAddress, String emailBody) implements Email {
-        public SubscriptionSummary(EmailAddress emailAddress, String startDate, String endDate, Integer price) {
+        public SubscriptionSummary(EmailAddress emailAddress, LocalDate startDate, LocalDate endDate, Integer price) {
             this(
                 emailAddress,
                 "Thank you for subscribing, this subscription will run from " + startDate + " until " + endDate + ", and will only cost you " + price + "!"

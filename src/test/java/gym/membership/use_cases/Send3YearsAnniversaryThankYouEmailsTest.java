@@ -2,6 +2,7 @@ package gym.membership.use_cases;
 
 import gym.membership.domain.EmailAddress;
 import gym.membership.domain.Member;
+import gym.membership.domain.Member.MemberId;
 import gym.membership.domain.MemberRepository;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +16,7 @@ public class Send3YearsAnniversaryThankYouEmailsTest {
 
     @Test
     public void handle() {
-        var memberId = memberRepository.nextId();
+        var memberId = new MemberId(memberRepository.nextId());
         var memberLuke = Member.register(
             memberId,
             new EmailAddress("luke@gmail.com"),

@@ -1,6 +1,7 @@
 package gym.subscriptions.use_cases;
 
 import gym.subscriptions.domain.Subscription;
+import gym.subscriptions.domain.Subscription.SubscriptionId;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -14,7 +15,7 @@ public class RenewMonthlySubscriptionsAutomaticallyTest {
 
         var subscriptionRepository = new InMemorySubscriptionRepository();
 
-        var monthlySubscriptionId = subscriptionRepository.nextId();
+        var monthlySubscriptionId = new SubscriptionId(subscriptionRepository.nextId());
         subscriptionRepository.store(
             Subscription.subscribe(
                 monthlySubscriptionId,
@@ -25,7 +26,7 @@ public class RenewMonthlySubscriptionsAutomaticallyTest {
             )
         );
 
-        var yearlySubscriptionId = subscriptionRepository.nextId();
+        var yearlySubscriptionId = new SubscriptionId(subscriptionRepository.nextId());
         subscriptionRepository.store(
             Subscription.subscribe(
                 yearlySubscriptionId,

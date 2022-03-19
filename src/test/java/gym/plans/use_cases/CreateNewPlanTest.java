@@ -1,6 +1,6 @@
 package gym.plans.use_cases;
 
-import gym.plans.domain.Plan;
+import gym.plans.domain.Plan.PlanId;
 import gym.plans.domain.PlanRepository;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +12,7 @@ public class CreateNewPlanTest {
     public void create_a_new_plan() {
 
         PlanRepository repository = new InMemoryPlanRepository();
-        var planId = repository.nextId();
+        var planId = new PlanId(repository.nextId());
 
         var tested = new CreateNewPlan.Handler(repository);
 
@@ -20,6 +20,6 @@ public class CreateNewPlanTest {
             new CreateNewPlan(planId, 300, 1)
         );
 
-        assertEquals(new Plan.PlanId(planId), newPlan.id);
+        assertEquals(planId, newPlan.id);
     }
 }

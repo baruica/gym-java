@@ -18,7 +18,12 @@ public final class Subscription implements Aggregate {
         return this.id.id();
     }
 
-    public record SubscriptionId(String id) {}
+    public record SubscriptionId(String id) {
+        @Override
+        public String toString() {
+            return id;
+        }
+    }
 
     private Subscription(SubscriptionId id, Integer planDurationInMonths, LocalDate startDate, LocalDate endDate, Price price, Boolean threeYearsAnniversaryDiscountApplied) {
         this.id = id;
@@ -30,14 +35,14 @@ public final class Subscription implements Aggregate {
     }
 
     public static Subscription subscribe(
-        String id,
+        SubscriptionId id,
         LocalDate startDate,
         Integer planDurationInMonths,
         Integer planPrice,
         Boolean isStudent
     ) {
         return new Subscription(
-            new SubscriptionId(id),
+            id,
             planDurationInMonths,
             startDate,
             startDate.plusMonths(planDurationInMonths),

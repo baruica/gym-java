@@ -1,8 +1,9 @@
 package gym.membership.use_cases;
 
 import gym.membership.domain.EmailAddress;
-import gym.membership.domain.Member;
+import gym.membership.domain.Member.MemberId;
 import gym.membership.domain.MemberRepository;
+import gym.subscriptions.domain.Subscription.SubscriptionId;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -24,10 +25,10 @@ class RegisterNewMemberTest {
         var subscriptionId = "subscriptionId def";
         var subscriptionStartDate = "2018-06-05";
         var command = new RegisterNewMember(
-            memberId,
-            subscriptionId,
+            new MemberId(memberId),
+            new SubscriptionId(subscriptionId),
             LocalDate.parse(subscriptionStartDate),
-            emailAddress.value()
+            new EmailAddress(emailAddress.value())
         );
 
         var mailer = new InMemoryMailer();
@@ -36,7 +37,7 @@ class RegisterNewMemberTest {
         var member = tested.handle(command);
 
         if (member != null) {
-            assertEquals(new Member.MemberId(memberId), member.id);
+            assertEquals(new MemberId(memberId), member.id);
         }
 
         assertTrue(mailer.welcomeEmailWasSentTo(emailAddress));
