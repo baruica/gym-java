@@ -11,10 +11,12 @@ repositories {
     mavenCentral()
 }
 
+val junitVersion = "5.6.1"
+
 dependencies {
     implementation("com.github.f4b6a3:ulid-creator:5.1.0")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
 }
 
 java {
