@@ -19,11 +19,6 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_20
-    targetCompatibility = JavaVersion.VERSION_20
-}
-
 tasks.withType<Test> {
     useJUnitPlatform()
 }
