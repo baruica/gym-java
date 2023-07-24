@@ -11,7 +11,7 @@ repositories {
     mavenCentral()
 }
 
-val junitVersion = "5.9.3"
+val junitVersion = "5.10.0"
 
 dependencies {
     implementation("com.github.f4b6a3:ulid-creator:5.2.0")
