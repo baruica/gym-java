@@ -14,7 +14,7 @@ repositories {
 val junitVersion = "5.10.0"
 
 dependencies {
-    implementation("com.github.f4b6a3:ulid-creator:5.2.0")
+    implementation("com.github.f4b6a3:ulid-creator:5.2.1")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
 }
