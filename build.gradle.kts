@@ -3,6 +3,12 @@ plugins {
     kotlin("jvm") version "1.9.20"
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
 group = "me.baruica"
 version = "1.0-SNAPSHOT"
 description = "The gym"
@@ -21,8 +27,4 @@ dependencies {
 
 tasks.withType<Test> {
     useJUnitPlatform()
-}
-
-tasks.withType<JavaCompile> {
-    options.encoding = "UTF-8"
 }
