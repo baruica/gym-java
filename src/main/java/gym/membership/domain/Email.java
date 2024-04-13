@@ -17,7 +17,7 @@ public sealed interface Email {
         public SubscriptionSummary(EmailAddress emailAddress, LocalDate startDate, LocalDate endDate, Integer price) {
             this(
                 emailAddress,
-                "Thank you for subscribing, this subscription will run from " + startDate + " until " + endDate + ", and will only cost you " + price + "!"
+                STR."Thank you for subscribing, this subscription will run from \{startDate} until \{endDate}, and will only cost you \{price}!"
             );
         }
     }
@@ -26,7 +26,7 @@ public sealed interface Email {
         public ThreeYearsAnniversary(EmailAddress emailAddress, Double newSubscriptionPrice) {
             this(
                 emailAddress,
-                "To thank you for your loyalty, we've applied a 5% discount on your subscription, you will now pay " + newSubscriptionPrice + " !"
+                STR."To thank you for your loyalty, we've applied a 5% discount on your subscription, you will now pay \{newSubscriptionPrice} !"
             );
         }
     }
