@@ -1,6 +1,6 @@
 plugins {
     java
-    kotlin("jvm") version "1.9.23"
+    kotlin("jvm") version "1.9.24"
     id("com.autonomousapps.dependency-analysis") version "1.31.0"
 }
 
@@ -21,7 +21,7 @@ repositories {
 val junitVersion = "5.10.2"
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.23")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.24")
     testImplementation("com.github.f4b6a3:ulid-creator:5.2.3")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
