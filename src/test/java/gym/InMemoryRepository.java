@@ -31,6 +31,6 @@ public class InMemoryRepository<AGGREGATE extends Aggregate> implements Reposito
             return aggregates.get(aggregateId);
         }
 
-        throw new RuntimeException(aggregateId + " not found.");
+        throw new RuntimeException(STR."\{aggregateId} not found.");
     }
 }

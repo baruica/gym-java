@@ -102,7 +102,7 @@ public final class Subscription implements Aggregate {
 
         public Price {
             if (amount < 0) {
-                throw new IllegalArgumentException("Price amount must be non-negative, was [" + amount + "]");
+                throw new IllegalArgumentException(STR."Price amount must be non-negative, was [\{amount}]");
             }
         }
 

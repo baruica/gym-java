@@ -46,7 +46,7 @@ public class RenewMonthlySubscriptionsAutomaticallyTest {
         assertEquals(1, renewedSubscriptions.size());
         assertEquals(
             "2018-08-09",
-            renewedSubscriptions.get(renewedSubscriptions.size() - 1).endDate.toString()
+            renewedSubscriptions.getLast().endDate.toString()
         );
     }
 }

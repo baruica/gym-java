@@ -43,7 +43,7 @@ public final class Plan implements Aggregate {
     public record Price(Integer amount) {
         public Price {
             if (amount < 0) {
-                throw new IllegalArgumentException("Price amount must be non-negative, was [" + amount + "]");
+                throw new IllegalArgumentException(STR."Price amount must be non-negative, was [\{amount}]");
             }
         }
     }
@@ -51,7 +51,7 @@ public final class Plan implements Aggregate {
     private record Duration(Integer durationInMonths) {
         private Duration {
             if (!listOf(1, 12).contains(durationInMonths)) {
-                throw new IllegalArgumentException("Plan duration is either 1 month or 12 months, was [" + durationInMonths + "]");
+                throw new IllegalArgumentException(STR."Plan duration is either 1 month or 12 months, was [\{durationInMonths}]");
             }
         }
     }
