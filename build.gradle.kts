@@ -18,7 +18,7 @@ repositories {
     mavenCentral()
 }
 
-val junitVersion = "5.11.3"
+val junitVersion = "5.11.4"
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:2.1.0")
