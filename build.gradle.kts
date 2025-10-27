@@ -1,6 +1,6 @@
 plugins {
     java
-    kotlin("jvm") version "2.2.20"
+    kotlin("jvm") version "2.2.21"
     id("com.autonomousapps.dependency-analysis") version "3.1.0"
 }
 
