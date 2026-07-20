@@ -21,7 +21,7 @@ repositories {
 val junitVersion = "6.1.2"
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:2.4.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:2.4.10")
     testImplementation("com.github.f4b6a3:ulid-creator:5.2.4")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
